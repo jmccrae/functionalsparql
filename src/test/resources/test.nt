@@ -1,0 +1,1000 @@
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3#w10182aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3#w10182aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3#w10182aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/000a9e77-fa7c-4ad7-adf2-0df8a4b7a7a3> .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3#w10182aab2> .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://purl.org/dc/terms/creator> "Zamakhshari\u0304, Mah\u0323mu\u0304d ibn \u02BBUmar, 1075-1144" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://purl.org/dc/terms/description> "\"Manuscript description based on E. G. Browne: A supplementary hand-list of the Muhammadan manuscripts, including all those written in the Arabic character, preserved in the Library of the University of Cambridge. Cambridge, 1922\", abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/d8c0f45e-1755-443a-aac5-405791a89899" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://purl.org/dc/terms/identifier> "000a9e77-fa7c-4ad7-adf2-0df8a4b7a7a3" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/000a9e77-fa7c-4ad7-adf2-0df8a4b7a7a3" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://purl.org/dc/terms/subject> "Koran--Hermeneutics" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://purl.org/dc/terms/title> "Or. 164" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/000a9e77_fa7c_4ad7_adf2_0df8a4b7a7a3> .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03#w11509aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03#w11509aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03#w11509aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/000ab733-fa46-41b0-a8ae-c84db4c22d03> .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03#w11509aab2> .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/f8da0a5c-eb4f-46b2-b20b-93d6c783f161" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03> <http://purl.org/dc/terms/identifier> "000ab733-fa46-41b0-a8ae-c84db4c22d03" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/f8d37e61-6024-4424-9d77-a0528ab61440" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/000ab733-fa46-41b0-a8ae-c84db4c22d03" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03> <http://purl.org/dc/terms/title> "RAS Persian 174." .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/000ab733_fa46_41b0_a8ae_c84db4c22d03> .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5#w12092aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5#w12092aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5#w12092aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/000b3f97-3aa4-4ebd-8424-3c92941a9bc5> .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5#w12092aab2> .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://purl.org/dc/terms/creator> "anonymous" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://purl.org/dc/terms/description> "\"Manuscript description based on E. G. Browne: A hand-list of the Muhammadan manuscripts, including all those written in the Arabic character, preserved in the Library of the University of Cambridge. Cambridge, 1900\", abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/a8ee29bf-4ddd-47fa-8950-7a399d1309d4" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://purl.org/dc/terms/identifier> "000b3f97-3aa4-4ebd-8424-3c92941a9bc5" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://purl.org/dc/terms/language> "Coptic" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/000b3f97-3aa4-4ebd-8424-3c92941a9bc5" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://purl.org/dc/terms/subject> "Bible. O.T." .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://purl.org/dc/terms/title> "Add. 454" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/000b3f97_3aa4_4ebd_8424_3c92941a9bc5> .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd#w11399aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd#w11399aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd#w11399aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/000ceef3-6fcc-489d-bef7-7f573cdbafcd> .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd#w11399aab2> .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/creator> "Shahi\u0304d al-Tha\u0304ni\u0304, Zayn al-Di\u0304n ibn \u02BBAli\u0304, 1506-1559" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/date> "1795" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/description> "\"Manuscript description based on E. G. Browne: A supplementary hand-list of the Muhammadan manuscripts, including all those written in the Arabic character, preserved in the Library of the University of Cambridge. Cambridge, 1922\", abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/dc1c2343-5b2c-4a44-9f1c-0783e8da52b8" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/identifier> "000ceef3-6fcc-489d-bef7-7f573cdbafcd" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/000ceef3-6fcc-489d-bef7-7f573cdbafcd" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/subject> "Shiites--Early works to 1800" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/title> "Or. 437" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/000ceef3_6fcc_489d_bef7_7f573cdbafcd> .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da#w13408aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da#w13408aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da#w13408aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/000f4976-4539-49f8-b3e1-cbc082afc9da> .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da#w13408aab2> .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://purl.org/dc/terms/creator> "Hamad\u0101n\u012B, Ab\u016B Na\u1E63r Mu\u1E25ammad, fl. bef. 1493." .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/b4c7f5a5-b023-46f0-9b9d-b18733a3ff15" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://purl.org/dc/terms/identifier> "000f4976-4539-49f8-b3e1-cbc082afc9da" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/000f4976-4539-49f8-b3e1-cbc082afc9da" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://purl.org/dc/terms/subject> "Moral exhortation" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://purl.org/dc/terms/title> "MS. Huntington 357" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/000f4976_4539_49f8_b3e1_cbc082afc9da> .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f#w12115aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f#w12115aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f#w12115aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/0011d3d9-881e-477f-910d-eb9ae162dc9f> .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f#w12115aab2> .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://purl.org/dc/terms/creator> "Browne, Edward Granville, 1862-1926" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://purl.org/dc/terms/description> "\"Manuscript description based on. A. J. Arberry: A second supplementary hand-list of the Muhammadan manuscripts in the University and Colleges of Cambridge. Cambridge, 1952. \", abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/8be8b4f0-7bc2-485b-beaf-0d7334a94bfc" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://purl.org/dc/terms/identifier> "0011d3d9-881e-477f-910d-eb9ae162dc9f" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/0011d3d9-881e-477f-910d-eb9ae162dc9f" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://purl.org/dc/terms/subject> "Bahai Faith--Doctrines" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://purl.org/dc/terms/title> "Or. 1335" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/0011d3d9_881e_477f_910d_eb9ae162dc9f> .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b#w11169aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b#w11169aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b#w11169aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/0015ae02-26fe-4bfc-ba36-890c356aa63b> .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b#w11169aab2> .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://purl.org/dc/terms/creator> "Marzban b. Rustam b. Sharwin." .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/4bd16183-faae-4510-880d-5be6ff178052" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://purl.org/dc/terms/identifier> "0015ae02-26fe-4bfc-ba36-890c356aa63b" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/f8d37e61-6024-4424-9d77-a0528ab61440" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/0015ae02-26fe-4bfc-ba36-890c356aa63b" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://purl.org/dc/terms/subject> "Fables" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://purl.org/dc/terms/title> "RAS Persian 318." .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/0015ae02_26fe_4bfc_ba36_890c356aa63b> .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d#w10460aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d#w10460aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d#w10460aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/0020d9e9-eca6-4798-acda-9cbc80226a5d> .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d#w10460aab2> .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://purl.org/dc/terms/date> "1481" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/08b859a8-3ba5-4927-ab3d-2a07f25cc17c" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://purl.org/dc/terms/identifier> "0020d9e9-eca6-4798-acda-9cbc80226a5d" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/0020d9e9-eca6-4798-acda-9cbc80226a5d" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://purl.org/dc/terms/subject> "Prophets" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://purl.org/dc/terms/title> "MS. Pococke 270" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/0020d9e9_eca6_4798_acda_9cbc80226a5d> .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9#w10812aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9#w10812aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9#w10812aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/002825c2-a04d-42f5-a812-bc06560328a9> .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9#w10812aab2> .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://purl.org/dc/terms/creator> "anonymous" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://purl.org/dc/terms/description> "Manuscript description based on E. G. Browne: A hand-list of the Muhammadan manuscripts, including all those written in the Arabic character, preserved in the Library of the University of Cambridge. Cambridge, 1900E. G. Browne: A catalogue of the Persian manuscripts in the Library of the University of Cambridge. Cambridge, 1896 abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/d0b998c3-43d8-49e1-8c27-c61b3f30be3e" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://purl.org/dc/terms/identifier> "002825c2-a04d-42f5-a812-bc06560328a9" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/002825c2-a04d-42f5-a812-bc06560328a9" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://purl.org/dc/terms/subject> "Koran-" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://purl.org/dc/terms/title> "Add. 838" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/002825c2_a04d_42f5_a812_bc06560328a9> .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4#w11874aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4#w11874aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4#w11874aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/003353be-226a-4305-bd4b-3b6470e447e4> .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4#w11874aab2> .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/creator> "S\u0327evket Buhar\u0131\u0302, Mehmet I\u0307shak, d. 1695" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/date> "1896" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/description> "\"Manuscript description based on. A. J. Arberry: A second supplementary hand-list of the Muhammadan manuscripts in the University and Colleges of Cambridge. Cambridge, 1952. \", abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/c4693581-ba59-408a-89f1-a71ec8417d56" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/identifier> "003353be-226a-4305-bd4b-3b6470e447e4" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/003353be-226a-4305-bd4b-3b6470e447e4" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/subject> "Persian poetry--1500-1796" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/title> "Or. 1685" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/003353be_226a_4305_bd4b_3b6470e447e4> .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4#w12244aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4#w12244aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4#w12244aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/0042e5e4-cec2-4b62-b071-4a717a386eb4> .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4#w12244aab2> .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://purl.org/dc/terms/creator> "K\u0101mwar Kh\u0101n, Mu\u1E25ammad H\u0101d\u012B" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/aade5e3d-ae0e-4a66-9ea5-c44ef4127b0c" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://purl.org/dc/terms/identifier> "0042e5e4-cec2-4b62-b071-4a717a386eb4" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/f8d37e61-6024-4424-9d77-a0528ab61440" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/0042e5e4-cec2-4b62-b071-4a717a386eb4" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://purl.org/dc/terms/subject> "Mogul Empire--History" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://purl.org/dc/terms/title> "RAS Persian 100." .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/0042e5e4_cec2_4b62_b071_4a717a386eb4> .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f#w12710aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f#w12710aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f#w12710aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/0043c961-e78f-4150-b28b-ac5773a6c40f> .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f#w12710aab2> .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://purl.org/dc/terms/creator> "Muh\u0323a\u0304sibi\u0304, al-H\u0323a\u0304rith ibn Asad, d. 857 or 8" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/dc7f138e-448b-4b4f-8dd1-16335addf470" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://purl.org/dc/terms/identifier> "0043c961-e78f-4150-b28b-ac5773a6c40f" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/0043c961-e78f-4150-b28b-ac5773a6c40f" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://purl.org/dc/terms/subject> "Sufism" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://purl.org/dc/terms/title> "MS. Huntington 611" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/0043c961_e78f_4150_b28b_ac5773a6c40f> .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada#w10595aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada#w10595aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada#w10595aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00455197-006f-484c-903a-41f67473eada> .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada#w10595aab2> .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://purl.org/dc/terms/creator> "Fasihi Hirawi." .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/aed62125-5209-4a77-952e-1457935d6435" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://purl.org/dc/terms/identifier> "00455197-006f-484c-903a-41f67473eada" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/f8d37e61-6024-4424-9d77-a0528ab61440" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00455197-006f-484c-903a-41f67473eada" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://purl.org/dc/terms/subject> "Poetry." .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://purl.org/dc/terms/title> "RAS Persian 286." .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00455197_006f_484c_903a_41f67473eada> .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625#w13458aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625#w13458aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625#w13458aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00480549-32f3-4c27-9de0-4b9d2ee99625> .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625#w13458aab2> .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://purl.org/dc/terms/creator> "Ma\u0304wardi\u0304, \u02BBAli\u0304 ibn Muh\u0323ammad, 974?-1058" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/ddb5234c-eeef-4a0c-86ea-1380ebc2f6e8" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://purl.org/dc/terms/identifier> "00480549-32f3-4c27-9de0-4b9d2ee99625" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00480549-32f3-4c27-9de0-4b9d2ee99625" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://purl.org/dc/terms/subject> "Constitutional law" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://purl.org/dc/terms/title> "MS. Arab. d. 28" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00480549_32f3_4c27_9de0_4b9d2ee99625> .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466#w13560aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466#w13560aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466#w13560aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00502059-a602-4eed-a6b5-308635252466> .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466#w13560aab2> .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/2bfe0988-6af7-47d2-9262-210b3572933d" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://purl.org/dc/terms/identifier> "00502059-a602-4eed-a6b5-308635252466" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00502059-a602-4eed-a6b5-308635252466" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://purl.org/dc/terms/subject> "Geomancy" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://purl.org/dc/terms/title> "MS. Arab. e. 47" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00502059_a602_4eed_a6b5_308635252466> .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855#w12057aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855#w12057aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855#w12057aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/005151f0-877e-421c-af11-3b1327b4f855> .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855#w12057aab2> .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/33222f21-f237-42b1-bd10-32b45dea7eb2" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://purl.org/dc/terms/identifier> "005151f0-877e-421c-af11-3b1327b4f855" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/005151f0-877e-421c-af11-3b1327b4f855" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://purl.org/dc/terms/subject> "Arabic prose literature" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://purl.org/dc/terms/title> "MS. Elliott 296" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/005151f0_877e_421c_af11_3b1327b4f855> .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da#w10086aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da#w10086aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da#w10086aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00527ae1-f6fd-4dcf-b25b-8bc6694636da> .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da#w10086aab2> .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://purl.org/dc/terms/date> "1708" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://purl.org/dc/terms/description> "\"Manuscript description based on. A. J. Arberry: A second supplementary hand-list of the Muhammadan manuscripts in the University and Colleges of Cambridge. Cambridge, 1952. \", abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/77f328ac-06b2-4469-93bd-95b9dfd52f95" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://purl.org/dc/terms/identifier> "00527ae1-f6fd-4dcf-b25b-8bc6694636da" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00527ae1-f6fd-4dcf-b25b-8bc6694636da" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://purl.org/dc/terms/subject> "Koran" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://purl.org/dc/terms/title> "Or. 1043" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00527ae1_f6fd_4dcf_b25b_8bc6694636da> .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64#w11290aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64#w11290aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64#w11290aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00579525-a0c6-4340-845e-75f1118f4d64> .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64#w11290aab2> .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://purl.org/dc/terms/creator> "\u02BBAyni\u0304, Badr al-Di\u0304n Mah\u0323mu\u0304d ibn Ah\u0323mad, 1361-1451" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://purl.org/dc/terms/description> "\"Manuscript description based on. R. A. Nicholson: A descriptive catalogue of the Oriental MSS belonging to the late E.G. Browne. Cambridge, 1932. \", abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/d8f1e9d2-39a3-4249-9287-4251024e5939" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://purl.org/dc/terms/identifier> "00579525-a0c6-4340-845e-75f1118f4d64" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00579525-a0c6-4340-845e-75f1118f4d64" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://purl.org/dc/terms/subject> "Hanafites--Early works to 1800" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://purl.org/dc/terms/title> "B. 3" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00579525_a0c6_4340_845e_75f1118f4d64> .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6#w11313aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6#w11313aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6#w11313aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00592792-55d3-4eee-9782-bbd4d1187af6> .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6#w11313aab2> .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/creator> "Ibn al-Jawzi\u0304, Abu\u0304 al-Faraj \u02BBAbd al-Rah\u0323ma\u0304n ibn \u02BBAli\u0304, 1116 (ca.)-1201" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/date> "1216" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/a0ca929a-db0b-4208-b8c5-f5f44ec3c0c4" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/identifier> "00592792-55d3-4eee-9782-bbd4d1187af6" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00592792-55d3-4eee-9782-bbd4d1187af6" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/subject> "Muslim pilgrims and pilgrimages--Saudi Arabia--Mecca" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/title> "MS. Huntington 231" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00592792_55d3_4eee_9782_bbd4d1187af6> .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd#w11122aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd#w11122aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd#w11122aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/0067f8cb-c2e6-479a-a22b-2b0ea78327fd> .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd#w11122aab2> .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/3c416082-d0e3-472d-9bf8-17284399ec39" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://purl.org/dc/terms/identifier> "0067f8cb-c2e6-479a-a22b-2b0ea78327fd" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/0067f8cb-c2e6-479a-a22b-2b0ea78327fd" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://purl.org/dc/terms/subject> "Koran--Manuscripts" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://purl.org/dc/terms/title> "MS. Selden superius 64" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/0067f8cb_c2e6_479a_a22b_2b0ea78327fd> .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823#w12459aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823#w12459aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823#w12459aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00755c06-1169-4edc-b6b7-ccf3e4c35823> .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823#w12459aab2> .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> <http://purl.org/dc/terms/description> "\"Manuscript description based on E. G. Browne: A hand-list of the Muhammadan manuscripts, including all those written in the Arabic character, preserved in the Library of the University of Cambridge. Cambridge, 1900\", abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/f52b201d-bf17-463f-b232-309978765ad4" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> <http://purl.org/dc/terms/identifier> "00755c06-1169-4edc-b6b7-ccf3e4c35823" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00755c06-1169-4edc-b6b7-ccf3e4c35823" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> <http://purl.org/dc/terms/subject> "Arabic language--Grammar--Early works to 1800" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> <http://purl.org/dc/terms/title> "Dd. 6.21" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00755c06_1169_4edc_b6b7_ccf3e4c35823> .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8#w12942aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8#w12942aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8#w12942aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/007a7ccd-13f5-4576-a7cb-89db388d9db8> .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8#w12942aab2> .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://purl.org/dc/terms/creator> "M\u0101dhh\u016Br\u0101m" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://purl.org/dc/terms/description> "Manuscript description based on E. G. Browne: A hand-list of the Muhammadan manuscripts, including all those written in the Arabic character, preserved in the Library of the University of Cambridge. Cambridge, 1900E. G. Browne: A catalogue of the Persian manuscripts in the Library of the University of Cambridge. Cambridge, 1896 abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/c706f4ef-7aba-49ff-ba74-4ca875fcdd34" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://purl.org/dc/terms/identifier> "007a7ccd-13f5-4576-a7cb-89db388d9db8" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/007a7ccd-13f5-4576-a7cb-89db388d9db8" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://purl.org/dc/terms/subject> "Letter writing, Persian" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://purl.org/dc/terms/title> "Add. 415" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/007a7ccd_13f5_4576_a7cb_89db388d9db8> .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330#w12090aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330#w12090aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330#w12090aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/007a8549-84f4-40b7-8397-9c4c35697330> .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330#w12090aab2> .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/53bb9d68-309f-463d-9f6f-5f2389bd96fc" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://purl.org/dc/terms/identifier> "007a8549-84f4-40b7-8397-9c4c35697330" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/007a8549-84f4-40b7-8397-9c4c35697330" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://purl.org/dc/terms/subject> "Sufism" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://purl.org/dc/terms/title> "MS. Arab. e. 37" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/007a8549_84f4_40b7_8397_9c4c35697330> .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154#w12035aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154#w12035aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154#w12035aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/007cae57-9bd5-404d-96bc-435d626b7154> .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154#w12035aab2> .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://purl.org/dc/terms/creator> "Sharaf al-D\u012Bn Ab\u016B \u2018Al\u012B Qalandar" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://purl.org/dc/terms/description> "Manuscript description based on G. M. Meredith-Owens: Handlist of Persian manuscripts 1895-1966. London, 1968, with additional enhancements." .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/2833b48e-a636-4d85-a1fc-7ecb5fab2927" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://purl.org/dc/terms/identifier> "007cae57-9bd5-404d-96bc-435d626b7154" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/184682e4-05b8-4931-bbca-98950032c79e" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/007cae57-9bd5-404d-96bc-435d626b7154" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://purl.org/dc/terms/title> "Or. 5889" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/007cae57_9bd5_404d_96bc_435d626b7154> .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e#w12857aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e#w12857aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e#w12857aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/007d5c98-1e12-46c6-8138-fda12e648e3e> .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e#w12857aab2> .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://purl.org/dc/terms/date> "1884" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://purl.org/dc/terms/description> "Manuscript description based on U. Sims-Williams: Handlist of Islamic manuscripts acquired by the India Office Library 1938-85. London, 1986" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/f99ed83f-80d9-48eb-87ff-bce352122fb2" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://purl.org/dc/terms/identifier> "007d5c98-1e12-46c6-8138-fda12e648e3e" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://purl.org/dc/terms/language> "Urdu" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/184682e4-05b8-4931-bbca-98950032c79e" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/007d5c98-1e12-46c6-8138-fda12e648e3e" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://purl.org/dc/terms/subject> "Urdu letters" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://purl.org/dc/terms/title> "I.O. Islamic 4766" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/007d5c98_1e12_46c6_8138_fda12e648e3e> .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7#w9322aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7#w9322aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7#w9322aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/007ee4aa-e253-432c-9b4d-5de78ef646b7> .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7#w9322aab2> .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://purl.org/dc/terms/creator> "Jaldak\u012B, Aydamar ibn \u02BFAbd All\u0101h" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/50607215-16b3-4df6-a8cf-b671b480dabb" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://purl.org/dc/terms/identifier> "007ee4aa-e253-432c-9b4d-5de78ef646b7" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/007ee4aa-e253-432c-9b4d-5de78ef646b7" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://purl.org/dc/terms/subject> "Alchemy--Early works to 1800" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://purl.org/dc/terms/title> "MS. Huntington 65, 66, 68, 67" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/007ee4aa_e253_432c_9b4d_5de78ef646b7> .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a#w11699aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a#w11699aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a#w11699aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/0085cf2c-f57f-4741-a749-dfecc63d6e5a> .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a#w11699aab2> .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/creator> "Ibn Fa\u0304ris al-Qazwi\u0304ni\u0304, Ah\u0323mad, 10th cent." .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/date> "1228" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/4a320fb3-919d-4803-838e-dd651ab0badb" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/identifier> "0085cf2c-f57f-4741-a749-dfecc63d6e5a" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/0085cf2c-f57f-4741-a749-dfecc63d6e5a" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/subject> "Arabic philology" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/title> "MS. Arab. f. 6" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/0085cf2c_f57f_4741_a749_dfecc63d6e5a> .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d#w13524aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d#w13524aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d#w13524aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/0086edc2-4cfb-4826-a5ea-5b15a38d058d> .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d#w13524aab2> .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://purl.org/dc/terms/creator> "S\u00FCheyli Efendi, active 17th century" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://purl.org/dc/terms/date> "1657" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/0a006825-da25-4a3b-8db7-e8ba185aca2d" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://purl.org/dc/terms/identifier> "0086edc2-4cfb-4826-a5ea-5b15a38d058d" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://purl.org/dc/terms/language> "Turkish, Ottoman (1500-1928)" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/f8d37e61-6024-4424-9d77-a0528ab61440" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/0086edc2-4cfb-4826-a5ea-5b15a38d058d" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://purl.org/dc/terms/subject> "Turkey--History--Ottoman Empire, 1288-1918" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://purl.org/dc/terms/title> "RAS Turkish 17" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/0086edc2_4cfb_4826_a5ea_5b15a38d058d> .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146#w13031aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146#w13031aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146#w13031aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/009d3e46-2f0a-4075-ba0e-93697a2a0146> .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146#w13031aab2> .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://purl.org/dc/terms/creator> "Mu\u1E25ammad Am\u012Bn Kh\u0101n" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://purl.org/dc/terms/description> "One of the 70 Mughal documents including farm\u0101ns, \u1E25ukmn\u0101mah, iqr\u0101rn\u0101mah, chakn\u0101mah etc. relating to the family ofJal\u0101l al-D\u012Bn,\u062C\u0644\u0627\u0644 \u0627\u0644\u062F\u06CC\u0646 , Q\u0101z\u0324\u012B of the pargana Batala, Punjab, and his escendents datedfrom 1527 to 1757One of the 70 Mughal documents including farm\u0101ns, \u1E25ukmn\u0101mah, iqr\u0101rn\u0101mah, chakn\u0101mah etc. relating to the family ofJal\u0101l al-D\u012Bn,\u062C\u0644\u0627\u0644 \u0627\u0644\u062F\u06CC\u0646 , Q\u0101z\u0324\u012B of the pargana Batala, Punjab, and his escendents datedfrom 1527 to 1757 " .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/21c6151b-b114-4bb9-8688-c43fb233df89" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://purl.org/dc/terms/identifier> "009d3e46-2f0a-4075-ba0e-93697a2a0146" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/184682e4-05b8-4931-bbca-98950032c79e" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/009d3e46-2f0a-4075-ba0e-93697a2a0146" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://purl.org/dc/terms/subject> "Mogul Empire--Politics and government" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://purl.org/dc/terms/title> "I.O. Islamic 4720/23" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/009d3e46_2f0a_4075_ba0e_93697a2a0146> .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1#w12602aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1#w12602aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1#w12602aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00a2d0a5-66f8-434c-b335-70b084cb8ef1> .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1#w12602aab2> .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/creator> "D\u012Bnawar\u012B, Na\u1E63r ibn Ya\u02BFq\u016Bb" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/date> "1361" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/326b99ac-fe09-4c28-bf3e-a932adea5bc2" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/identifier> "00a2d0a5-66f8-434c-b335-70b084cb8ef1" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00a2d0a5-66f8-434c-b335-70b084cb8ef1" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/subject> "Dream interpretation" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/title> "MS. Huntington 145" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00a2d0a5_66f8_434c_b335_70b084cb8ef1> .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787#w11383aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787#w11383aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787#w11383aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00af6b40-2cf8-4c8c-89f5-ced408a19787> .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787#w11383aab2> .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> <http://purl.org/dc/terms/description> "Manuscript description based on G. M. Meredith-Owens: Handlist of Persian manuscripts 1895-1966. London, 1968, with additional enhancements." .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/e7b769ff-da8d-433c-b99e-c9797c519c55" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> <http://purl.org/dc/terms/identifier> "00af6b40-2cf8-4c8c-89f5-ced408a19787" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/184682e4-05b8-4931-bbca-98950032c79e" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00af6b40-2cf8-4c8c-89f5-ced408a19787" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> <http://purl.org/dc/terms/title> "Or. 8167" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00af6b40_2cf8_4c8c_89f5_ced408a19787> .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991#w13078aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991#w13078aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991#w13078aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00b45c14-5830-4bd0-9a6e-61408dc0a991> .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991#w13078aab2> .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://purl.org/dc/terms/creator> "Man\u1E63\u016Br" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://purl.org/dc/terms/description> "Manuscript description based on G. M. Meredith-Owens: Handlist of Persian manuscripts 1895-1966. London, 1968, with additional enhancements." .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/f177750d-1c31-4e63-a5e8-795ea25ee0b1" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://purl.org/dc/terms/identifier> "00b45c14-5830-4bd0-9a6e-61408dc0a991" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/184682e4-05b8-4931-bbca-98950032c79e" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00b45c14-5830-4bd0-9a6e-61408dc0a991" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://purl.org/dc/terms/title> "Or. 9748" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00b45c14_5830_4bd0_9a6e_61408dc0a991> .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0#w13383aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0#w13383aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0#w13383aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00b9d561-ea6f-4749-8e7c-e04fce1f38b0> .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0#w13383aab2> .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/16f98ac2-37a1-47ef-b9b7-2da0a54a2053" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://purl.org/dc/terms/identifier> "00b9d561-ea6f-4749-8e7c-e04fce1f38b0" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00b9d561-ea6f-4749-8e7c-e04fce1f38b0" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://purl.org/dc/terms/subject> "Islamic law" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://purl.org/dc/terms/title> "MS. Arab. d. 250" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00b9d561_ea6f_4749_8e7c_e04fce1f38b0> .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482#w13160aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482#w13160aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482#w13160aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00c12153-df77-4865-8f97-e48c1c281482> .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482#w13160aab2> .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/creator> "Sa\u02BBdi\u0304" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/date> "1820" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/description> "\"Manuscript description based on. A. J. Arberry: A second supplementary hand-list of the Muhammadan manuscripts in the University and Colleges of Cambridge. Cambridge, 1952. \", abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/5ba451b2-2e44-43c8-a62d-17f8759cb6f9" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/identifier> "00c12153-df77-4865-8f97-e48c1c281482" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00c12153-df77-4865-8f97-e48c1c281482" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/subject> "Persian poetry--747-1500" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/title> "Or. 1581" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00c12153_df77_4865_8f97_e48c1c281482> .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5#w9584aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5#w9584aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5#w9584aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00c95926-815e-473c-9d0f-5b3461ee82d5> .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5#w9584aab2> .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> <http://purl.org/dc/terms/creator> "Fath Allah b. Shukr Allah al-Sharif al-Kashani." .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/26a489e1-db6c-4fd5-b7b3-faac904ed720" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> <http://purl.org/dc/terms/identifier> "00c95926-815e-473c-9d0f-5b3461ee82d5" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/f8d37e61-6024-4424-9d77-a0528ab61440" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00c95926-815e-473c-9d0f-5b3461ee82d5" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> <http://purl.org/dc/terms/title> "CODRINGTON/READE NO 2. BOX 2." .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00c95926_815e_473c_9d0f_5b3461ee82d5> .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11#w11464aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11#w11464aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11#w11464aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00d1d0d8-fd20-40a6-a363-43eb84b64f11> .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11#w11464aab2> .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/creator> "Ghazu\u0304li\u0304, \u02BBAli\u0304 ibn \u02BBAbd Alla\u0304h, d. 1412" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/date> "1611" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/642229e0-f42a-44e8-b4ab-abb6efc6a41a" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/identifier> "00d1d0d8-fd20-40a6-a363-43eb84b64f11" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00d1d0d8-fd20-40a6-a363-43eb84b64f11" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/subject> "Arabic Literature" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/title> "MS. Huntington 40" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00d1d0d8_fd20_40a6_a363_43eb84b64f11> .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274#w12281aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274#w12281aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274#w12281aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00e9df54-0f8f-4651-b49f-c8823f2f0274> .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274#w12281aab2> .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://purl.org/dc/terms/creator> "Badr al-D\u012Bn Hil\u0101l\u012B" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://purl.org/dc/terms/description> "\"Manuscript description based on \"E. G. Browne: A supplementary hand-list of the Muhammadan manuscripts, including all those written in the Arabic character, preserved in the Library of the University of Cambridge. Cambridge, 1922\", abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/bd4d0eab-bed5-4c18-9a8d-0835bb73420c" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://purl.org/dc/terms/identifier> "00e9df54-0f8f-4651-b49f-c8823f2f0274" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00e9df54-0f8f-4651-b49f-c8823f2f0274" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://purl.org/dc/terms/subject> "Persian poetry--1500-1796" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://purl.org/dc/terms/title> "Add. 3679" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00e9df54_0f8f_4651_b49f_c8823f2f0274> .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0#w11113aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0#w11113aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0#w11113aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00ea26e2-d976-4291-af89-3853a3b274a0> .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0#w11113aab2> .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://purl.org/dc/terms/creator> "Ibn T\u0323ayfu\u0304r, Muh\u0323ammad, d. 1165 or 6" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/5b72c656-e9e7-4615-8a27-8cd8a5022512" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://purl.org/dc/terms/identifier> "00ea26e2-d976-4291-af89-3853a3b274a0" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00ea26e2-d976-4291-af89-3853a3b274a0" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://purl.org/dc/terms/subject> "Koran--Orthography" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://purl.org/dc/terms/title> "MS. Arab. e. 204" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00ea26e2_d976_4291_af89_3853a3b274a0> .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df#w13159aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df#w13159aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df#w13159aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00eac5fe-2316-4e52-9b48-ae58eb65a4df> .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df#w13159aab2> .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://purl.org/dc/terms/description> "Kufic fragments of the Qur\u02BC\u0101nKufic fragments of the Qur\u02BC\u0101n " .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/f3e5bb70-81c4-4f60-a97f-ceaff29e5b65" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://purl.org/dc/terms/identifier> "00eac5fe-2316-4e52-9b48-ae58eb65a4df" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00eac5fe-2316-4e52-9b48-ae58eb65a4df" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://purl.org/dc/terms/subject> "Koran" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://purl.org/dc/terms/title> "Add. 1132" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00eac5fe_2316_4e52_9b48_ae58eb65a4df> .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb#w12434aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb#w12434aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb#w12434aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00eba593-a177-48da-833e-5df0cc0b4adb> .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb#w12434aab2> .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://purl.org/dc/terms/creator> "\u02BBIra\u0304qi\u0304, Muh\u0323ammad ibn Ah\u0323mad, 12th/13th cent." .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/18a990c1-aa4b-4a9f-926b-cb8430d0f186" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://purl.org/dc/terms/identifier> "00eba593-a177-48da-833e-5df0cc0b4adb" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00eba593-a177-48da-833e-5df0cc0b4adb" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://purl.org/dc/terms/subject> "Occult sciences" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://purl.org/dc/terms/title> "MS. Pococke 201" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00eba593_a177_48da_833e_5df0cc0b4adb> .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb#w13799aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb#w13799aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb#w13799aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00f01162-a042-414a-9ff1-e06acb5e68fb> .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb#w13799aab2> .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/creator> "Ni\u02BBmat Alla\u0304h, fl. 1613-1630" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/date> "1838" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/description> "Manuscript description based on E. G. Browne: A hand-list of the Muhammadan manuscripts, including all those written in the Arabic character, preserved in the Library of the University of Cambridge. Cambridge, 1900E. G. Browne: A catalogue of the Persian manuscripts in the Library of the University of Cambridge. Cambridge, 1896 abbreviated by the OCIMCO project team." .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/1eed578a-7591-47c5-97dc-cacfe3c17170" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/identifier> "00f01162-a042-414a-9ff1-e06acb5e68fb" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/d21cc5df-26d8-4092-a881-733335e3084b" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00f01162-a042-414a-9ff1-e06acb5e68fb" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/subject> "Afghanistan--History" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/title> "Add. 753" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00f01162_a042_414a_9ff1_e06acb5e68fb> .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1#w13763aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1#w13763aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1#w13763aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/00f0b924-4ebf-43c0-9661-bb0806a38cf1> .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1#w13763aab2> .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/creator> "Khat\u0323i\u0304b al-Tibri\u0304zi\u0304, Muh\u0323ammad ibn \u02BBAbd Alla\u0304h, fl. 1337" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/date> "1816" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/45a210a8-d310-4f2e-9321-e5bb723b6633" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/identifier> "00f0b924-4ebf-43c0-9661-bb0806a38cf1" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/00f0b924-4ebf-43c0-9661-bb0806a38cf1" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/subject> "Hadith--Collections" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/title> "MS. Ind. Inst. Arab. 15" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/00f0b924_4ebf_43c0_9661_bb0806a38cf1> .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8#w12951aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8#w12951aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8#w12951aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/010506f7-aac3-43f2-8281-f2bbb03760b8> .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8#w12951aab2> .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://purl.org/dc/terms/creator> "Unknown" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://purl.org/dc/terms/description> "One of the 70 Mughal documents including farm\u0101ns, \u1E25ukmn\u0101mah, iqr\u0101rn\u0101mah, chakn\u0101mah etc. relating to the family ofJal\u0101l al-D\u012Bn,\u062C\u0644\u0627\u0644 \u0627\u0644\u062F\u06CC\u0646 , Q\u0101z\u0324\u012B of the pargana Batala, Punjab, and his escendents datedfrom 1527 to 1757One of the 70 Mughal documents including farm\u0101ns, \u1E25ukmn\u0101mah, iqr\u0101rn\u0101mah, chakn\u0101mah etc. relating to the family ofJal\u0101l al-D\u012Bn,\u062C\u0644\u0627\u0644 \u0627\u0644\u062F\u06CC\u0646 , Q\u0101z\u0324\u012B of the pargana Batala, Punjab, and his escendents datedfrom 1527 to 1757 " .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/f053d32a-559c-490e-8abd-f3cf4665ae1a" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://purl.org/dc/terms/identifier> "010506f7-aac3-43f2-8281-f2bbb03760b8" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/184682e4-05b8-4931-bbca-98950032c79e" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/010506f7-aac3-43f2-8281-f2bbb03760b8" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://purl.org/dc/terms/subject> "Mogul Empire--Politics and government" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://purl.org/dc/terms/title> "I.O. Islamic 4720/38" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/010506f7_aac3_43f2_8281_f2bbb03760b8> .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894#w9357aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894#w9357aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894#w9357aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/0106aa2f-d6c1-4b81-82c1-38ba36c84894> .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894#w9357aab2> .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://purl.org/dc/terms/creator> "Mu\u1E25ammad Ibn Nub\u0101tah al-Mi\u1E63r\u012B d.1366" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/66dd74df-4880-4982-811d-2d8e86c0c1b9" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://purl.org/dc/terms/identifier> "0106aa2f-d6c1-4b81-82c1-38ba36c84894" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/0106aa2f-d6c1-4b81-82c1-38ba36c84894" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://purl.org/dc/terms/subject> "Secretaries--Handbooks, manuals, etc." .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://purl.org/dc/terms/title> "MS. Pococke 142" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/0106aa2f_d6c1_4b81_82c1_38ba36c84894> .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae#w10613aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae#w10613aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae#w10613aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/010774ce-6e28-4f34-b71e-97082faa76ae> .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae#w10613aab2> .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/8185b948-f42c-4962-befa-84ac79a246be" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://purl.org/dc/terms/identifier> "010774ce-6e28-4f34-b71e-97082faa76ae" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://purl.org/dc/terms/language> "Arabic" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/010774ce-6e28-4f34-b71e-97082faa76ae" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://purl.org/dc/terms/subject> "Koran--Quotations" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://purl.org/dc/terms/title> "MS. Laud Or. 23" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/010774ce_6e28_4f34_b71e_97082faa76ae> .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6#w9630aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6#w9630aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6#w9630aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/0107ee00-0923-4b5c-8df5-678a23af25d6> .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6#w9630aab2> .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> <http://purl.org/dc/terms/creator> "Ab\u016B al-Faz\u0324l ibn Mub\u0101rak, 1551-1602" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/ed5b1f0e-c219-46cc-982f-447f859ab2e1" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> <http://purl.org/dc/terms/identifier> "0107ee00-0923-4b5c-8df5-678a23af25d6" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/f8d37e61-6024-4424-9d77-a0528ab61440" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/0107ee00-0923-4b5c-8df5-678a23af25d6" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> <http://purl.org/dc/terms/title> "RAS Persian 229." .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/0107ee00_0923_4b5c_8df5_678a23af25d6> .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4#w13841aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4#w13841aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4#w13841aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/010a939f-89f3-4a5e-9dab-76994f65cae4> .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4#w13841aab2> .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/coverage> "India" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/creator> "Ibn Khallika\u0304n, 1211-1282" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/date> "1783-07-04" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/description> "Manuscript description based on the Bodleian Library's public card index of Arabic manuscripts with additional enhancements by the OCIMCO project team." .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/897cb7ec-18f7-414a-b149-927aa3e1da2d" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/identifier> "010a939f-89f3-4a5e-9dab-76994f65cae4" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/85e0aa0c-8ad3-4501-9795-ce30e5945a07" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/010a939f-89f3-4a5e-9dab-76994f65cae4" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/subject> "Biography--Dictionaries" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/title> "MS. Ouseley 176" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/010a939f_89f3_4a5e_9dab_76994f65cae4> .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3#Header> <http://purl.org/dc/terms/title> "Fihrist" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#DataSet> .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3#w11644aab2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#Distribution> .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3#w11644aab2> <http://www.clarin.eu/cmd/ResourceType> "Resource" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3#w11644aab2> <http://www.w3.org/ns/dcat#accessURL> <http://www.fihrist.org.uk/profile/manuscript/010c18c7-5d38-4a3e-9494-a5801024f2a3> .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://www.w3.org/ns/dcat#distribution> <http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3#w11644aab2> .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://purl.org/dc/terms/creator> "Ghaz\u0101l\u012B Mashhad\u012B" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://purl.org/dc/terms/description> "Manuscript description based on G. M. Meredith-Owens: Handlist of Persian manuscripts 1895-1966. London, 1968, with additional enhancements." .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://purl.org/dc/terms/relation> "http://www.fihrist.org.uk/profile/work/adb53a76-25b3-453a-bea3-7f9ddb314fe3" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://purl.org/dc/terms/identifier> "010c18c7-5d38-4a3e-9494-a5801024f2a3" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://purl.org/dc/terms/language> "Persian" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://purl.org/dc/terms/publisher> "http://www.fihrist.org.uk/profile/repository/184682e4-05b8-4931-bbca-98950032c79e" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://purl.org/dc/terms/source> "http://www.fihrist.org.uk/profile/manuscript/010c18c7-5d38-4a3e-9494-a5801024f2a3" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://purl.org/dc/terms/subject> "Persian poetry" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://purl.org/dc/terms/title> "Or. 11331" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> <http://purl.org/dc/terms/type> "http://purl.org/dc/dcmitype/PhysicalObject" .
+<http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3#Header> <http://xmlns.com/foaf/0.1/primaryTopic> <http://linghub.org/clarin/010c18c7_5d38_4a3e_9494_a5801024f2a3> .
+<http://linghub.org/clarin/010cd485_d99b_40b8_9ffd_715c3a3e91b0#Header> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/dcat#CatalogRecord> .
+<http://linghub.org/clarin/010cd485_d99b_40b8_9ffd_715c3a3e91b0#Header> <http://purl.org/dc/terms/creator> "olac2cmdi.xsl" .
+<http://linghub.org/clarin/010cd485_d99b_40b8_9ffd_715c3a3e91b0#Header> <http://www.clarin.eu/cmd/MdSelfLink> "" .
+<http://linghub.org/clarin/010cd485_d99b_40b8_9ffd_715c3a3e91b0#Header> <http://www.clarin.eu/cmd/MdProfile> "clarin.eu:cr1:p_1288172614026" .
