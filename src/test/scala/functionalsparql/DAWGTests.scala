@@ -18,6 +18,7 @@ class DAWGTests extends FlatSpec with Matchers {
 				model.createResource("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#QueryEvaluationTest")
 				)
 			for(test <- testListTriples if !testsToSkip.contains(test.toString)) {
+				//if (test.toString == "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/algebra/manifest#nested-opt-1") {
 				val expResult = test.getProperty(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#result")).getObject().asResource()
 				val queries = test.getProperty(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#action")).getObject().asResource().
 					listProperties(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-query#query")).map { st =>
@@ -27,7 +28,9 @@ class DAWGTests extends FlatSpec with Matchers {
 					getProperty(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-query#data"))).map(_.getObject().asResource())
 				test.toString should "execute" in {
 					for(query <- queries) {
+						println("Processing " + query.toString)
       					val plan = functionalsparql.processQuery(scala.io.Source.fromURL(query.toString)(scala.io.Codec.UTF8).getLines.mkString("\n"))
+      					println(plan)
       					val data = dataset match {
       						case Some(ds) => RDFDataMgr.loadModel(ds.getURI()).listStatements().toList.map(_.asTriple)
       						case None => Nil
@@ -48,7 +51,7 @@ class DAWGTests extends FlatSpec with Matchers {
       							System.err.println("TODO")
       					}
       				}
-				}
+				}//}
 			}
 		}
 	}

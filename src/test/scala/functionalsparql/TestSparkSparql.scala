@@ -98,14 +98,15 @@ select * where { ?s a <http://www.w3.org/ns/dcat#CatalogRecord> .
   optional { ?s <http://purl.org/dc/terms/title> "Fihrist" }
 }"""
     val result = functionalsparql.processQuery(query)
-    result should be (SelectPlan(List("s"), JoinFilter(
+    result should be (SelectPlan(List("s"), LeftJoinFilter(
       SimpleFilter(new Triple(Var.alloc("s"), 
         NodeFactory.createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
         NodeFactory.createURI("http://www.w3.org/ns/dcat#CatalogRecord"))),
-      OptionalFilter(SimpleFilter(new Triple(Var.alloc("s"),
+      SimpleFilter(new Triple(Var.alloc("s"),
         NodeFactory.createURI("http://purl.org/dc/terms/title"),
         NodeFactory.createLiteral("Fihrist")
-        ))))))
+        )),
+      TrueFilter)))
   }
 
   "query translator" should "produce results for optional SPARQL query" in {
@@ -132,11 +133,11 @@ select * where { ?s a <http://www.w3.org/ns/dcat#CatalogRecord> .
         NodeFactory.createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
         NodeFactory.createURI("http://www.w3.org/ns/dcat#CatalogRecord"))),
       UnionFilter(Seq(SimpleFilter(new Triple(Var.alloc("s"),
-        NodeFactory.createURI("http://purl.org/dc/terms/title"),
-        NodeFactory.createLiteral("Fihrist")
-        )),SimpleFilter(new Triple(Var.alloc("s"),
         NodeFactory.createURI("http://purl.org/dc/terms/creator"),
         NodeFactory.createLiteral("olac2cmdi.xsl")
+        )),SimpleFilter(new Triple(Var.alloc("s"),
+        NodeFactory.createURI("http://purl.org/dc/terms/title"),
+        NodeFactory.createLiteral("Fihrist")
         ))
       )))))
   }
@@ -160,15 +161,14 @@ select * where { ?s <http://purl.org/dc/terms/title> ?l . filter(regex(?l,"Fih.*
 }"""
     val result = functionalsparql.processQuery(query)
     result should be (SelectPlan(List("s","l"), 
-      JoinExprFilter(
-        SimpleFilter(new Triple(Var.alloc("s"), 
-          NodeFactory.createURI("http://purl.org/dc/terms/title"),
-          Var.alloc("l"))),
+      FilterFilter(
         RegexExpressionFilter(
           VariableExpressionFilter(Var.alloc("l")),
           ValueFilter("Fih.*"),
-          NullExpressionFilter)
-      )))
+          ValueFilter("")),
+        SimpleFilter(new Triple(Var.alloc("s"), 
+          NodeFactory.createURI("http://purl.org/dc/terms/title"),
+          Var.alloc("l"))))))
   }
 
   "query translator" should "produce results for filter SPARQL query" in {
@@ -195,7 +195,7 @@ select * where { ?s a <http://www.w3.org/ns/dcat#CatalogRecord> .
     }
   }
 
-  "query translator" should "produce results for not exists SPARQL query" in {
+/*  "query translator" should "produce results for not exists SPARQL query" in {
    withColl { rdd =>
       val query = """
 select * where { ?s a <http://www.w3.org/ns/dcat#CatalogRecord> .
@@ -206,18 +206,19 @@ select * where { ?s a <http://www.w3.org/ns/dcat#CatalogRecord> .
       val count = result.count()
       count should not be (0)
     } 
-  }
+  }*/
 
   "query translator" should "produce good plan for filter query" in {
     val query = """
-    PREFIX t: <http://www.w3.org/2001/sw/DataAccess/tests/data/TypePromotion/tP-0#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-ASK
- WHERE { t:double1 rdf:value ?l .
-         t:decimal1 rdf:value ?r .
-         FILTER ( datatype(?l + ?r) = xsd:double ) }"""
+PREFIX :    <http://example/>
+
+SELECT ?a ?y ?d ?z
+{ 
+    ?a :p ?c OPTIONAL { ?a :r ?d }. 
+    ?a ?p 1 { ?p a ?y } UNION { ?a ?z ?p } 
+}"""
       val plan = functionalsparql.processQuery(query)
+      println(plan)
   }
 
 }

@@ -4,28 +4,19 @@ import com.hp.hpl.jena.graph.{Node, Triple}
 import java.io.File
 import scala.xml.XML
 
-sealed trait Match {
-  def &(m : Match) : Match
-}
+//sealed trait Match {
+//  def &(m : Match) : Match
+//}
 
-case class TripleMatch(triples : Seq[Triple], binding : Map[String, Node]) extends Match {
-  def &(m : Match) = m match {
-    case t : TripleMatch => 
-      val compatible = (binding.keys.toSet & t.binding.keys.toSet) forall { k =>
-        binding(k) == t.binding(k)
-      }
-      if(compatible) {
-        TripleMatch(triples ++ t.triples, binding ++ t.binding)
-      } else {
-        NoMatch
-      }
-    case NoMatch => 
-      NoMatch
+case class Match(triples : Seq[Triple], binding : Map[String, Node]) {
+  def compatible(m : Match) = (binding.keys.toSet & m.binding.keys.toSet) forall { k =>
+    binding(k) == m.binding(k)
   }
-}
 
-object NoMatch extends Match {
-  def &(m : Match) = NoMatch
+  def &(m : Match) = {
+  	require(compatible(m))
+  	Match(triples ++ m.triples, binding ++ m.binding)
+  }
 }
 
 object SparqlXMLResults {
@@ -49,8 +40,16 @@ object SparqlXMLResults {
 			require(plan.vars.contains((variable \ "@name").text))
 		}
 		val results = resultDC.toIterable
-		require((head \ "results" \ "result").size == results.size)
-		for(result <- (head \ "results" \ "result")) {
+		if((sparqlXML \ "results" \ "result").size != results.size) {
+			println("Failed result")
+			println(resultFile)
+			for(r <- results) {
+				println(r)
+			}
+			println((sparqlXML \ "results" \ "result").size)
+			require(false)
+		}
+		for(result <- (sparqlXML \ "results" \ "result")) {
 
 		}
 	}

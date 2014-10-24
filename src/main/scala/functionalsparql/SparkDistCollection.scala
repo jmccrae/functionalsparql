@@ -26,6 +26,7 @@ case class SparkDistCollection[A](rdd : RDD[A])(implicit vt : ClassTag[A]) exten
   	case SparkDistCollection(otherRDD) => SparkDistCollection(rdd ++ otherRDD)
 	case _ => throw new IllegalArgumentException("Cartesian product of RDD with non-RDD is not allowed")
   }
+  override def unique = throw new UnsupportedOperationException("TODO")
 }
 
 case class SparkKeyDistCollection[K, A](rdd : RDD[(K, A)])(implicit kt : ClassTag[K], vt : ClassTag[A], ord : math.Ordering[K]) extends KeyDistCollection[K, A] {

@@ -64,67 +64,96 @@ object functionalsparql {
 
   def processQuery(query : Query) : Plan [_]= {
     query.getQueryType() match {
-      case Query.QueryTypeAsk => AskPlan(plan(processElement(query.getQueryPattern())))
-      case Query.QueryTypeConstruct => ConstructPlan(processTemplate(query.getConstructTemplate()), plan(processElement(query.getQueryPattern())))
-      case Query.QueryTypeDescribe => DescribePlan(query.getResultURIs(),plan(processElement(query.getQueryPattern())))
+      case Query.QueryTypeAsk => AskPlan(processElement(query.getQueryPattern()))
+      case Query.QueryTypeConstruct => ConstructPlan(processTemplate(query.getConstructTemplate()), processElement(query.getQueryPattern()))
+      case Query.QueryTypeDescribe => DescribePlan(query.getResultURIs(),processElement(query.getQueryPattern()))
       case Query.QueryTypeSelect => SelectPlan(query.getResultVars().toList,
-        plan(processElement(query.getQueryPattern())))
+        processElement(query.getQueryPattern()))
       case _ => throw new UnsupportedOperationException("Unknown SPARQL query type")
     }
   }
 
   private[functionalsparql] def processTemplate(template : Template) = template.getBGP()
 
-  private[functionalsparql] def processElement(element : Element) : List[Filter] = element match {
-    case element : ElementExists => processElementExists(element)
-    case element : ElementNotExists => processElementNotExists(element)
-    case element : ElementAssign => processElementAssign(element)
-    case element : ElementData => processElementData(element)
-    case element : ElementDataset => processElementDataset(element)
-    case element : ElementFilter => processElementFilter(element)
-    case element : ElementGroup => processElementGroup(element)
-    case element : ElementMinus => processElementMinus(element)
-    case element : ElementNamedGraph => processElementNamedGraph(element)
-    case element : ElementOptional => processElementOptional(element)
-    case element : ElementPathBlock => processElementPathBlock(element)
-    case element : ElementService => processElementService(element)
-    case element : ElementSubQuery => processElementSubQuery(element)
-    case element : ElementTriplesBlock => processElementTriplesBlock(element)
-    case element : ElementUnion => processElementUnion (element)
+  private[functionalsparql] def processElement(element : Element) : Filter = element match {
+    case element : ElementExists => throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
+    case element : ElementNotExists => throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
+    case element : ElementAssign => throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
+    case element : ElementData => throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
+    case element : ElementDataset => throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
+    case element : ElementFilter => transform(element)
+    case element : ElementGroup => transform(element)
+    case element : ElementMinus => throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
+    case element : ElementNamedGraph => transform(element)
+    case element : ElementOptional => transform(element)
+    case element : ElementPathBlock => transform(element)
+    case element : ElementService => throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
+    case element : ElementSubQuery => throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
+    case element : ElementTriplesBlock => transform(element)
+    case element : ElementUnion => transform(element)
     case _ => throw new UnsupportedOperationException("Unknown Element type %s" format (element.getClass().getName()))
   }
 
   private [functionalsparql] def isSparql(filter : Filter) = filter match {
-    case sf : SparqlFilter => Some(sf)
+    case sf : Filter => Some(sf)
     case _ => None
   }
 
-  private [functionalsparql] def processElementExists(element : ElementExists) = throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
-  private [functionalsparql] def processElementNotExists(element : ElementNotExists) = throw new UnsupportedOperationException("TODO") // figure out who to generate this
-  private [functionalsparql] def processElementAssign(element : ElementAssign) = throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
-  private [functionalsparql] def processElementData(element : ElementData) = throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature?)")
-  private [functionalsparql] def processElementDataset(element : ElementDataset) = throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature?)")
-  private [functionalsparql] def processElementFilter(element : ElementFilter) = element.getExpr() match {
-    case ne : E_NotExists => 
-      NegativeFilter(plan(processElement(ne.getElement()))) :: Nil
-    case expr => processExpression(expr) :: Nil
+  private [functionalsparql] def transform(element : Element) : Filter = element match {
+    case e : ElementTriplesBlock => processBasicPattern(e.getPattern())
+    case e : ElementPathBlock => plan(processPathBlock(e.getPattern()))
+    case e : ElementUnion => e.getElements.map(processElement).foldLeft(UnionFilter(Nil)) { case (UnionFilter(fs),f) =>
+      UnionFilter(f +: fs)
+    }
+    case e : ElementNamedGraph => {
+      System.err.println("Warning ignoring named graph, as evaluating over triples")
+      processElement(e.getElement())
+    }
+    case e : ElementGroup => {
+      var fs : ExpressionFilter = TrueFilter
+      var g : Filter = NullFilter
+      for(e2 <- e.getElements()) {
+        e2 match {
+          case e3 : ElementFilter => 
+            if(fs == TrueFilter) {
+              fs = processExpression(e3.getExpr())
+            } else {
+              fs = ConjFilter(fs, processExpression(e3.getExpr()))
+            }
+          case e3 : ElementOptional => 
+            val a = transform(e3.getOptionalElement())
+            a match {
+              case FilterFilter(f, a2) =>
+                g = LeftJoinFilter(g, a2, f)
+              case _ =>
+                g = LeftJoinFilter(g, a, TrueFilter)
+            }
+          case _ => 
+            val a = transform(e2)
+            if(g == NullFilter) {
+              g = a
+            } else {
+              g = JoinFilter(g, a)
+            }
+        }
+      }
+      g match {
+        case JoinFilter(NullFilter,g2) => 
+          g = g2
+        case JoinFilter(g2, NullFilter) =>
+          g = g2
+        case _ => {}
+      }
+      if(fs != TrueFilter) {
+        FilterFilter(fs, g)
+      } else {
+        g
+      }
+    }
   }
-  private [functionalsparql] def processElementGroup(element : ElementGroup) = 
-    element.getElements.flatMap(processElement(_)).toList
-  private [functionalsparql] def processElementMinus(element : ElementMinus) = throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
-  private [functionalsparql] def processElementNamedGraph(element : ElementNamedGraph) = {
-    System.err.println("Warning ignoring named graph, as evaluating over triples")
-    processElement(element.getElement())
-  }
-  private [functionalsparql] def processElementOptional(element : ElementOptional) = processElement(element.getOptionalElement()).flatMap(isSparql).map(OptionalFilter(_))
-  private [functionalsparql] def processElementPathBlock(element : ElementPathBlock) = 
-    processPathBlock(element.getPattern())
-  private [functionalsparql] def processElementService(element : ElementService) = throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
-  private [functionalsparql] def processElementSubQuery(element : ElementSubQuery) = throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
-  private [functionalsparql] def processElementTriplesBlock(element : ElementTriplesBlock) = processBasicPattern(element.getPattern())
-  private [functionalsparql] def processElementUnion(element : ElementUnion) = List(UnionFilter(element.getElements().map(processElement).map(plan)))
+
   private [functionalsparql] def processBasicPattern(pattern : BasicPattern) = 
-    pattern.map(SimpleFilter(_)).toList
+    plan(pattern.map(SimpleFilter(_)).toList)
   private [functionalsparql] def processPathBlock(pathBlock : PathBlock) =
     pathBlock.map(processTriplePath(_)).toList
   private [functionalsparql] def processTriplePath(triplePath : TriplePath) =
@@ -133,6 +162,15 @@ object functionalsparql {
     } else {
       throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
     }
+
+  def plan(triples : List[Filter]) : Filter = triples match {
+    case Nil => NullFilter
+    case x :: Nil => x
+    case x :: xs => xs.find(y => !(x.vars & y.vars).isEmpty) match {
+      case Some(y) => plan(JoinFilter(x,y) :: xs.filter(_ != y))
+      case None => JoinFilter(x,plan(xs))
+    }
+  }
 
   private [functionalsparql] def processExpression(expr : Expr) : ExpressionFilter = expr match {
     case e : E_Add => processE_Add(e)
@@ -227,7 +265,7 @@ object functionalsparql {
     case e : NodeValueInteger => processNodeValueInteger(e)  
     case e : NodeValueNode => processNodeValueNode(e)  
     case e : NodeValueString => processNodeValueString(e) 
-    case null => NullExpressionFilter
+    case null => ValueFilter("")
     case _ => throw new IllegalArgumentException("Bad expression " + expr)
   }
     
@@ -533,7 +571,16 @@ object functionalsparql {
     def divideI[T](x : T, y : T)(implicit n : Integral[T]) = n.quot(x,y)
     numeric2(e, divideI, divideF, divideF, divideI, divideF)
   }
-  private [functionalsparql] def processE_Equals(e : E_Equals) = Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), (x:Any,y:Any) => x == y)
+  private [functionalsparql] def processE_Equals(e : E_Equals) = {
+    def checkEq(x : Any, y : Any) : Boolean = x match {
+      case n1 : Node => checkEq(anyFromNode(n1),y)
+      case _ => y match {
+        case n2 : Node => x == anyFromNode(n2)
+        case _ => x == y
+      }
+    }
+    Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), checkEq)
+  }
   private [functionalsparql] def processE_Exists(e : E_Exists) = throw new UnsupportedOperationException("TODO (Sparql 1.1. Feature) Please rewrite without filter!")
   private [functionalsparql] def processE_Function(e : E_Function) = {
     e.getFunctionIRI() match {
@@ -703,37 +750,6 @@ object functionalsparql {
   private [functionalsparql] def processNodeValueInteger(e : NodeValueInteger) = ValueFilter(BigInt(e.getInteger()))
   private [functionalsparql] def processNodeValueNode(e : NodeValueNode) = ValueFilter(e.asNode())
   private [functionalsparql] def processNodeValueString(e : NodeValueString) = ValueFilter(e.getString())
-
- private [functionalsparql] def plan(filters : List[Filter]) : SparqlFilter = {
-    planCross(planJoin(filters))
-  }
-
-  private [functionalsparql] def planCross(filters : List[Filter]) : SparqlFilter = {
-    filters match {
-      case Nil => NullFilter
-      case plan :: Nil => plan match {
-        case plan : SparqlFilter => plan
-        case plan : ExpressionFilter => UnboundExprFilter(plan)
-        case plan : NegativeFilter => UnboundNegativeFilter(plan)
-      }
-      case plan :: plans => plan match {
-        case plan : SparqlFilter => CrossFilter(plan, planCross(plans))
-        case plan : ExpressionFilter => CrossFilter(UnboundExprFilter(plan), planCross(plans))
-        case plan : NegativeFilter => CrossFilter(UnboundNegativeFilter(plan), planCross(plans))
-      }
-    }
-  }
-  
-  private [functionalsparql] def planJoin(filters : List[Filter]) : List[Filter] = filters match {
-    case filter :: rest => rest.find(filter.canJoin(_)) match {
-      case Some(other) => 
-        val n1 = filter.join(other)
-        planJoin(n1 :: rest.filter(_ != other))
-      case None => 
-        filter :: planJoin(rest)
-    }
-    case Nil => Nil
-  }
 }
 
 object FunctionalSparqlUtils {
@@ -783,35 +799,34 @@ sealed trait Plan[A] {
   def vars : Seq[String]
 }
 
-case class SelectPlan(_vars : Seq[String], body : SparqlFilter) extends Plan[DistCollection[Match]] {
+case class SelectPlan(_vars : Seq[String], body : Filter) extends Plan[DistCollection[Match]] {
   def execute(rdd : DistCollection[Triple]) = {
     val matches = body.applyTo(rdd)
-    matches.flatMap {
-      case TripleMatch(triples, binding) => Some(TripleMatch(Nil,
-        binding.filterKeys(vars.contains(_))))
-      case NoMatch => None
+    val allMatches = matches.map {
+      case Match(triples, binding) => Match(Nil,
+        binding.filterKeys(vars.contains(_)))
     }
+    allMatches.unique
   }
   def vars = _vars
 }
 
-case class AskPlan(body : SparqlFilter) extends Plan[Boolean] {
+case class AskPlan(body : Filter) extends Plan[Boolean] {
   def execute(rdd : DistCollection[Triple]) = {
     val matches = body.applyTo(rdd)
     matches.exists {
-      case TripleMatch(triples, binding) => true
-      case NoMatch => false
+      case Match(triples, binding) => true
     }
   }
   def vars = Nil
 }
 
-case class DescribePlan(_vars : Seq[Node], body : SparqlFilter) extends Plan[DistCollection[Triple]] {
+case class DescribePlan(_vars : Seq[Node], body : Filter) extends Plan[DistCollection[Triple]] {
   def execute(rdd : DistCollection[Triple]) = throw new UnsupportedOperationException("TODO")
   def vars = throw new RuntimeException("TODO")
 }
 
-case class ConstructPlan(template : BasicPattern, body : SparqlFilter) extends Plan[DistCollection[Seq[Triple]]] {
+case class ConstructPlan(template : BasicPattern, body : Filter) extends Plan[DistCollection[Seq[Triple]]] {
   private def ground(m : Match, r : Node, b : Map[String, Node]) = if(r.isVariable()) {
     b.get(r.asInstanceOf[Var].getVarName()) match {
       case Some(r2) => r2
@@ -821,7 +836,7 @@ case class ConstructPlan(template : BasicPattern, body : SparqlFilter) extends P
     r
   }
   def execute(rdd : DistCollection[Triple]) = body.applyTo(rdd).flatMap { 
-    case m @ TripleMatch(t, b) =>
+    case m @ Match(t, b) =>
       Some((template.map { case t => 
         new Triple(
           ground(m,t.getSubject(),b),

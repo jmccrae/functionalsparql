@@ -14,6 +14,7 @@ trait DistCollection[A]  {
   def exists(foo : A => Boolean) : Boolean
   def toIterable : Iterable[A]
   def ++(other  : DistCollection[A]) : DistCollection[A]
+  def unique : DistCollection[A]
 }
 
 trait KeyDistCollection[K,A] {
@@ -38,6 +39,7 @@ case class SimpleDistCollection[A](seq : Seq[A]) extends DistCollection[A] {
   override def exists(foo : A => Boolean) = seq.exists(foo)
   override def toIterable = seq
   override def ++(other : DistCollection[A]) = SimpleDistCollection(seq ++ other.toIterable)
+  override def unique = SimpleDistCollection(seq.toSet.toSeq)
 }
 
 case class SimpleKeyDistCollection[K, A](seq : Seq[(K, A)])(implicit ordering : math.Ordering[K]) extends KeyDistCollection[K, A] {
