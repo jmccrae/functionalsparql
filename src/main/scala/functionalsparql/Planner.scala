@@ -7,6 +7,7 @@ import com.hp.hpl.jena.sparql.expr._
 import com.hp.hpl.jena.sparql.expr.nodevalue._
 import com.hp.hpl.jena.sparql.syntax._
 import java.io.StringReader
+import java.net.URI
 import java.util.concurrent.ConcurrentLinkedQueue
 import org.apache.jena.riot.system.StreamRDF
 import org.apache.jena.riot.{Lang, RDFDataMgr}
@@ -18,7 +19,19 @@ import scala.collection.JavaConversions._
 object functionalsparql {
   import FunctionalSparqlUtils._
   implicit val nodeOrdering = new Ordering[Node] {
-    override def compare(n1 : Node, n2 : Node) = n1.toString.compareTo(n2.toString)
+    override def compare(n1 : Node, n2 : Node) = {
+      if(n1 == null) {
+        if(n2 == null) {
+          0
+        } else {
+          -1 
+        }
+      } else if(n2 == null) {
+        +1
+      } else {
+        n1.toString.compareTo(n2.toString)
+      }
+    }
   }
   implicit val nodeSeqOrdering = new Ordering[Seq[Node]] {
     override def compare(n1 : Seq[Node], n2 : Seq[Node]) : Int = n1.headOption match {
@@ -218,34 +231,33 @@ object functionalsparql {
     case _ => throw new IllegalArgumentException("Bad expression " + expr)
   }
     
-  private def boolean1(e : ExprFunction1, foo : Boolean => Boolean) = Expr1LogicalFilter(processExpression(e.getArg()), {
-    (x : Any) => x match {
-      case b : Boolean => foo(b)
-      case _ => throw new SparqlEvaluationException("Arguments were not boolean")
-    }
-    })
+  private def boolean1(e : ExprFunction1, foo : Boolean => Boolean) = {
+    Expr1LogicalFilter(processExpression(e.getArg()), x => foo(booleanFromAny(x)))
+  }
 
-  private def numeric1(e : ExprFunction1, fooi : Int => Int, food : Double => Double, foof : Float => Float, foobi : BigInt => BigInt, foobd : BigDecimal => BigDecimal) = Expr1Filter(processExpression(e.getArg()), {
-    (x : Any) => x match {
+  private def numeric1(e : ExprFunction1, fooi : Int => Int, food : Double => Double, foof : Float => Float, foobi : BigInt => BigInt, foobd : BigDecimal => BigDecimal) = {
+    def applyFoo(x : Any) : Any = x match {
       case n1 : Int => fooi(n1)
       case n1 : Double => food(n1)
       case n1 : Float => foof(n1)
       case n1 : BigInt => foobi(n1)
       case n1 : BigDecimal => foobd(n1)
+      case n1 : Node => applyFoo(anyFromNode(n1))
       case _ => throw new SparqlEvaluationException("Arguments were not numeric")
     }
-  })
+    Expr1Filter(processExpression(e.getArg()), applyFoo)
+  }
 
   private def numeric2(e : ExprFunction2, fooi : (Int,Int) => Int, food : (Double,Double) => Double, 
     foof : (Float,Float) => Float, foobi : (BigInt,BigInt) => BigInt, foobd : (BigDecimal,BigDecimal) => BigDecimal) = {
-    Expr2Filter(processExpression(e.getArg1()), processExpression(e.getArg2()), {
-      (x : Any, y : Any) => x match {
+    def applyFoo(x : Any, y : Any) : Any = x match {
         case n1 : Int => y match {
           case n2 : Int => fooi(n1,n2)
           case n2 : Double => food(n1.toDouble,n2)
           case n2 : Float => foof(n1.toFloat,n2)
           case n2 : BigInt => foobi(BigInt(n1),n2)
           case n2 : BigDecimal => foobd(BigDecimal(n1),n2)
+          case n2 : Node => applyFoo(n1, anyFromNode(n2))
           case _ => throw new SparqlEvaluationException("Arguments were not numeric")
         }
         case n1 : Double => y match {
@@ -254,6 +266,7 @@ object functionalsparql {
           case n2 : Float => food(n1,n2.toDouble)
           case n2 : BigInt => foobd(BigDecimal(n1), BigDecimal(n2))
           case n2 : BigDecimal => foobd(BigDecimal(n1), n2)
+          case n2 : Node => applyFoo(n1, anyFromNode(n2))
           case _ => throw new SparqlEvaluationException("Arguments were not numeric")
         }
         case n1 : Float => y match {
@@ -262,6 +275,7 @@ object functionalsparql {
           case n2 : Float => foof(n1,n2)
           case n2 : BigInt => foobd(BigDecimal(n1), BigDecimal(n2))
           case n2 : BigDecimal => foobd(BigDecimal(n1), n2)
+          case n2 : Node => applyFoo(n1, anyFromNode(n2))
           case _ => throw new SparqlEvaluationException("Arguments were not numeric")
         } 
         case n1 : BigInt => y match {
@@ -270,6 +284,7 @@ object functionalsparql {
           case n2 : Float => foobd(BigDecimal(n1),BigDecimal(n2))
           case n2 : BigInt => foobi(n1,n2)
           case n2 : BigDecimal => foobd(BigDecimal(n1),n2)
+          case n2 : Node => applyFoo(n1, anyFromNode(n2))
           case _ => throw new SparqlEvaluationException("Arguments were not numeric")
         }
         case n1 : BigDecimal => y match {
@@ -278,11 +293,13 @@ object functionalsparql {
           case n2 : Float => foobd(n1,BigDecimal(n2))
           case n2 : BigInt => foobd(n1,BigDecimal(n2))
           case n2 : BigDecimal => foobd(n1,n2)
+          case n2 : Node => applyFoo(n1, anyFromNode(n2))
           case _ => throw new SparqlEvaluationException("Arguments were not numeric")
         }
-        case _ => throw new SparqlEvaluationException("Arguments were not numeric")
+        case n1 : Node => applyFoo(anyFromNode(n1),y)
+        case _ => throw new SparqlEvaluationException("Arguments were not numeric: " + x.getClass().getName())
       }
-    })
+    Expr2Filter(processExpression(e.getArg1()), processExpression(e.getArg2()), applyFoo)
   }
 
   private def numericFromNode(n : Node) : Option[BigDecimal] = if(n.isLiteral()) {
@@ -300,8 +317,7 @@ object functionalsparql {
   private def order2(e : ExprFunction2, fooi : (Int,Int) => Boolean, food : (Double,Double) => Boolean, 
     foof : (Float,Float) => Boolean, foobi : (BigInt,BigInt) => Boolean, foobd : (BigDecimal,BigDecimal) => Boolean,
     foos : (String,String) => Boolean, foon : (Node,Node) => Boolean) = {
-    Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), {
-      (x : Any, y : Any) => x match {
+    def applyFoo(x : Any, y : Any) : Boolean = x match {
         case n1 : Int => y match {
           case n2 : Int => fooi(n1,n2)
           case n2 : Double => food(n1.toDouble,n2)
@@ -430,39 +446,40 @@ object functionalsparql {
           }
         }
         case _ => throw new SparqlEvaluationException("Arguments were not numeric")
-      }
-    })
+      
+    }
+    Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), applyFoo)
   }
 
-  private def boolean2(e : ExprFunction2, foo : (Boolean, Boolean) => Boolean) = Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), {
-    (x : Any, y : Any) => x match {
-      case n1 : Boolean => y match {
-        case n2 : Boolean => foo(n1,n2)
-        case _ => throw new SparqlEvaluationException("Arguments were not boolean")
-      }
-      case _ => throw new SparqlEvaluationException("Arguments were not boolean")
-    }
-  })
+  private def boolean2(e : ExprFunction2, foo : (Boolean, Boolean) => Boolean) = {
+    Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), (x,y) => foo(booleanFromAny(x), booleanFromAny(y)))
+  }
 
-  private def string2(e : ExprFunction2, foo : (String, String) => String) = Expr2Filter(processExpression(e.getArg1()), processExpression(e.getArg2()), {
-    (x : Any, y : Any) => x match {
+  private def string2(e : ExprFunction2, foo : (String, String) => String) = {
+    def applyFoo(x : Any, y : Any) : Any = x match {
       case n1 : String => y match {
         case n2 : String => foo(n1,n2)
-        case _ => throw new SparqlEvaluationException("Arguments were not boolean")
+        case n2 : Node => applyFoo(n1, anyFromNode(n2))
+        case _ => throw new SparqlEvaluationException("Arguments were not string")
       }
-      case _ => throw new SparqlEvaluationException("Arguments were not boolean")
+      case n1 : Node => applyFoo(anyFromNode(n1), y)
+      case _ => throw new SparqlEvaluationException("Arguments were not string")
     }
-  })
+    Expr2Filter(processExpression(e.getArg1()), processExpression(e.getArg2()), applyFoo)
+  }
 
-  private def string2l(e : ExprFunction2, foo : (String, String) => Boolean) = Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), {
-    (x : Any, y : Any) => x match {
+  private def string2l(e : ExprFunction2, foo : (String, String) => Boolean) =  {
+    def applyFoo(x : Any, y : Any) : Boolean = x match {
       case n1 : String => y match {
         case n2 : String => foo(n1,n2)
-        case _ => throw new SparqlEvaluationException("Arguments were not boolean")
+        case n2 : Node => applyFoo(n1, anyFromNode(n2))
+        case _ => throw new SparqlEvaluationException("Arguments were not string")
       }
-      case _ => throw new SparqlEvaluationException("Arguments were not boolean")
+      case n1 : Node => applyFoo(anyFromNode(n1), y)
+      case _ => throw new SparqlEvaluationException("Arguments were not string")
     }
-  })
+    Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), applyFoo)
+  }
 
   private [functionalsparql] def processE_Add(e :E_Add) = {
     def add[T](x : T, y : T)(implicit n : Numeric[T]) = n.plus(x,y)
@@ -481,10 +498,26 @@ object functionalsparql {
   })
   private [functionalsparql] def processE_Datatype(e : E_Datatype) = Expr1Filter(processExpression(e.getArg()), (x:Any) => x match {
     case x : Node => if(x.isLiteral) {
-      x.getLiteralDatatype()
-    } else {
-      throw new SparqlEvaluationException("Datatype called on non-literal")
+      x.getLiteralDatatypeURI() match {
+        case null => "http://www.w3.org/2001/XMLSchema#string" // TODO: Should we return langString also?
+        case dt => URI.create(dt)
+      }
+    } else if(x.isURI()) {
+      URI.create("uri")
+    } else if(x.isVariable()) {
+      URI.create("unbound")
+    } else { 
+      URI.create("bnode")
     }
+    case i : Int => "http://www.w3.org/2001/XMLSchema#integer"
+    case i : Double => "http://www.w3.org/2001/XMLSchema#double"
+    case i : Float => "http://www.w3.org/2001/XMLSchema#float"
+    case i : BigDecimal => "http://www.w3.org/2001/XMLSchema#decimal"
+    case i : BigInt => "http://www.w3.org/2001/XMLSchema#integer"
+    case i : String => "http://www.w3.org/2001/XMLSchema#string"
+    case i : Boolean => "http://www.w3.org/2001/XMLSchema#boolean"
+    case d : java.util.Date => "http://www.w3.org/2001/XMLSchema#dateTime"
+    case bc : BadCast => "badcast"
     case _ => throw new SparqlEvaluationException("Datatype called on non-node")
   })
   private [functionalsparql] def processE_DateTimeDay(e : E_DateTimeDay) = processExpression(e.getArg())
@@ -513,7 +546,7 @@ object functionalsparql {
         case any => try {
           stringFromAny(any).toInt
         } catch {
-          case x : NumberFormatException => throw new SparqlEvaluationException(cause=x)
+          case x : NumberFormatException => BadCast(any, x)
         }
       })
       case "http://www.w3.org/2001/XMLSchema#boolean" => Expr1Filter(processExpression(e.getArg(1)), (x:Any) => booleanFromAny(x))
@@ -526,7 +559,7 @@ object functionalsparql {
         case any => try {
           stringFromAny(any).toFloat
         } catch {
-          case x : NumberFormatException => throw new SparqlEvaluationException(cause=x)
+          case x : NumberFormatException => BadCast(any, x)
         }
       })
       case "http://www.w3.org/2001/XMLSchema#double" => Expr1Filter(processExpression(e.getArg(1)), (x:Any) => x match {
@@ -538,7 +571,7 @@ object functionalsparql {
         case any => try {
           stringFromAny(any).toDouble
         } catch {
-          case x : NumberFormatException => throw new SparqlEvaluationException(cause=x)
+          case x : NumberFormatException => BadCast(any, x)
         }
       })
       case "http://www.w3.org/2001/XMLSchema#decimal" => Expr1Filter(processExpression(e.getArg(1)), (x:Any) => x match {
@@ -550,7 +583,7 @@ object functionalsparql {
         case any => try {
           BigDecimal(stringFromAny(any))
         } catch {
-          case x : NumberFormatException => throw new SparqlEvaluationException(cause=x)
+          case x : NumberFormatException => BadCast(any, x)
         }
       })
       case "http://www.w3.org/2001/XMLSchema#string" => Expr1Filter(processExpression(e.getArg(1)), stringFromAny)
@@ -558,7 +591,7 @@ object functionalsparql {
           // TODO: Verify!
         new java.util.Date(stringFromAny(x))
         } catch {
-          case x : Exception => throw new SparqlEvaluationException(cause=x)
+          case cause : Exception => BadCast(x, cause)
         }
         )
       case _ => 
@@ -715,18 +748,34 @@ object FunctionalSparqlUtils {
       }
     case _ => a.toString
   }
-  def booleanFromAny(x : Any) = x match {
+  def booleanFromAny(x : Any) : Boolean= x match {
     case i : Int => i != 0
-    case f : Float => f != 0
-    case d : Double => d != 0
-    case bi : BigInt => bi != 0
-    case bd : BigDecimal => bd != 0
+    case f : Float => f != 0.0
+    case d : Double => d != 0.0
+    case bi : BigInt => bi != BigInt(0)
+    case bd : BigDecimal => bd != BigDecimal(0)
+    case n : Node => booleanFromAny(anyFromNode(n))
     case any => stringFromAny(any) match {
       case "true" => true
       case "false" => false
-      case _ => throw new SparqlEvaluationException("Bad boolean")
+      case "" => false
+      case _ => true
     }
   }
+  def anyFromNode(n : Node) = if(n.isLiteral()) {
+      n.getLiteralValue() match {
+        case i : java.lang.Integer => i.intValue()
+        case d : java.lang.Double => d.doubleValue()
+        case f : java.lang.Float => f.floatValue()
+        case b : java.lang.Boolean => b.booleanValue()
+        case s : String => s
+        case o => throw new SparqlEvaluationException(o.getClass().getName())
+      }
+    } else if(n.isURI()) {
+      URI.create(n.getURI())
+    } else {
+      throw new SparqlEvaluationException("Cannot convert node to value " + n)
+    }
 }
 
 sealed trait Plan[A] {
@@ -800,5 +849,7 @@ class StreamRDFCollector extends StreamRDF {
     triples :+= t
   }
 }
+
+case class BadCast(original : Any, cause : Throwable)
 
 case class SparqlEvaluationException(msg : String = "", cause : Throwable = null) extends RuntimeException(msg,cause)

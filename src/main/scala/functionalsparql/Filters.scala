@@ -16,7 +16,7 @@ sealed trait Filter {
 sealed trait SparqlFilter extends Filter {
   def join(to : Filter) = to match {
     case sf : SparqlFilter => 
-      JoinFilter((vars & to.vars).head, (vars & to.vars).tail, this, sf)
+      JoinFilter(this, sf)
     case ef : ExpressionFilter => 
       JoinExprFilter(this, ef)
     case nf : NegativeFilter =>
@@ -54,41 +54,40 @@ case class SimpleFilter(triple : Triple) extends SparqlFilter {
       TripleMatch(List(t), Map())
     } else if(n1 == n2) {
       TripleMatch(List(t), Map())
+    } else if(n2.isVariable()) {
+      throw new IllegalArgumentException("Variable in data")
     } else {
       NoMatch
     }
 }
 
-case class JoinFilter[A](varName : String, varNames : Set[String], left : SparqlFilter, right : SparqlFilter) extends SparqlFilter {
+case class JoinFilter[A](left : SparqlFilter, right : SparqlFilter) extends SparqlFilter {
   lazy val vars = left.vars ++ right.vars
+  val varNames = (left.vars & right.vars).toSeq
 
   def applyTo(rdd : DistCollection[Triple]) = {
     val rdd1 = left.applyTo(rdd)
     val rdd3 = rdd1.keyFilter {
       case TripleMatch(triples, binding) => 
-        if(binding.contains(varName)) {
-          Some(binding(varName))
-        } else {
-          None
-        }
+        Some(varNames.map { varName =>
+          binding.get(varName).getOrElse(null)
+        })
       case NoMatch => 
         None
     }
     val rdd2 = right.applyTo(rdd)
     val rdd4 = rdd2.keyFilter {
       case TripleMatch(triples, binding) => 
-        if(binding.contains(varName)) {
-          Some(binding(varName))
-        } else {
-          None
-        }
+        Some(varNames.map { varName =>
+          binding.get(varName).getOrElse(null)
+        })
       case NoMatch => 
         None
     }
     val rdd5 = rdd3.join(rdd4).map {
       case (v,w) => v & w
     }
-    val firstPass = left.optional match {
+    left.optional match {
       case true =>
         right.optional match {
           case true =>
@@ -99,13 +98,11 @@ case class JoinFilter[A](varName : String, varNames : Set[String], left : Sparql
       case false =>
         right.optional match {
           case true =>
-            rdd5 ++ rdd2
+             rdd5 ++ rdd2
           case false =>
             rdd5
         }
     }
-    // TODO : Check reduce on other variables and unbound vars
-    firstPass
   }
 }
 
@@ -115,7 +112,7 @@ case class CrossFilter(filter1 : SparqlFilter, filter2 : SparqlFilter) extends S
   def applyTo(rdd : DistCollection[Triple]) = filter1.applyTo(rdd).
     cartesian(filter2.applyTo(rdd)).
     map {
-      case (m1,m2) => m1 x m2
+      case (m1,m2) => m1 & m2
     }
 }
 
@@ -143,7 +140,7 @@ case class NegativeFilter(filter : SparqlFilter) extends Filter {
   }
   def join(to : Filter) = to match {
     case sq : SparqlFilter => NegativeJoinFilter(vars & to.vars, sq, this)
-    case NegativeFilter(f2) => NegativeFilter(JoinFilter((vars & to.vars).head, (vars & to.vars).tail, filter, f2))
+    case NegativeFilter(f2) => NegativeFilter(JoinFilter(filter, f2))
     case ef : ExpressionFilter => throw new IllegalArgumentException("Unreachable")
   }
 }
@@ -200,9 +197,21 @@ case class UnboundExprFilter(filter : ExpressionFilter) extends SparqlFilter {
 }
 
 case class JoinExprFilter(filter1 : SparqlFilter, filter2 : ExpressionFilter) extends SparqlFilter {
-  def vars = filter1.vars
+  def vars = filter1.vars ++ filter2.vars
   def applyTo(rdd : DistCollection[Triple]) = {
     filter2.applyTo(filter1.applyTo(rdd))
+  }
+  override def join(to : Filter) = to match {
+    case sf : SparqlFilter => 
+      if((filter1.vars & to.vars).isEmpty) {
+        JoinExprFilter(CrossFilter(filter1, sf), filter2)
+      } else {
+        JoinExprFilter(JoinFilter(filter1, sf), filter2)
+      }
+    case ef : ExpressionFilter => 
+      JoinExprFilter(filter1, filter2.join(ef).asInstanceOf[ExpressionFilter])
+    case nf : NegativeFilter =>
+      throw new UnsupportedOperationException("TODO")
   }
 }
 
@@ -287,9 +296,10 @@ case class VariableExpressionFilter(variable : Var) extends ExpressionFilter {
     case TripleMatch(_, bindings) => if(bindings.contains(variable.getVarName())) {
       bindings(variable.getVarName())
     } else {
+      println("Could not bind %s in %s" format (variable.getVarName(), bindings.toString))
       variable
     }
-    case _ => variable
+    case _ => throw new SparqlEvaluationException("Looking up variable against no match")
   }
 }
 

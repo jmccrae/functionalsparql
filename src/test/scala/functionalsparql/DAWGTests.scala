@@ -24,14 +24,15 @@ class DAWGTests extends FlatSpec with Matchers {
 						st.getObject().asResource()
 				}
 				val dataset = Option(test.getProperty(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#action")).getObject().asResource().
-					getProperty(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-query#datasets"))).map(_.getObject().asResource())
+					getProperty(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-query#data"))).map(_.getObject().asResource())
 				test.toString should "execute" in {
 					for(query <- queries) {
       					val plan = functionalsparql.processQuery(scala.io.Source.fromURL(query.toString)(scala.io.Codec.UTF8).getLines.mkString("\n"))
       					val data = dataset match {
-      						case Some(ds) => RDFDataMgr.loadModel("file:" + ds.toString).listStatements().toList.map(_.asTriple)
+      						case Some(ds) => RDFDataMgr.loadModel(ds.getURI()).listStatements().toList.map(_.asTriple)
       						case None => Nil
       					} 
+      					require(dataset == None || data.size() > 0)
       					plan match {
       						case p : SelectPlan =>
       							val result = p.execute(new SimpleDistCollection(data))

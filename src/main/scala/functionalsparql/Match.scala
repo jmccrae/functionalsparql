@@ -6,7 +6,6 @@ import scala.xml.XML
 
 sealed trait Match {
   def &(m : Match) : Match
-  def x(m : Match) : Match = throw new UnsupportedOperationException("TODO")
 }
 
 case class TripleMatch(triples : Seq[Triple], binding : Map[String, Node]) extends Match {
