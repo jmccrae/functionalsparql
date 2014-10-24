@@ -41,12 +41,17 @@ object SparqlXMLResults {
 		plan.vars.map { v => <variable name={v}></variable> }
 	}
 
-	def verify(resultFile : java.net.URL, plan : Plan[DistCollection[Match]], result : DistCollection[Match]) {
+	def verify(resultFile : java.net.URL, plan : Plan[DistCollection[Match]], resultDC : DistCollection[Match]) {
 		val sparqlXML = XML.load(resultFile)
 		val head = sparqlXML \\ "head"
 		require((head \ "variable").size == plan.vars.size)
 		for(variable <- (head \ "variable")) {
 			require(plan.vars.contains((variable \ "@name").text))
+		}
+		val results = resultDC.toIterable
+		require((head \ "results" \ "result").size == results.size)
+		for(result <- (head \ "results" \ "result")) {
+
 		}
 	}
 
