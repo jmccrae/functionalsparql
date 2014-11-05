@@ -1,6 +1,7 @@
 package eu.liderproject.functionalsparql
 
-import com.hp.hpl.jena.graph.{Node, Triple}
+import com.hp.hpl.jena.graph.Node
+import com.hp.hpl.jena.sparql.core.Quad
 import java.io.File
 import scala.xml.XML
 
@@ -8,14 +9,23 @@ import scala.xml.XML
 //  def &(m : Match) : Match
 //}
 
-case class Match(triples : Seq[Triple], binding : Map[String, Node]) {
+case class Match(triples : Set[Quad], binding : Map[String, Node]) {
   def compatible(m : Match) = (binding.keys.toSet & m.binding.keys.toSet) forall { k =>
-    binding(k) == m.binding(k)
+    val l = binding(k)
+    val r = m.binding(k)
+    l == r || (l.isBlank() && (r.isBlank() || !r.isLiteral())) || (r.isBlank() && (!l.isLiteral()))
   }
 
   def &(m : Match) = {
   	require(compatible(m))
-  	Match(triples ++ m.triples, binding ++ m.binding)
+        val newBindings = binding ++ (m.binding.map { case (k,v) =>
+          if(v.isBlank) {
+            k -> binding.getOrElse(k, v)
+          } else {
+            k -> v
+          }
+        })
+  	Match(triples ++ m.triples, newBindings)
   }
 }
 
@@ -42,6 +52,7 @@ object SparqlXMLResults {
 		val results = resultDC.toIterable
 		if((sparqlXML \ "results" \ "result").size != results.size) {
 			println("Failed result")
+                        println(plan)
 			println(resultFile)
 			for(r <- results) {
 				println(r)

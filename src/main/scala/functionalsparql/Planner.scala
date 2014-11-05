@@ -1,6 +1,6 @@
 package eu.liderproject.functionalsparql
 
-import com.hp.hpl.jena.graph.{Node, Triple}
+import com.hp.hpl.jena.graph.{Node, NodeFactory, Triple}
 import com.hp.hpl.jena.query.{Query, QueryFactory}
 import com.hp.hpl.jena.sparql.core._
 import com.hp.hpl.jena.sparql.expr._
@@ -49,7 +49,7 @@ object functionalsparql {
     }
   }
 
-  def parseRDD(rdd : DistCollection[String], base : String) : DistCollection[Triple] = {
+  def parseRDD(rdd : DistCollection[String], base : String) : DistCollection[Quad] = {
     rdd.flatMap { 
       line =>
         val collector = new StreamRDFCollector()
@@ -68,7 +68,7 @@ object functionalsparql {
       case Query.QueryTypeConstruct => ConstructPlan(processTemplate(query.getConstructTemplate()), processElement(query.getQueryPattern()))
       case Query.QueryTypeDescribe => DescribePlan(query.getResultURIs(),processElement(query.getQueryPattern()))
       case Query.QueryTypeSelect => SelectPlan(query.getResultVars().toList,
-        processElement(query.getQueryPattern()))
+        processElement(query.getQueryPattern()), query.isDistinct())
       case _ => throw new UnsupportedOperationException("Unknown SPARQL query type")
     }
   }
@@ -106,8 +106,8 @@ object functionalsparql {
       UnionFilter(f +: fs)
     }
     case e : ElementNamedGraph => {
-      System.err.println("Warning ignoring named graph, as evaluating over triples")
-      processElement(e.getElement())
+      processElement(e.getElement()).withGraph(e.getGraphNameNode())
+      //GraphFilter(e.getGraphNameNode(), processElement(e.getElement()))
     }
     case e : ElementGroup => {
       var fs : ExpressionFilter = TrueFilter
@@ -153,12 +153,12 @@ object functionalsparql {
   }
 
   private [functionalsparql] def processBasicPattern(pattern : BasicPattern) = 
-    plan(pattern.map(SimpleFilter(_)).toList)
+    plan(pattern.map(t => SimpleFilter(new Quad(Quad.defaultGraphIRI, t))).toList)
   private [functionalsparql] def processPathBlock(pathBlock : PathBlock) =
     pathBlock.map(processTriplePath(_)).toList
   private [functionalsparql] def processTriplePath(triplePath : TriplePath) =
     if(triplePath.isTriple()) {
-      SimpleFilter(triplePath.asTriple())
+      SimpleFilter(new Quad(Quad.defaultGraphIRI, triplePath.asTriple()))
     } else {
       throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
     }
@@ -537,24 +537,24 @@ object functionalsparql {
   private [functionalsparql] def processE_Datatype(e : E_Datatype) = Expr1Filter(processExpression(e.getArg()), (x:Any) => x match {
     case x : Node => if(x.isLiteral) {
       x.getLiteralDatatypeURI() match {
-        case null => "http://www.w3.org/2001/XMLSchema#string" // TODO: Should we return langString also?
-        case dt => URI.create(dt)
+        case null => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#string") // TODO: Should we return langString also?
+        case dt => NodeFactory.createURI(dt)
       }
     } else if(x.isURI()) {
-      URI.create("uri")
+      NodeFactory.createURI("uri")
     } else if(x.isVariable()) {
-      URI.create("unbound")
+      NodeFactory.createURI("unbound")
     } else { 
-      URI.create("bnode")
+      NodeFactory.createURI("bnode")
     }
-    case i : Int => "http://www.w3.org/2001/XMLSchema#integer"
-    case i : Double => "http://www.w3.org/2001/XMLSchema#double"
-    case i : Float => "http://www.w3.org/2001/XMLSchema#float"
-    case i : BigDecimal => "http://www.w3.org/2001/XMLSchema#decimal"
-    case i : BigInt => "http://www.w3.org/2001/XMLSchema#integer"
-    case i : String => "http://www.w3.org/2001/XMLSchema#string"
-    case i : Boolean => "http://www.w3.org/2001/XMLSchema#boolean"
-    case d : java.util.Date => "http://www.w3.org/2001/XMLSchema#dateTime"
+    case i : Int => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#integer")
+    case i : Double => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#double")
+    case i : Float => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#float")
+    case i : BigDecimal => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#decimal")
+    case i : BigInt => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#integer")
+    case i : String => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#string")
+    case i : Boolean => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#boolean")
+    case d : java.util.Date => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#dateTime")
     case bc : BadCast => "badcast"
     case _ => throw new SparqlEvaluationException("Datatype called on non-node")
   })
@@ -572,11 +572,48 @@ object functionalsparql {
     numeric2(e, divideI, divideF, divideF, divideI, divideF)
   }
   private [functionalsparql] def processE_Equals(e : E_Equals) = {
-    def checkEq(x : Any, y : Any) : Boolean = x match {
-      case n1 : Node => checkEq(anyFromNode(n1),y)
-      case _ => y match {
-        case n2 : Node => x == anyFromNode(n2)
-        case _ => x == y
+    def checkEq(x : Any, y : Any) : Boolean = {
+      x match {
+        case n1 : Node => 
+          if(y.isInstanceOf[BadCast]) {
+            false
+          } else {
+            if(n1.isBlank()) {
+              //!y.isInstanceOf[Node] || !y.asInstanceOf[Node].isLiteral()
+              y.isInstanceOf[Node] && y.asInstanceOf[Node].isBlank()
+            } else {
+              checkEq(anyFromNode(n1),y) 
+            }
+          }
+        case bc : BadCast =>
+          val n3 = y match {
+            case n2 : Node => 
+              if(!n2.isBlank()) {
+                anyFromNode(n2) 
+              } else {
+                null
+              }
+            case _ => y
+          }
+          n3 match {
+            case bc2 : BadCast =>
+              bc.original == bc2.original
+            case _ =>
+              false
+          }
+        case _ => y match {
+          case n2 : Node => 
+            if(n2.isBlank()) {
+              false
+            //  !x.isInstanceOf[Node] || !x.asInstanceOf[Node].isLiteral()
+            } else {
+              val n3 = anyFromNode(n2)
+              !n3.isInstanceOf[BadCast] && x == n3
+            }
+          case bc : BadCast => 
+            false
+          case _ => x == y
+        }
       }
     }
     Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), checkEq)
@@ -635,12 +672,10 @@ object functionalsparql {
       })
       case "http://www.w3.org/2001/XMLSchema#string" => Expr1Filter(processExpression(e.getArg(1)), stringFromAny)
       case "http://www.w3.org/2001/XMLSchema#dateTime" => Expr1Filter(processExpression(e.getArg(1)), (x:Any) => try {
-          // TODO: Verify!
-        new java.util.Date(stringFromAny(x))
+          parseIso8601Date(stringFromAny(x))
         } catch {
           case cause : Exception => BadCast(x, cause)
-        }
-        )
+      })
       case _ => 
         throw new UnsupportedOperationException("TODO")
     }
@@ -660,7 +695,15 @@ object functionalsparql {
   private [functionalsparql] def processE_IsLiteral(e : E_IsLiteral) = Expr1LogicalFilter(processExpression(e.getArg()), (x:Any) => x.isInstanceOf[Node] && x.asInstanceOf[Node].isLiteral())
   private [functionalsparql] def processE_IsNumeric(e : E_IsNumeric) = Expr1LogicalFilter(processExpression(e.getArg()), (x:Any) => x.isInstanceOf[Int] || x.isInstanceOf[Float] || x.isInstanceOf[Double])
   private [functionalsparql] def processE_IsURI(e : E_IsURI) = Expr1LogicalFilter(processExpression(e.getArg()), (x:Any) => x.isInstanceOf[Node] && x.asInstanceOf[Node].isLiteral())
-  private [functionalsparql] def processE_Lang(e : E_Lang) = processExpression(e.getArg())
+  private [functionalsparql] def processE_Lang(e : E_Lang) = Expr1Filter(processExpression(e.getArg()), 
+    (x:Any) => x match {
+      case n : Node => if(n.isLiteral()) {
+        n.getLiteralLanguage()
+      } else {
+        BadCast("not a literal",null)
+      }
+      case _ => null
+    })
   private [functionalsparql] def processE_LangMatches(e : E_LangMatches) = Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), (x:Any,y:Any) => x == y)
   private [functionalsparql] def processE_LessThan(e : E_LessThan) = {
     def lt[T](x : T, y : T)(implicit o : Ordering[T]) = o.lt(x,y)
@@ -678,7 +721,53 @@ object functionalsparql {
     def times[T](x : T, y : T)(implicit n : Numeric[T]) = n.times(x,y)
     numeric2(e, times, times, times, times, times)
   }
-  private [functionalsparql] def processE_NotEquals(e : E_NotEquals) = Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), (x:Any,y:Any) => x != y)
+  private [functionalsparql] def processE_NotEquals(e : E_NotEquals) = {
+    def checkNeq(x : Any, y : Any) : Boolean = {
+      println(x + " == " + y)
+      x match {
+        case n1 : Node => 
+          if(y.isInstanceOf[BadCast]) {
+            true
+          } else {
+            if(n1.isBlank()) {
+              //!y.isInstanceOf[Node] || !y.asInstanceOf[Node].isLiteral()
+              !(y.isInstanceOf[Node] && y.asInstanceOf[Node].isBlank())
+            } else {
+              checkNeq(anyFromNode(n1),y) 
+            }
+          }
+        case bc : BadCast =>
+          val n3 = y match {
+            case n2 : Node => 
+              if(!n2.isBlank()) {
+                anyFromNode(n2) 
+              } else {
+                null
+              }
+            case _ => y
+          }
+          n3 match {
+            case bc2 : BadCast =>
+              bc.original != bc2.original
+            case _ =>
+              true
+          }
+        case _ => y match {
+          case n2 : Node => 
+            if(n2.isBlank()) {
+              true
+            } else {
+              val n3 = anyFromNode(n2)
+              !n3.isInstanceOf[BadCast] && x != n3
+            }
+          case bc : BadCast => 
+            false
+          case _ => x != y
+        }
+      }
+    }
+    Expr2LogicalFilter(processExpression(e.getArg1()), processExpression(e.getArg2()), checkNeq)
+  }
   private [functionalsparql] def processE_NotExists(e : E_NotExists) = throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature) Please rewrite without filter!")
   private [functionalsparql] def processE_NotOneOf(e : E_NotOneOf) = throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
   private [functionalsparql] def processE_Now(e : E_Now) = throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
@@ -778,41 +867,80 @@ object FunctionalSparqlUtils {
       case _ => true
     }
   }
-  def anyFromNode(n : Node) = if(n.isLiteral()) {
-      n.getLiteralValue() match {
-        case i : java.lang.Integer => i.intValue()
-        case d : java.lang.Double => d.doubleValue()
-        case f : java.lang.Float => f.floatValue()
-        case b : java.lang.Boolean => b.booleanValue()
-        case s : String => s
-        case o => throw new SparqlEvaluationException(o.getClass().getName())
+  def anyFromNode(n : Node) : Any = if(n.isLiteral()) {
+      try {
+        n.getLiteralValue() match {
+          case i : java.lang.Integer => i.intValue()
+          case d : java.lang.Double => d.doubleValue()
+          case f : java.lang.Float => f.floatValue()
+          case b : java.lang.Boolean => b.booleanValue()
+          case s : String => 
+            if(n.getLiteralLanguage() != null) {
+              LangString(s, n.getLiteralLanguage().toLowerCase())
+            } else {
+              s
+            }
+          case dt : com.hp.hpl.jena.datatypes.xsd.XSDDateTime => 
+            dt.asCalendar().getTime()
+          case tv : com.hp.hpl.jena.datatypes.BaseDatatype.TypedValue => 
+            tv.datatypeURI match {
+              case "http://www.w3.org/2001/XMLSchema#string" => tv.lexicalValue
+              case "http://www.w3.org/2001/XMLSchema#float" => tv.lexicalValue.toFloat
+              case "http://www.w3.org/2001/XMLSchema#double" => tv.lexicalValue.toDouble
+              case "http://www.w3.org/2001/XMLSchema#decimal" => BigDecimal(tv.lexicalValue)
+              case "http://www.w3.org/2001/XMLSchema#integer" => tv.lexicalValue.toInt
+              case "http://www.w3.org/2001/XMLSchema#dateTime" => parseIso8601Date(tv.lexicalValue)
+              case "http://www.w3.org/2001/XMLSchema#boolean" => tv.lexicalValue == "true"
+              case _ => BadCast(tv, new SparqlEvaluationException("Unsupported datatype"))
+            }
+          case o => throw new SparqlEvaluationException(o.getClass().getName())
+        }
+      } catch {
+        case x : com.hp.hpl.jena.datatypes.DatatypeFormatException =>
+          BadCast(n, x)
       }
     } else if(n.isURI()) {
       URI.create(n.getURI())
+    } else if(n.isVariable()) {
+      UnboundVariable
     } else {
       throw new SparqlEvaluationException("Cannot convert node to value " + n)
     }
+  def parseIso8601Date(iso8601string : String) = {
+    val s = iso8601string.replace("Z", "+00:00")
+    val s2 = try {
+      s.substring(0, 22) + s.substring(23)
+    } catch {
+      case e : IndexOutOfBoundsException =>
+        throw new java.text.ParseException("Invalid length", 0)
+    }
+    new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s2)
+  }
 }
 
 sealed trait Plan[A] {
-  def execute(rdd : DistCollection[Triple]) : A
+  def execute(rdd : DistCollection[Quad]) : A
   def vars : Seq[String]
 }
 
-case class SelectPlan(_vars : Seq[String], body : Filter) extends Plan[DistCollection[Match]] {
-  def execute(rdd : DistCollection[Triple]) = {
-    val matches = body.applyTo(rdd)
+case class SelectPlan(_vars : Seq[String], body : Filter, distinct : Boolean) extends Plan[DistCollection[Match]] {
+  def execute(rdd : DistCollection[Quad]) = {
+    val matches = body.applyTo(rdd).unique
     val allMatches = matches.map {
-      case Match(triples, binding) => Match(Nil,
-        binding.filterKeys(vars.contains(_)))
+      case Match(triples, binding) => 
+        Match(Set(), binding.filterKeys(vars.contains(_)))
     }
-    allMatches.unique
+    if(distinct) {
+      allMatches.unique
+    } else {
+      allMatches
+    }
   }
   def vars = _vars
 }
 
 case class AskPlan(body : Filter) extends Plan[Boolean] {
-  def execute(rdd : DistCollection[Triple]) = {
+  def execute(rdd : DistCollection[Quad]) = {
     val matches = body.applyTo(rdd)
     matches.exists {
       case Match(triples, binding) => true
@@ -821,12 +949,12 @@ case class AskPlan(body : Filter) extends Plan[Boolean] {
   def vars = Nil
 }
 
-case class DescribePlan(_vars : Seq[Node], body : Filter) extends Plan[DistCollection[Triple]] {
-  def execute(rdd : DistCollection[Triple]) = throw new UnsupportedOperationException("TODO")
+case class DescribePlan(_vars : Seq[Node], body : Filter) extends Plan[DistCollection[Quad]] {
+  def execute(rdd : DistCollection[Quad]) = throw new UnsupportedOperationException("TODO")
   def vars = throw new RuntimeException("TODO")
 }
 
-case class ConstructPlan(template : BasicPattern, body : Filter) extends Plan[DistCollection[Seq[Triple]]] {
+case class ConstructPlan(template : BasicPattern, body : Filter) extends Plan[DistCollection[Seq[Quad]]] {
   private def ground(m : Match, r : Node, b : Map[String, Node]) = if(r.isVariable()) {
     b.get(r.asInstanceOf[Var].getVarName()) match {
       case Some(r2) => r2
@@ -835,10 +963,11 @@ case class ConstructPlan(template : BasicPattern, body : Filter) extends Plan[Di
   } else {
     r
   }
-  def execute(rdd : DistCollection[Triple]) = body.applyTo(rdd).flatMap { 
+  def execute(rdd : DistCollection[Quad]) = body.applyTo(rdd).flatMap { 
     case m @ Match(t, b) =>
       Some((template.map { case t => 
-        new Triple(
+        new Quad(
+          Quad.defaultGraphIRI,
           ground(m,t.getSubject(),b),
           ground(m,t.getPredicate(),b),
           ground(m,t.getObject(),b)
@@ -852,19 +981,22 @@ case class ConstructPlan(template : BasicPattern, body : Filter) extends Plan[Di
 
 
 class StreamRDFCollector extends StreamRDF {
-  var triples = collection.mutable.Seq[Triple]()
+  var triples = collection.mutable.Seq[Quad]()
   override def base(base : String) { }
   override def finish() { }
   override def prefix(prefix : String, iri : String) { }
   override def quad(q : Quad) {
-    triples :+= q.asTriple()
+    triples :+= q
   }
   override def start() { }
   override def triple(t : Triple) {
-    triples :+= t
+    triples :+= new Quad(Quad.defaultGraphIRI, t)
   }
 }
 
 case class BadCast(original : Any, cause : Throwable)
+
+
+object UnboundVariable
 
 case class SparqlEvaluationException(msg : String = "", cause : Throwable = null) extends RuntimeException(msg,cause)

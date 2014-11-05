@@ -137,3 +137,25 @@ class PeekableIterator[A](base : Iterator[A]) extends Iterator[A] {
     last
   }
 }
+
+object DistCollection {
+  def prettyPrint(dc : DistCollection[_], indent : Int) :String = {
+    "  " * indent + "DistCollection(\n" + (dc.toIterable.map { elem => elem match {
+      case dc2 : DistCollection[_] => "  " * (indent + 1) + prettyPrint(dc2, indent + 1)
+      case dc2 : KeyDistCollection[_,_] => "  " * (indent + 1) + prettyPrint(dc2, indent + 1)
+      case other => "  " * (indent + 1) + other.toString
+    }
+  }).mkString("\n") + ")"
+  }
+
+  def prettyPrint(dc : KeyDistCollection[_,_], indent : Int) :String = {
+    "  " * indent + "DistKeyCollection(\n" + (dc.toIterable.map { elem => elem match {
+      case (k, dc2 : DistCollection[_]) => "  " * (indent + 1) + k.toString + " -> " + prettyPrint(dc2, indent + 1)
+      case (k, dc2 : KeyDistCollection[_,_]) => "  " * (indent + 1) + k.toString + " -> " + prettyPrint(dc2, indent + 1)
+      case (k, other) => "  " * (indent + 1) + k.toString + " -> " + other.toString
+    }
+  }).mkString("\n") + ")"
+  }
+}
+
+

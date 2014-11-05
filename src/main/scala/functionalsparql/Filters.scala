@@ -1,40 +1,53 @@
 package eu.liderproject.functionalsparql
 
-import com.hp.hpl.jena.graph.{Node, Triple}
+import com.hp.hpl.jena.graph.Node
 import com.hp.hpl.jena.sparql.core._
 import functionalsparql._
 
 sealed trait Filter {
   def vars : Set[String]
-  def applyTo(rdd : DistCollection[Triple]) : DistCollection[Match]
+  def applyTo(rdd : DistCollection[Quad]) : DistCollection[Match]
+  def withGraph(graph : Node) : Filter
 }
 
-case class SimpleFilter(triple : Triple) extends Filter {
-  lazy val vars = 
-    extVar(triple.getSubject()) ++ 
-    extVar(triple.getPredicate()) ++
-    extVar(triple.getObject())
-
-  private def extVar(n : Node) = n match {
+object Filter {
+  def extVar(n : Node) = n match {
     case v : Var => 
       Set(v.getVarName())
     case _ => 
       Set()
   }
+}
 
-  def applyTo(rdd : DistCollection[Triple]) = rdd.flatMap { case t =>
+case class SimpleFilter(triple : Quad) extends Filter {
+  import Filter.extVar
+  lazy val vars = 
+    extVar(triple.getGraph()) ++ 
+    extVar(triple.getSubject()) ++ 
+    extVar(triple.getPredicate()) ++
+    extVar(triple.getObject())
+
+    def applyTo(rdd : DistCollection[Quad]) = rdd.flatMap { case t =>
     matchNode(t, triple.getSubject(), t.getSubject()) match {
       case Some(sm) => matchNode(t, triple.getPredicate(), t.getPredicate()) match {
-        case Some(pm) =>  matchNode(t, triple.getObject(), t.getObject()) match {
-          case Some(om) => if(sm.compatible(pm)) {
-            val spm = sm & pm
-            if(spm.compatible(om)) {
-              Some(spm & om)
+        case Some(pm) => matchNode(t, triple.getObject(), t.getObject()) match {
+          case Some(om) => matchGraphNode(t, triple.getGraph(), t.getGraph()) match {
+            case Some(gm) => if(sm.compatible(pm)) {
+              val spm = sm & pm
+              if(spm.compatible(om)) {
+                val spom = spm & om
+                if(spom.compatible(gm)) {
+                  Some(spom & gm)
+                } else {
+                  None
+                }
+              } else {
+                None
+              }
             } else {
               None
             }
-          } else {
-            None
+            case None => None
           }
           case None => None
         }
@@ -44,26 +57,36 @@ case class SimpleFilter(triple : Triple) extends Filter {
     }
   } 
 
-  private def matchNode(t : Triple, n1 : Node, n2 : Node) : Option[Match] = {
+  private def matchGraphNode(t : Quad, n1 : Node, n2 : Node) : Option[Match] = {
+    if(n1.isVariable() && n2 == Quad.defaultGraphIRI) { 
+      return None
+    } else {
+      return matchNode(t, n1, n2)
+    }
+  }
+
+  private def matchNode(t : Quad, n1 : Node, n2 : Node) : Option[Match] = {
     if(n1.isVariable()) {
-      Some(Match(List(t), Map(n1.asInstanceOf[Var].getVarName() -> n2)))
+      Some(Match(Set(t), Map(n1.asInstanceOf[Var].getVarName() -> n2)))
     } else if(n1.isBlank() && !n2.isLiteral()) {
-      Some(Match(List(t), Map()))
+      Some(Match(Set(t), Map()))
     } else if(n1 == n2) {
-      Some(Match(List(t), Map()))
+      Some(Match(Set(t), Map()))
     } else if(n2.isVariable()) {
       throw new IllegalArgumentException("Variable in data")
     } else {
       None
     }
   }
+
+  def withGraph(graph : Node) = SimpleFilter(new Quad(graph, triple.asTriple()))
 }
 
 case class JoinFilter(left : Filter, right : Filter) extends Filter {
   lazy val vars = left.vars ++ right.vars
   val varNames = (left.vars & right.vars).toSeq
 
-  def applyTo(rdd : DistCollection[Triple]) = {
+  def applyTo(rdd : DistCollection[Quad]) = {
     val rdd1 = left.applyTo(rdd)
     val rdd2 = right.applyTo(rdd)
     val rdd5 = if(varNames.isEmpty) {
@@ -72,13 +95,13 @@ case class JoinFilter(left : Filter, right : Filter) extends Filter {
       val rdd3 = rdd1.keyFilter {
         case Match(triples, binding) => 
           Some(varNames.map { varName =>
-            binding.get(varName).getOrElse(null)
+            binding.get(varName).getOrElse(throw new RuntimeException())
           })
       }
       val rdd4 = rdd2.keyFilter {
         case Match(triples, binding) => 
           Some(varNames.map { varName =>
-            binding.get(varName).getOrElse(null)
+            binding.get(varName).getOrElse(throw new RuntimeException())
           })
       }
       rdd3.join(rdd4)
@@ -91,25 +114,27 @@ case class JoinFilter(left : Filter, right : Filter) extends Filter {
       }
     }
   }
+  
+  def withGraph(graph : Node) = JoinFilter(left.withGraph(graph), right.withGraph(graph))
 }
 
 case class LeftJoinFilter(left : Filter, right : Filter, cond : ExpressionFilter) extends Filter {
   def vars = left.vars
   val varNames = (left.vars & right.vars).toSeq
 
-  def applyTo(rdd : DistCollection[Triple]) = {
+  def applyTo(rdd : DistCollection[Quad]) = {
     val rdd1 = left.applyTo(rdd)
     val rdd2 = right.applyTo(rdd)
     val rdd3 = rdd1.keyFilter {
       case Match(triples, binding) => 
         Some(varNames.map { varName =>
-          binding.get(varName).getOrElse(null)
+          binding.get(varName).getOrElse(throw new RuntimeException())
         })
     }
     val rdd4 = rdd2.keyFilter {
       case Match(triples, binding) => 
         Some(varNames.map { varName =>
-          binding.get(varName).getOrElse(null)
+          binding.get(varName).getOrElse(throw new RuntimeException())
         })
     }
     val rdd5 = rdd3.cogroup(rdd4)
@@ -118,26 +143,52 @@ case class LeftJoinFilter(left : Filter, right : Filter, cond : ExpressionFilter
         ls
       } else {
         ls.flatMap { l => 
-          rs.flatMap { r => 
+          // Below is the real SPARQL logic
+          //val join = rs.flatMap { r => 
+          //  if(l.compatible(r)) {
+          //    val lr = l & r
+          //    if(cond.applyOnce(lr)) {
+          //      Some(lr)
+          //    } else {
+          //      None
+          //    }
+          //  } else {
+          //    None
+          //  }
+          //}
+          //val diff = rs.forall { r =>
+          //  !l.compatible(r) || !cond.applyOnce(l & r)
+          //}
+          //if(diff) {
+          //  join ++ Set(l)
+          //} else {
+          //  join
+          //}
+          // This is slightly optimized
+          rs.foldLeft((true, Seq[Match](), Seq[Match]())) { (acc,r) =>
             if(l.compatible(r)) {
               val lr = l & r
-              if(!cond.applyOnce(lr)) {
-                if(cond.applyOnce(l)) {
-                  Some(l)
-                } else {
-                  None
-                }
+              if(cond.applyOnce(lr)) {
+                (false, Nil, acc._3 :+ lr)
+              } else if(acc._1) {
+                (true, acc._2 :+ l, acc._3)
               } else {
-                Some(lr)
+                (false, Nil, acc._3)
               }
+            } else if(acc._1) {
+              (true, acc._2 :+ l, acc._3)
             } else {
-              Some(l)
+              (false, Nil, acc._3)
             }
+          } match {
+            case (_, x, y) => y ++ x
           }
         }
       }
     }
   }
+
+  def withGraph(graph : Node) = LeftJoinFilter(left.withGraph(graph), right.withGraph(graph), cond)
 }
 
 case class UnionFilter(filters : Seq[Filter]) extends Filter {
@@ -145,20 +196,50 @@ case class UnionFilter(filters : Seq[Filter]) extends Filter {
   def vars = filters.map(_.vars).reduce { (x,y) =>
     x & y
   }
-  def applyTo(rdd : DistCollection[Triple]) = filters.map { filter =>
+  def applyTo(rdd : DistCollection[Quad]) = filters.map { filter =>
     filter.applyTo(rdd)
   } reduce {
     (x,y) => x ++ y
   }
+
+  def withGraph(graph : Node) = UnionFilter(filters.map(_.withGraph(graph)))
 }
 
+/*case class GraphFilter(graphNode : Node, body : Filter) extends Filter {
+  def vars = Filter.extVar(graphNode) ++ body.vars
+  def applyTo(rdd : DistCollection[Quad]) = if(graphNode.isVariable()) {
+    // Perhaps enable groupBy to speed this up??
+    val x= body.applyTo(rdd).flatMap {
+      case Match(triples, binding) => 
+        val graphName = triples.headOption.map(_.getGraph()).getOrElse(null)
+        if(graphName != null && triples.forall { t => t.getGraph() == graphName }) {
+          val varName = graphNode.asInstanceOf[Var].getVarName()
+          if(!binding.contains(varName) || binding(varName) == graphName) {
+            Some(Match(triples, binding + (varName -> graphName)))
+          } else {
+            None
+          }
+        } else {
+          None
+        }
+    }
+    println(x)
+    x
+  } else {
+    body.applyTo(rdd.filter { t => 
+      t.getGraph() == graphNode
+    })
+  }
+}*/
+
+
 /*case class NegativeFilter(filter : Filter) {
-  def applyTo(rdd : DistCollection[Triple]) = filter.applyTo(rdd)
+  def applyTo(rdd : DistCollection[Quad]) = filter.applyTo(rdd)
 }
 
 case class NegativeJoinFilter(varNames : Set[String], posFilter : Filter, negFilter : NegativeFilter) extends Filter {
   def vars = posFilter.vars ++ negFilter.vars
-  def applyTo(rdd : DistCollection[Triple]) = {
+  def applyTo(rdd : DistCollection[Quad]) = {
     val rdd1 = posFilter.applyTo(rdd)
     val rdd3 = rdd1.keyFilter {
       case Match(triples, binding) => 
@@ -193,21 +274,23 @@ case class NegativeJoinFilter(varNames : Set[String], posFilter : Filter, negFil
 
 case class UnboundNegativeFilter(filter : NegativeFilter) extends Filter {
   def vars = filter.vars
-  def applyTo(rdd : DistCollection[Triple]) = throw new RuntimeException("Evaluating an unbound not exists is a very bad idea (if legal in SPARQL) you should reconsider your query!")
+  def applyTo(rdd : DistCollection[Quad]) = throw new RuntimeException("Evaluating an unbound not exists is a very bad idea (if legal in SPARQL) you should reconsider your query!")
 }*/
 
 case class FilterFilter(filter2 : ExpressionFilter, filter1 : Filter) extends Filter {
   def vars = filter1.vars ++ filter2.vars
-  def applyTo(rdd : DistCollection[Triple]) = {
+  def applyTo(rdd : DistCollection[Quad]) = {
     filter2.applyTo(filter1.applyTo(rdd))
   }
+  def withGraph(graph : Node) = FilterFilter(filter2, filter1.withGraph(graph))
 }
 
 object NullFilter extends Filter {
   def vars = Set()
-  def applyTo(rdd : DistCollection[Triple]) = rdd.map { t => 
-    Match(Seq(t),Map())
+  def applyTo(rdd : DistCollection[Quad]) = rdd.map { t => 
+    Match(Set(t),Map())
   }
+  def withGraph(graph : Node) = NullFilter
 }
 
 sealed trait ExpressionFilter {
