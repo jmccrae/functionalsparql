@@ -1,6 +1,7 @@
 package eu.liderproject.functionalsparql
 
-import com.hp.hpl.jena.graph.Node
+import com.hp.hpl.jena.graph.{Node, NodeFactory}
+import java.util.regex.Pattern
 import java.util.Date
 
 sealed trait Logic {
@@ -64,16 +65,18 @@ object Error extends Logic {
 
 case class LangString(string : String, lang : String)
 
+case class UnsupportedLiteral(string : String, datatype : Node)
+
 object Expressions {
   def anyFromNode(n : Node) : Any = if(n.isLiteral()) {
     try {
       n.getLiteralValue() match {
         case i : java.lang.Integer => 
-          i.intValue()
+          i
         case d : java.lang.Double => 
-          d.doubleValue()
+          d
         case f : java.lang.Float => 
-          f.floatValue()
+          f
         case d : java.math.BigDecimal =>
           BigDecimal(d)
         case d : BigDecimal => 
@@ -95,7 +98,7 @@ object Expressions {
             case "http://www.w3.org/2001/XMLSchema#integer" => tv.lexicalValue.toInt
             case "http://www.w3.org/2001/XMLSchema#dateTime" => parseIso8601Date(tv.lexicalValue)
             case "http://www.w3.org/2001/XMLSchema#boolean" => tv.lexicalValue == "true"
-            case _ => BadCast(tv, new SparqlEvaluationException("Unsupported datatype"))
+            case _ => UnsupportedLiteral(tv.lexicalValue, NodeFactory.createURI(tv.datatypeURI))
           }
         case o => throw new SparqlEvaluationException(o.getClass().getName())
       }
@@ -128,6 +131,31 @@ object Expressions {
     val formatter = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
     formatter.setTimeZone(java.util.TimeZone.getTimeZone("GMT"))
     formatter.format(date).replaceAll("\\+0000$","Z")
+  }
+
+  def sparqlClass(a : Any) = a match {
+    case i : Int => 
+      classOf[Int]
+    case f : Float =>
+      classOf[Float]
+    case d : Double =>
+      classOf[Double]
+    case b : BigDecimal =>
+      classOf[BigDecimal]
+    case s : String =>
+      classOf[String]
+    case l : LangString =>
+      classOf[LangString]
+    case u : UnsupportedLiteral =>
+      classOf[UnsupportedLiteral]
+    case d : Date =>
+      classOf[Date]
+    case n : Node =>
+      classOf[Node]
+    case l : Logic =>
+      classOf[Logic]
+    case _ =>
+      throw new SparqlEvaluationException("An invalid type was generated " + a.getClass())
   }
 }
 
@@ -179,6 +207,8 @@ object EffectiveBooleanValue {
       } else {
         new EffectiveBooleanValue(Error)
       }
+    case ul : UnsupportedLiteral =>
+      EffectiveBooleanValue(Error)
   }
 }
 
@@ -188,6 +218,7 @@ trait Expression {
 }
 
 trait Expression1 extends Expression {
+  import Expressions._
   def expr : Expression
   private var handlers = Map[Class[_], Function1[Any,Any]]()
   def vars = expr.vars
@@ -211,27 +242,55 @@ trait Expression1 extends Expression {
           case _ =>
             x
         }
-        x2 match {
-          case i : Int =>
-            handlers.get(classOf[Int]).map(_.apply(i)).getOrElse(Error)
-          case f : Float =>
-            handlers.get(classOf[Float]).map(_.apply(f)).getOrElse(Error)
-          case d : Double =>
-            handlers.get(classOf[Double]).map(_.apply(d)).getOrElse(Error)
-          case d : BigDecimal => 
-            handlers.get(classOf[BigDecimal]).map(_.apply(d)).getOrElse(Error)
-          case s : String =>
-            handlers.get(classOf[String]).map(_.apply(s)).getOrElse(Error)
-          case dt : Date =>
-            handlers.get(classOf[Date]).map(_.apply(dt)).getOrElse(Error)
-          case n : Node =>
-            handlers.get(classOf[Node]).map(_.apply(n)).getOrElse(Error)
-          case l : LangString =>
-            handlers.get(classOf[LangString]).map(_.apply(l)).getOrElse(Error)
-        }
+        handlers.get(sparqlClass(x2)).map(_.apply(x2)).getOrElse(Error)
     }
   }
 }
+
+trait Expression2 extends Expression {
+  import Expressions._
+  def expr1 : Expression
+  def expr2 : Expression
+  private var handlers = Map[(Class[_], Class[_]), Function2[Any, Any, Any]]()
+  def vars = expr1.vars ++ expr2.vars
+
+  def handler[A,B](foo : (A, B) => Any)(implicit manifest : Manifest[A], 
+    manifest2 : Manifest[B]) {
+    handlers += ((manifest.runtimeClass, manifest2.runtimeClass) -> 
+      { (x : Any, y : Any) => foo(x.asInstanceOf[A], y.asInstanceOf[B]) })
+  }
+
+  def yieldValue(m : Match) = {
+    // Get value from sub-expression
+    val x = expr1.yieldValue(m)
+    val y = expr2.yieldValue(m)
+    // Call EBV calls in preference
+    handlers.get(
+      (classOf[EffectiveBooleanValue], classOf[EffectiveBooleanValue])
+    ) match {
+      case Some(h) =>
+        h.apply(EffectiveBooleanValue(x), EffectiveBooleanValue(y))
+      case None =>
+        // Convert result if possible
+        val x2 = x match {
+          case n : Node => 
+            Expressions.anyFromNode(n)
+          case _ =>
+            x
+        }
+        val y2 = y match {
+          case n : Node => 
+            Expressions.anyFromNode(n)
+          case _ =>
+            y
+        }
+        handlers.get(
+          (sparqlClass(x2), sparqlClass(y2))
+        ).map(_.apply(x2, y2)).getOrElse(Error)
+    }
+  }
+}
+
 
 case class LiteralExpression(value : Any) extends Expression {
   def vars = Set()
@@ -269,10 +328,28 @@ case class Bound(varName : String) extends Expression {
 
 case class IsURI(expr : Expression) extends Expression1 {
   handler { (x : Node) => Logic(x.isURI()) }
+  handler { (x : Int) => False }
+  handler { (x : Float) => False }
+  handler { (x : Double) => False }
+  handler { (x : BigDecimal) => False }
+  handler { (x : Date) => False }
+  handler { (x : Logic) => False }
+  handler { (x : String) => False }
+  handler { (x : LangString) => False }
+  handler { (x : UnsupportedLiteral) => False }
 }
 
 case class IsBLANK(expr : Expression) extends Expression1 {
   handler { (x : Node) => Logic(x.isBlank()) }
+  handler { (x : Int) => False }
+  handler { (x : Float) => False }
+  handler { (x : Double) => False }
+  handler { (x : BigDecimal) => False }
+  handler { (x : Date) => False }
+  handler { (x : Logic) => False }
+  handler { (x : String) => False }
+  handler { (x : LangString) => False }
+  handler { (x : UnsupportedLiteral) => False }
 }
 
 case class IsLiteral(expr : Expression) extends Expression1 {
@@ -282,9 +359,10 @@ case class IsLiteral(expr : Expression) extends Expression1 {
   handler { (x : Double) => True }
   handler { (x : BigDecimal) => True }
   handler { (x : Date) => True }
-  handler { (x : Boolean) => True }
+  handler { (x : Logic) => True }
   handler { (x : String) => True }
   handler { (x : LangString) => True }
+  handler { (x : UnsupportedLiteral) => True }
 }
 
 case class Str(expr : Expression) extends Expression1 {
@@ -294,9 +372,237 @@ case class Str(expr : Expression) extends Expression1 {
   handler { (x : Double) => x.toString }
   handler { (x : BigDecimal) => x.toString }
   handler { (x : Date) => Expressions.writeIso8601Date(x) }
-  handler { (x : Boolean) => x.toString }
+  handler { (x : Logic) => x.toString }
   handler { (x : String) => x.toString }
   handler { (x : LangString) => x.string }
+  handler { (x : UnsupportedLiteral) => x.string }
 }
 
+// Avoid name clash with Jena
+case class LangExpression(expr : Expression) extends Expression1 {
+  handler { (x : LangString) => x.lang.toLowerCase }
+  handler { (x : String) => "" }
+}
 
+case class Datatype(expr : Expression) extends Expression1 {
+  handler { (x : Int) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#integer") }
+  handler { (x : Float) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#float") }
+  handler { (x : Double) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#double") }
+  handler { (x : BigDecimal) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#decimal") }
+  handler { (x : Date) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#dateTime") }
+  handler { (x : Logic) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#boolean") }
+  handler { (x : String) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#string") }
+  handler { (x : LangString) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#string") }
+  handler { (x : UnsupportedLiteral) => x.datatype }
+}
+
+case class LogicAnd(expr1 : Expression, expr2 : Expression) extends Expression2 {
+  handler { (x : EffectiveBooleanValue, y : EffectiveBooleanValue) => 
+    x.value && y.value }
+}
+
+case class LogicOr(expr1 : Expression, expr2 : Expression) extends Expression2 {
+  handler { (x : EffectiveBooleanValue, y : EffectiveBooleanValue) => 
+    x.value || y.value }
+}
+
+case class Equals(expr1 : Expression, expr2 : Expression, 
+    sameTerm : Boolean = false) extends Expression2 {
+  handler { (x : Int, y : Int) => Logic(x == y) }
+  handler { (x : Int, y : Float) => Logic(x == y) }
+  handler { (x : Int, y : Double) => Logic(x == y) }
+  handler { (x : Int, y : BigDecimal) => Logic(x == y) }
+  handler { (x : Float, y : Int) => Logic(x == y) }
+  handler { (x : Float, y : Float) => Logic(x == y) }
+  handler { (x : Float, y : Double) => Logic(x == y) }
+  handler { (x : Float, y : BigDecimal) => Logic(x == y) }
+  handler { (x : Double, y : Int) => Logic(x == y) }
+  handler { (x : Double, y : Float) => Logic(x == y) }
+  handler { (x : Double, y : Double) => Logic(x == y) }
+  handler { (x : Double, y : BigDecimal) => Logic(x == y) }
+  handler { (x : BigDecimal, y : Int) => Logic(x == y) }
+  handler { (x : BigDecimal, y : Float) => Logic(x == y) }
+  handler { (x : BigDecimal, y : Double) => Logic(x == y) }
+  handler { (x : BigDecimal, y : BigDecimal) => Logic(x == y) }
+  handler { (x : LangString, y : LangString) => Logic(x == y) }
+  handler { (x : LangString, y : String) => False }
+  handler { (x : String, y : LangString) => False }
+  handler { (x : String, y : String) => Logic(x == y) }
+  handler { (x : Logic, y : Logic) => Logic(x == y && x != Error && y != Error) }
+  handler { (x : UnsupportedLiteral, y : UnsupportedLiteral) => 
+    // SPARQL Query sec. 11.4.10-11
+    if(x == y)  {
+      True
+    } else if(sameTerm) {
+      False
+    } else {
+      Error
+    }
+  }
+  handler { (x : Date, y : Date) => Logic(x == y) }
+  handler { (x : Node, y : Node) => Logic(x == y) }
+}
+
+case class LessThan(expr1 : Expression, expr2 : Expression) extends Expression2 {
+  handler { (x : Int, y : Int) => Logic(x < y) }
+  handler { (x : Int, y : Float) => Logic(x < y) }
+  handler { (x : Int, y : Double) => Logic(x < y) }
+  handler { (x : Int, y : BigDecimal) => Logic(x < y) }
+  handler { (x : Float, y : Int) => Logic(x < y) }
+  handler { (x : Float, y : Float) => Logic(x < y) }
+  handler { (x : Float, y : Double) => Logic(x < y) }
+  handler { (x : Float, y : BigDecimal) => Logic(y >= x) }
+  handler { (x : Double, y : Int) => Logic(x < y) }
+  handler { (x : Double, y : Float) => Logic(x < y) }
+  handler { (x : Double, y : Double) => Logic(x < y) }
+  handler { (x : Double, y : BigDecimal) => Logic(x < y) }
+  handler { (x : BigDecimal, y : Int) => Logic(x < y) }
+  handler { (x : BigDecimal, y : Float) => Logic(x < y) }
+  handler { (x : BigDecimal, y : Double) => Logic(x < y) }
+  handler { (x : BigDecimal, y : BigDecimal) => Logic(x < y) }
+  handler { (x : Logic, y : Logic) => 
+    if(x == False && y == True) {
+      True
+    } else if(x != Error && y != Error) {
+      False
+    } else {
+      Error
+    }
+  }
+  handler { (x : Date, y : Date) => Logic(x.getTime() < y.getTime()) }
+}
+
+case class Multiply(expr1 : Expression, expr2 : Expression) extends Expression2 {
+  handler { (x : Int, y : Int) => x * y }
+  handler { (x : Int, y : Float) => x * y }
+  handler { (x : Int, y : Double) => x * y }
+  handler { (x : Int, y : BigDecimal) => x * y }
+  handler { (x : Float, y : Int) => x * y }
+  handler { (x : Float, y : Float) => x * y }
+  handler { (x : Float, y : Double) => x * y }
+  handler { (x : Float, y : BigDecimal) => y * x }
+  handler { (x : Double, y : Int) => x * y }
+  handler { (x : Double, y : Float) => x * y }
+  handler { (x : Double, y : Double) => x * y }
+  handler { (x : Double, y : BigDecimal) => x * y }
+  handler { (x : BigDecimal, y : Int) => x * y }
+  handler { (x : BigDecimal, y : Float) => x * y }
+  handler { (x : BigDecimal, y : Double) => x * y }
+  handler { (x : BigDecimal, y : BigDecimal) => x * y }
+}
+
+case class Divide(expr1 : Expression, expr2 : Expression) extends Expression2 {
+  handler { (x : Int, y : Int) => x / y }
+  handler { (x : Int, y : Float) => x / y }
+  handler { (x : Int, y : Double) => x / y }
+  handler { (x : Int, y : BigDecimal) => x / y }
+  handler { (x : Float, y : Int) => x / y }
+  handler { (x : Float, y : Float) => x / y }
+  handler { (x : Float, y : Double) => x / y }
+  handler { (x : Float, y : BigDecimal) => y / x }
+  handler { (x : Double, y : Int) => x / y }
+  handler { (x : Double, y : Float) => x / y }
+  handler { (x : Double, y : Double) => x / y }
+  handler { (x : Double, y : BigDecimal) => x / y }
+  handler { (x : BigDecimal, y : Int) => x / y }
+  handler { (x : BigDecimal, y : Float) => x / y }
+  handler { (x : BigDecimal, y : Double) => x / y }
+  handler { (x : BigDecimal, y : BigDecimal) => x / y }
+}
+
+case class Add(expr1 : Expression, expr2 : Expression) extends Expression2 {
+  handler { (x : Int, y : Int) => x + y }
+  handler { (x : Int, y : Float) => x + y }
+  handler { (x : Int, y : Double) => x + y }
+  handler { (x : Int, y : BigDecimal) => x + y }
+  handler { (x : Float, y : Int) => x + y }
+  handler { (x : Float, y : Float) => x + y }
+  handler { (x : Float, y : Double) => x + y }
+  handler { (x : Float, y : BigDecimal) => y + x }
+  handler { (x : Double, y : Int) => x + y }
+  handler { (x : Double, y : Float) => x + y }
+  handler { (x : Double, y : Double) => x + y }
+  handler { (x : Double, y : BigDecimal) => x + y }
+  handler { (x : BigDecimal, y : Int) => x + y }
+  handler { (x : BigDecimal, y : Float) => x + y }
+  handler { (x : BigDecimal, y : Double) => x + y }
+  handler { (x : BigDecimal, y : BigDecimal) => x + y }
+}
+
+case class Subtract(expr1 : Expression, expr2 : Expression) extends Expression2 {
+  handler { (x : Int, y : Int) => x - y }
+  handler { (x : Int, y : Float) => x - y }
+  handler { (x : Int, y : Double) => x - y }
+  handler { (x : Int, y : BigDecimal) => x - y }
+  handler { (x : Float, y : Int) => x - y }
+  handler { (x : Float, y : Float) => x - y }
+  handler { (x : Float, y : Double) => x - y }
+  handler { (x : Float, y : BigDecimal) => y - x }
+  handler { (x : Double, y : Int) => x - y }
+  handler { (x : Double, y : Float) => x - y }
+  handler { (x : Double, y : Double) => x - y }
+  handler { (x : Double, y : BigDecimal) => x - y }
+  handler { (x : BigDecimal, y : Int) => x - y }
+  handler { (x : BigDecimal, y : Float) => x - y }
+  handler { (x : BigDecimal, y : Double) => x - y }
+  handler { (x : BigDecimal, y : BigDecimal) => x - y }
+}
+
+case class LangMatches(expr1 : Expression, expr2 : Expression) extends Expression2 {
+  def checkLang(tag : String, range : String) = if(range == "*") {
+    True
+  } else if (tag.contains("-")) {
+    Logic(tag.substring(0,tag.indexOf("-")).toLowerCase == range.toLowerCase)
+  } else {
+    Logic(tag.toLowerCase == range.toLowerCase)
+  }
+
+  handler { (x : String, y : String) => checkLang(x, y) }
+  handler { (x : String, y : LangString) => checkLang(x, y.string) }
+}
+
+case class Regex(expr1 : Expression, expr2 : Expression, 
+    expr3 : Option[Expression]) extends Expression {
+  def vars = expr1.vars ++ expr2.vars ++ expr3.map(_.vars).getOrElse(Set())
+  def checkFlag(flags : String, flag : String, result : Int) = {
+    if(flags != null || flags.contains(flag)) {
+      result
+    } else {
+      0
+    }
+  }
+  def doRegex(input : String, pattern : String, flags : String) = {
+    val flag = checkFlag(flags, "s", Pattern.DOTALL) |
+      checkFlag(flags, "m", Pattern.MULTILINE) |
+      checkFlag(flags, "i", Pattern.CASE_INSENSITIVE) |
+      checkFlag(flags, "x", Pattern.COMMENTS)
+    Pattern.compile(pattern, flag).matcher(input).matches()
+  }
+  def yieldValue(m : Match) = {
+    def valToString(expr : Expression) = expr.yieldValue(m) match {
+      case s : String => 
+        s
+      case LangString(s, _) => 
+        s
+      case n : Node => 
+        Expressions.anyFromNode(n) match {
+          case s : String =>
+            s
+          case LangString(s, _) =>
+            s
+          case _ =>
+            null
+        }
+      case _ =>
+        null
+    }
+    val input = valToString(expr1)
+    val pattern = valToString(expr2)
+    val flags = expr3.map(valToString(_)).getOrElse("")
+    if(input != null && pattern != null && flags != null) {
+      Logic(doRegex(input, pattern, flags))
+    } else {
+      Error
+    }
+  }
+}

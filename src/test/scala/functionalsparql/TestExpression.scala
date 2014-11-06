@@ -2,6 +2,7 @@ package eu.liderproject.functionalsparql
 
 import com.hp.hpl.jena.graph.NodeFactory
 import com.hp.hpl.jena.vocabulary.XSD
+import java.util.Date
 import org.scalatest._
 
 class TestExpression extends WordSpec with Matchers {
@@ -147,6 +148,149 @@ class TestExpression extends WordSpec with Matchers {
     "yield decimals as numbers" in {
       Str(LiteralExpression(BigDecimal(2))).
         yieldValue(null) should be ("2")
+    }
+  }
+
+  "Lang" should {
+    "get the lang of a literal" in {
+      LangExpression(LiteralExpression(LangString("foo", "EN"))).
+        yieldValue(null) should be ("en")
+    }
+    "get the lang of a non-lang literal" in {
+      LangExpression(LiteralExpression("foo")).
+        yieldValue(null) should be ("")
+    }
+  }
+
+  "Datatype" should {
+    "get the datatype of an invalid literal" in {
+      Datatype(LiteralExpression(
+        NodeFactory.createLiteral("foo",
+          NodeFactory.getType("file:example")))).
+        yieldValue(null) should be (NodeFactory.createURI("file:example"))
+    }
+    "get the datatype of a string" in {
+      Datatype(LiteralExpression("foo")).
+        yieldValue(null) should be (NodeFactory.
+          createURI("http://www.w3.org/2001/XMLSchema#string"))
+    }
+  }
+
+  "And" should {
+    "work for two booleans" in {
+      LogicAnd(LiteralExpression(true), LiteralExpression(false)).
+        yieldValue(null) should be (False)
+    }
+    "work with one effective value" in {
+      LogicAnd(LiteralExpression(true), LiteralExpression("foo")).
+        yieldValue(null) should be (True)
+    }
+    "consider errors" in {
+      LogicAnd(LiteralExpression(True),
+        LiteralExpression(Error)).
+        yieldValue(null) should be (Error)
+      LogicAnd(LiteralExpression(False), 
+        LiteralExpression(Error)).
+        yieldValue(null) should be (False)
+    }
+  }
+
+  "Or" should {
+    "work for two booleans" in {
+      LogicOr(LiteralExpression(true), LiteralExpression(false)).
+        yieldValue(null) should be (True)
+    }
+    "work with one effective value" in {
+      LogicOr(LiteralExpression(false), LiteralExpression("foo")).
+        yieldValue(null) should be (True)
+    }
+    "consider errors" in {
+      LogicOr(LiteralExpression(True),
+        LiteralExpression(Error)).
+        yieldValue(null) should be (True)
+      LogicOr(LiteralExpression(False), 
+        LiteralExpression(Error)).
+        yieldValue(null) should be (Error)
+    }
+  }
+
+  "Equals" should {
+    def test(x : Any, y : Any) = Equals(LiteralExpression(x), LiteralExpression(y)).
+        yieldValue(null) should be (True)
+    "be true for identical objects" in {
+      test(1, 1)
+      test(2.3, 2.3)
+      test(2.0f, 2.0f)
+      test(BigDecimal(100000),BigDecimal(100000))
+      test("foo","foo")
+      test(LangString("foo","en"), LangString("foo", "en"))
+      test(False, False)
+      val d = new Date()
+      test(d, d)
+      test(NodeFactory.createURI("foo:test"), NodeFactory.createURI("foo:test"))
+      test(UnsupportedLiteral("foo", NodeFactory.createURI("file:test")),
+        UnsupportedLiteral("foo", NodeFactory.createURI("file:test")))
+    }
+    "be true for convertible objects" in {
+      test(1, 1.0)
+      test(2.0, 2f)
+      test("foo", NodeFactory.createLiteral("foo"))
+    }
+    "be error for incomparable types" in {
+      Equals(LiteralExpression("3"), LiteralExpression(3)).
+        yieldValue(null) should be (Error)
+      Equals(LiteralExpression(UnsupportedLiteral("foo", NodeFactory.createURI("file:test"))),
+        LiteralExpression(UnsupportedLiteral("foo", NodeFactory.createURI("file:test2")))).
+        yieldValue(null) should be (Error)
+    }
+  }
+
+  "Comparison" should {
+    "work for similar objects" in {
+      LessThan(LiteralExpression(1), LiteralExpression(2.0))
+        .yieldValue(null) should be (True)
+    }
+    "fail for dissimlar objects" in {
+      LessThan(LiteralExpression(1), LiteralExpression("2.0"))
+        .yieldValue(null) should be (Error)
+    }
+    "work for dates" in {
+      val d = new Date()
+      val d2 = new Date(d.getTime() + 1)
+      LessThan(LiteralExpression(d), LiteralExpression(d2))
+        .yieldValue(null) should be (True)
+    }
+    "work for booleans" in {
+      LessThan(LiteralExpression(False), LiteralExpression(True))
+        .yieldValue(null) should be (True)
+    }
+  }
+
+  "LangMatches" should {
+    "work" in {
+      LangMatches(LiteralExpression("en"), LiteralExpression("FR")).
+        yieldValue(null) should be (False)
+
+      LangMatches(LiteralExpression("fr"), LiteralExpression("FR")).
+        yieldValue(null) should be (True)
+
+      LangMatches(LiteralExpression("fr-BE"), LiteralExpression("FR")).
+        yieldValue(null) should be (True)
+    }
+  }
+
+  "Regex" should {
+    "match simple expression" in {
+      Regex(LiteralExpression("foo"), LiteralExpression("fo."), None).
+        yieldValue(null) should be (True)
+    }
+    "match ignoring case" in {
+      Regex(LiteralExpression("FOO"), LiteralExpression("fo."), Some(LiteralExpression("i"))).
+        yieldValue(null) should be (True)
+    }
+    "match ignoring whitespace" in {
+      Regex(LiteralExpression("foo"), LiteralExpression("f o."), Some(LiteralExpression("x"))).
+        yieldValue(null) should be (True)
     }
   }
 }
