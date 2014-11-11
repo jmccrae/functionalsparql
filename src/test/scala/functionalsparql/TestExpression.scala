@@ -1,6 +1,7 @@
 package eu.liderproject.functionalsparql
 
 import com.hp.hpl.jena.graph.NodeFactory
+import com.hp.hpl.jena.sparql.core.Var
 import com.hp.hpl.jena.vocabulary.XSD
 import java.util.Date
 import org.scalatest._
@@ -91,10 +92,10 @@ class TestExpression extends WordSpec with Matchers {
 
   "Bound" should {
     "detect a unbound variable" in {
-      Bound("s").yieldValue(Match(Set(),Map())) should be (False)
+      Bound(LiteralExpression(Var.alloc("s"))).yieldValue(Match(Set(),Map())) should be (False)
     }
     "detect a bound variable" in {
-      Bound("s").yieldValue(Match(Set(),
+      Bound(LiteralExpression(Var.alloc("s"))).yieldValue(Match(Set(),
         Map("s" -> NodeFactory.createURI("file:test")))) should be (True)
     }
   }
@@ -178,11 +179,11 @@ class TestExpression extends WordSpec with Matchers {
 
   "And" should {
     "work for two booleans" in {
-      LogicAnd(LiteralExpression(true), LiteralExpression(false)).
+      LogicAnd(LiteralExpression(True), LiteralExpression(False)).
         yieldValue(null) should be (False)
     }
     "work with one effective value" in {
-      LogicAnd(LiteralExpression(true), LiteralExpression("foo")).
+      LogicAnd(LiteralExpression(True), LiteralExpression("foo")).
         yieldValue(null) should be (True)
     }
     "consider errors" in {
@@ -197,11 +198,11 @@ class TestExpression extends WordSpec with Matchers {
 
   "Or" should {
     "work for two booleans" in {
-      LogicOr(LiteralExpression(true), LiteralExpression(false)).
+      LogicOr(LiteralExpression(True), LiteralExpression(False)).
         yieldValue(null) should be (True)
     }
     "work with one effective value" in {
-      LogicOr(LiteralExpression(false), LiteralExpression("foo")).
+      LogicOr(LiteralExpression(False), LiteralExpression("foo")).
         yieldValue(null) should be (True)
     }
     "consider errors" in {
@@ -292,5 +293,65 @@ class TestExpression extends WordSpec with Matchers {
       Regex(LiteralExpression("foo"), LiteralExpression("f o."), Some(LiteralExpression("x"))).
         yieldValue(null) should be (True)
     }
+    "account for case" in {
+      Regex(LiteralExpression("abcDEFghiJKL"),LiteralExpression("GHI"),None).
+        yieldValue(null) should be (False)
+      Regex(LiteralExpression("ABCdefGHIjkl"),LiteralExpression("GHI"),None).
+        yieldValue(null) should be (True)
+      Regex(LiteralExpression("0123456789"),LiteralExpression("GHI"),None).
+        yieldValue(null) should be (False)
+    }
+  }
+
+  "Add" when {
+    "adding decimal to decimal" should {
+      "produce decimal" in {
+        Add(LiteralExpression(BigDecimal(3)), LiteralExpression(BigDecimal(3))).
+          yieldValue(null) should be (BigDecimal(6))
+        Datatype(Add(LiteralExpression(BigDecimal(3)), LiteralExpression(BigDecimal(3)))).
+          yieldValue(null) should be (NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#decimal"))
+ 
+      }
+    }
+    "adding double to decimal" should {
+      "produce double" in {
+        Add(LiteralExpression(3.0), LiteralExpression(BigDecimal(3))).
+          yieldValue(null) should be (6.0)
+        Datatype(Add(LiteralExpression(3.0), LiteralExpression(BigDecimal(3)))).
+          yieldValue(null) should be (NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#double"))
+ 
+      }
+    }
+  }
+
+  def anyTest[A](value : String, typ : String)(implicit manifest : Manifest[A]) = {
+    ("given " + typ) should {
+      ("produce " + manifest.runtimeClass.getName()) in {
+        Expressions.anyFromNode(NodeFactory.createLiteral(value,
+          NodeFactory.getType("http://www.w3.org/2001/XMLSchema#" 
+            + typ))) shouldBe a[A]
+      }
+    }
+  }
+
+  "anyFromNode" when {
+    anyTest[BigDecimal]("1","decimal")
+    anyTest[java.lang.Float]("1","float")
+    anyTest[java.lang.Double]("1","double")
+    anyTest[Logic]("true","boolean")
+    anyTest[java.util.Date]("2005-01-14T12:34:56","dateTime")
+    anyTest[java.lang.Integer]("1","integer")
+    anyTest[java.lang.Integer]("-1","nonPositiveInteger")
+    anyTest[java.lang.Integer]("-1","negativeInteger")
+    anyTest[java.lang.Integer]("1","long")
+    anyTest[java.lang.Integer]("1","int")
+    anyTest[java.lang.Integer]("1","short")
+    anyTest[java.lang.Integer]("1","byte")
+    anyTest[java.lang.Integer]("1","nonNegativeInteger")
+    anyTest[java.lang.Integer]("1","unsignedLong")
+    anyTest[java.lang.Integer]("1","unsignedInt")
+    anyTest[java.lang.Integer]("1","unsignedShort")
+    anyTest[java.lang.Integer]("1","unsignedByte")
+    anyTest[java.lang.Integer]("1","positiveInteger")
   }
 }

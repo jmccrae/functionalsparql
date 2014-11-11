@@ -118,7 +118,7 @@ case class JoinFilter(left : Filter, right : Filter) extends Filter {
   def withGraph(graph : Node) = JoinFilter(left.withGraph(graph), right.withGraph(graph))
 }
 
-case class LeftJoinFilter(left : Filter, right : Filter, cond : ExpressionFilter) extends Filter {
+case class LeftJoinFilter(left : Filter, right : Filter, cond : Expression) extends Filter {
   def vars = left.vars
   val varNames = (left.vars & right.vars).toSeq
 
@@ -223,7 +223,6 @@ case class UnionFilter(filters : Seq[Filter]) extends Filter {
           None
         }
     }
-    println(x)
     x
   } else {
     body.applyTo(rdd.filter { t => 
@@ -277,7 +276,7 @@ case class UnboundNegativeFilter(filter : NegativeFilter) extends Filter {
   def applyTo(rdd : DistCollection[Quad]) = throw new RuntimeException("Evaluating an unbound not exists is a very bad idea (if legal in SPARQL) you should reconsider your query!")
 }*/
 
-case class FilterFilter(filter2 : ExpressionFilter, filter1 : Filter) extends Filter {
+case class FilterFilter(filter2 : Expression, filter1 : Filter) extends Filter {
   def vars = filter1.vars ++ filter2.vars
   def applyTo(rdd : DistCollection[Quad]) = {
     filter2.applyTo(filter1.applyTo(rdd))
@@ -293,95 +292,95 @@ object NullFilter extends Filter {
   def withGraph(graph : Node) = NullFilter
 }
 
-sealed trait ExpressionFilter {
-  def vars : Set[String]
-  def applyOnce(m : Match) : Boolean
-  def applyTo(rdd : DistCollection[Match]) = rdd.filter(applyOnce)
-  def yieldValue(m : Match) : Any
-}
-
-case class ValueFilter(value : Any) extends ExpressionFilter {
-  def vars = Set()
-  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(value)
-  def yieldValue(m : Match) = value
-}
-
-case class Expr0Filter(foo : Match => Any) extends ExpressionFilter {
-  def vars = Set()
-  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(m))
-  def yieldValue(m : Match) = foo(m)
-}
-
-case class Expr0LogicalFilter(foo : Match => Boolean) extends ExpressionFilter {
-  def vars = Set()
-  def applyOnce(m : Match) = foo(m)
-  def yieldValue(m : Match) = foo(m)
-}
-
-case class Expr1Filter(expr1 : ExpressionFilter, foo : Any => Any) extends ExpressionFilter {
-  def vars = expr1.vars
-  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(expr1.yieldValue(m))) 
-  def yieldValue(m : Match) = foo(expr1.yieldValue(m))
-}
-
-case class Expr1LogicalFilter(expr1 : ExpressionFilter, foo : Any => Boolean) extends ExpressionFilter {
-  def vars = expr1.vars
-  def applyOnce(m : Match) = foo(expr1.yieldValue(m))
-  def yieldValue(m : Match) = foo(expr1.yieldValue(m))
-}
-
-case class Expr2Filter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, foo : (Any, Any) => Any) extends ExpressionFilter {
-  def vars = expr1.vars ++ expr2.vars
-  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(expr1.yieldValue(m), expr2.yieldValue(m))) 
-  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m))
-}
-
-case class Expr2LogicalFilter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, foo : (Any, Any) => Boolean) extends ExpressionFilter {
-  def vars = expr1.vars ++ expr2.vars
-  def applyOnce(m : Match) = {
-    //val x1 = expr1.yieldValue(m)
-    //val x2 = expr2.yieldValue(m)
-    //println("%s op %s = %s" format (x1.toString, x2.toString, foo(x1,x2).toString))
-    foo(expr1.yieldValue(m), expr2.yieldValue(m))
-  }
-  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m))
-}
-
-case class Expr3Filter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, expr3 : ExpressionFilter, foo : (Any, Any, Any) => Any) extends ExpressionFilter {
-  def vars = expr1.vars ++ expr2.vars ++ expr3.vars
-  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))) 
-  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))
-}
-
-class Expr3LogicalFilter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, expr3 : ExpressionFilter, foo : (Any, Any, Any) => Boolean) extends ExpressionFilter {
-  def vars = expr1.vars ++ expr2.vars ++ expr3.vars
-  def applyOnce(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))
-  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))
-}
-
-case class VariableExpressionFilter(variable : Var) extends ExpressionFilter {
-  def vars = Set(variable.getVarName())
-  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(yieldValue(m)) 
-  def yieldValue(m : Match) = m match {
-    case Match(_, bindings) => if(bindings.contains(variable.getVarName())) {
-      bindings(variable.getVarName())
-    } else {
-      println("Could not bind %s in %s" format (variable.getVarName(), bindings.toString))
-      variable
-    }
-    case _ => throw new SparqlEvaluationException("Looking up variable against no match")
-  }
-}
-
-case class ConjFilter(expr1 : ExpressionFilter, expr2 : ExpressionFilter) extends ExpressionFilter {
-  def vars = expr1.vars ++ expr2.vars
-  def applyOnce(m : Match) = expr1.applyOnce(m) && expr2.applyOnce(m)
-  def yieldValue(m : Match) = (expr1.yieldValue(m), expr2.yieldValue(m))
-}
-
-object TrueFilter extends ExpressionFilter {
-  def vars = Set()
-  def applyOnce(m : Match) = true
-  override def applyTo(rdd : DistCollection[Match]) = rdd
-  def yieldValue(m : Match) = true
-}
+//sealed trait ExpressionFilter {
+//  def vars : Set[String]
+//  def applyOnce(m : Match) : Boolean
+//  def applyTo(rdd : DistCollection[Match]) = rdd.filter(applyOnce)
+//  def yieldValue(m : Match) : Any
+//}
+//
+//case class ValueFilter(value : Any) extends ExpressionFilter {
+//  def vars = Set()
+//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(value)
+//  def yieldValue(m : Match) = value
+//}
+//
+//case class Expr0Filter(foo : Match => Any) extends ExpressionFilter {
+//  def vars = Set()
+//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(m))
+//  def yieldValue(m : Match) = foo(m)
+//}
+//
+//case class Expr0LogicalFilter(foo : Match => Boolean) extends ExpressionFilter {
+//  def vars = Set()
+//  def applyOnce(m : Match) = foo(m)
+//  def yieldValue(m : Match) = foo(m)
+//}
+//
+//case class Expr1Filter(expr1 : ExpressionFilter, foo : Any => Any) extends ExpressionFilter {
+//  def vars = expr1.vars
+//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(expr1.yieldValue(m))) 
+//  def yieldValue(m : Match) = foo(expr1.yieldValue(m))
+//}
+//
+//case class Expr1LogicalFilter(expr1 : ExpressionFilter, foo : Any => Boolean) extends ExpressionFilter {
+//  def vars = expr1.vars
+//  def applyOnce(m : Match) = foo(expr1.yieldValue(m))
+//  def yieldValue(m : Match) = foo(expr1.yieldValue(m))
+//}
+//
+//case class Expr2Filter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, foo : (Any, Any) => Any) extends ExpressionFilter {
+//  def vars = expr1.vars ++ expr2.vars
+//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(expr1.yieldValue(m), expr2.yieldValue(m))) 
+//  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m))
+//}
+//
+//case class Expr2LogicalFilter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, foo : (Any, Any) => Boolean) extends ExpressionFilter {
+//  def vars = expr1.vars ++ expr2.vars
+//  def applyOnce(m : Match) = {
+//    //val x1 = expr1.yieldValue(m)
+//    //val x2 = expr2.yieldValue(m)
+//    //println("%s op %s = %s" format (x1.toString, x2.toString, foo(x1,x2).toString))
+//    foo(expr1.yieldValue(m), expr2.yieldValue(m))
+//  }
+//  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m))
+//}
+//
+//case class Expr3Filter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, expr3 : ExpressionFilter, foo : (Any, Any, Any) => Any) extends ExpressionFilter {
+//  def vars = expr1.vars ++ expr2.vars ++ expr3.vars
+//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))) 
+//  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))
+//}
+//
+//class Expr3LogicalFilter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, expr3 : ExpressionFilter, foo : (Any, Any, Any) => Boolean) extends ExpressionFilter {
+//  def vars = expr1.vars ++ expr2.vars ++ expr3.vars
+//  def applyOnce(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))
+//  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))
+//}
+//
+//case class VariableExpressionFilter(variable : Var) extends ExpressionFilter {
+//  def vars = Set(variable.getVarName())
+//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(yieldValue(m)) 
+//  def yieldValue(m : Match) = m match {
+//    case Match(_, bindings) => if(bindings.contains(variable.getVarName())) {
+//      bindings(variable.getVarName())
+//    } else {
+//      println("Could not bind %s in %s" format (variable.getVarName(), bindings.toString))
+//      variable
+//    }
+//    case _ => throw new SparqlEvaluationException("Looking up variable against no match")
+//  }
+//}
+//
+//case class ConjFilter(expr1 : ExpressionFilter, expr2 : Expression) extends ExpressionFilter {
+//  def vars = expr1.vars ++ expr2.vars
+//  def applyOnce(m : Match) = expr1.applyOnce(m) && expr2.applyOnce(m)
+//  def yieldValue(m : Match) = (expr1.yieldValue(m), expr2.yieldValue(m))
+//}
+//
+//object TrueFilter extends ExpressionFilter {
+//  def vars = Set()
+//  def applyOnce(m : Match) = true
+//  override def applyTo(rdd : DistCollection[Match]) = rdd
+//  def yieldValue(m : Match) = true
+//}
