@@ -439,7 +439,7 @@ case class Datatype(expr : Expression) extends Expression1 {
   handler { (x : Date) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#dateTime") }
   handler { (x : Logic) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#boolean") }
   handler { (x : String) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#string") }
-  handler { (x : LangString) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#string") }
+  //handler { (x : LangString) => NodeFactory.createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#langString") }
   handler { (x : UnsupportedLiteral) => x.datatype }
 }
 
@@ -687,8 +687,8 @@ case class Subtract(expr1 : Expression, expr2 : Expression) extends Expression2 
 
 case class LangMatches(expr1 : Expression, expr2 : Expression) extends Expression2 {
   def checkLang(tag : String, range : String) = if(range == "*") {
-    True
-  } else if (tag.contains("-")) {
+    Logic(tag != "")
+  } else if (tag.contains("-") && !range.contains("-")) {
     Logic(tag.substring(0,tag.indexOf("-")).toLowerCase == range.toLowerCase)
   } else {
     Logic(tag.toLowerCase == range.toLowerCase)

@@ -72,6 +72,13 @@ case class SimpleFilter(triple : Quad) extends Filter {
       Some(Match(Set(t), Map()))
     } else if(n1 == n2) {
       Some(Match(Set(t), Map()))
+    } else if(n1.isLiteral() && n2.isLiteral() && 
+        n1.getLiteralValue() == n2.getLiteralValue() &&
+        n1.getLiteralLanguage() != null && 
+        n2.getLiteralLanguage() != null && 
+        n1.getLiteralLanguage().toLowerCase == 
+          n2.getLiteralLanguage().toLowerCase) {
+      Some(Match(Set(t), Map()))
     } else if(n2.isVariable()) {
       throw new IllegalArgumentException("Variable in data")
     } else {
