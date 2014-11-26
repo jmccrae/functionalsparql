@@ -15,6 +15,8 @@ trait DistCollection[A]  {
   def toIterable : Iterable[A]
   def ++(other  : DistCollection[A]) : DistCollection[A]
   def unique : DistCollection[A]
+  def drop(n : Long) : DistCollection[A]
+  def take(n : Long) : DistCollection[A]
 }
 
 trait KeyDistCollection[K,A] {
@@ -40,6 +42,31 @@ case class SimpleDistCollection[A](seq : Seq[A]) extends DistCollection[A] {
   override def toIterable = seq
   override def ++(other : DistCollection[A]) = SimpleDistCollection(seq ++ other.toIterable)
   override def unique = SimpleDistCollection(seq.toSet.toSeq)
+  /*{
+    @tailrec def reduceByPrev(s : Seq[A], prev : A, targ : Seq[A]) : Seq[A] = {
+      s.headOption match {
+        case Some(h) =>
+          if(ordering.compare(prev, h) == 0) {
+            reduceByPrev(s.tail, h, targ)
+          } else {
+            reduceByPrev(s.tail, h, h +: targ)
+          }
+        case None =>
+          targ
+      }
+    }
+    val sorted = seq.sortBy(ordering)
+    sorted.headOption match {
+      case Some(h) =>
+        SimpleDistCollection(reduceByPrev(s.tail, h, Seq(h)))
+      case None =>
+        SimpleDistCollection(Seq())
+    }
+
+  }*/
+    
+  def drop(n : Long) = SimpleDistCollection(seq.drop(n.toInt))
+  def take(n : Long) = SimpleDistCollection(seq.take(n.toInt))
 }
 
 case class SimpleKeyDistCollection[K, A](seq : Seq[(K, A)])(implicit ordering : math.Ordering[K]) extends KeyDistCollection[K, A] {

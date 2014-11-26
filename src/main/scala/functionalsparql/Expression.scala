@@ -9,6 +9,8 @@ sealed trait Logic {
   def unary_! : Logic
   def &&(l : Logic) : Logic
   def ||(l : Logic) : Logic
+  // The 'monad' operator, x >= y = x if x = Error, x >= y = y otherwise
+  def >=(l : Logic) : Logic
 }
 
 object Logic {
@@ -31,6 +33,7 @@ object True extends Logic {
     case False => True
     case Error => True
   }
+  def >=(l : Logic) = l 
   override def toString = "true"
 }
 
@@ -46,6 +49,7 @@ object False extends Logic {
     case False => False
     case Error => Error
   }
+  def >=(l : Logic) = l
   override def toString = "false"
 }
 
@@ -61,12 +65,23 @@ object Error extends Logic {
     case False => Error
     case Error => Error
   }
+  def >=(l : Logic) = Error
   override def toString = "error"
 }
 
 case class LangString(string : String, lang : String)
 
-case class UnsupportedLiteral(string : String, datatype : Node)
+case class UnsupportedLiteral(string : String, datatype : Node) {
+  require(datatype != null)
+}
+
+case class ErrorLiteral(string : String, datatype : Node) {
+  require(datatype != null)
+}
+
+case class PlainDate(d : Date) {
+  require(d != null)
+}
 
 object Expressions {
   def anyFromNode(n : Node) : Any = if(n.isLiteral()) {
@@ -113,7 +128,17 @@ object Expressions {
             s
           }
         case dt : com.hp.hpl.jena.datatypes.xsd.XSDDateTime => 
-          dt.asCalendar().getTime()
+          if(n.getLiteralDatatypeURI() == "http://www.w3.org/2001/XMLSchema#date") {
+            //if(n.getLiteralLexicalForm().matches("\\d{4}\\-\\d{2}\\-\\d{2}Z?")) {
+              val t = dt.asCalendar().getTime()
+              PlainDate(new java.util.Date(t.getYear(), t.getMonth(), t.getDate()))
+            //} else {
+              //Error
+              //ErrorLiteral(n.getLiteralLexicalForm(), NodeFactory.createURI(n.getLiteralDatatype().toString))
+            //}
+          } else {
+            dt.asCalendar().getTime()
+          }
         case tv : com.hp.hpl.jena.datatypes.BaseDatatype.TypedValue => 
           tv.datatypeURI match {
             case "http://www.w3.org/2001/XMLSchema#string" => tv.lexicalValue
@@ -130,7 +155,7 @@ object Expressions {
       }
     } catch {
       case x : com.hp.hpl.jena.datatypes.DatatypeFormatException =>
-        Error
+        ErrorLiteral(n.getLiteralLexicalForm(), NodeFactory.createURI(n.getLiteralDatatype().toString))
     }
   } else if(n.isURI()) {
     n
@@ -154,10 +179,16 @@ object Expressions {
     }
   }
 
-  def writeIso8601Date(date : Date) = {
+  def writeIso8601DateTime(date : Date) = {
     val formatter = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
     formatter.setTimeZone(java.util.TimeZone.getTimeZone("GMT"))
     formatter.format(date).replaceAll("\\+0000$","Z")
+  }
+
+  def writeIso8601Date(p : PlainDate) = {
+    val formatter = new java.text.SimpleDateFormat("yyyy-MM-dd")
+    formatter.setTimeZone(java.util.TimeZone.getTimeZone("GMT"))
+    formatter.format(p.d) 
   }
 
   def sparqlClass(a : Any) = a match {
@@ -175,8 +206,12 @@ object Expressions {
       classOf[LangString]
     case u : UnsupportedLiteral =>
       classOf[UnsupportedLiteral]
+    case el : ErrorLiteral =>
+      classOf[ErrorLiteral]
     case d : Date =>
       classOf[Date]
+    case pd : PlainDate =>
+      classOf[PlainDate]
     case n : Node =>
       classOf[Node]
     case l : Logic =>
@@ -185,6 +220,8 @@ object Expressions {
       throw new SparqlEvaluationException("An invalid type was generated " + a.getClass())
   }
 }
+
+case class RawNode(node : Node)
 
 class EffectiveBooleanValue(val value : Logic)
 
@@ -236,6 +273,12 @@ object EffectiveBooleanValue {
       }
     case ul : UnsupportedLiteral =>
       EffectiveBooleanValue(Error)
+    case el : ErrorLiteral =>
+      EffectiveBooleanValue(Error)
+    case d : Date =>
+      EffectiveBooleanValue(Error)
+    case pd : PlainDate =>
+      EffectiveBooleanValue(Error)
   }
 }
 
@@ -262,19 +305,25 @@ trait Expression1 extends Expression {
   def yieldValue(m : Match) = {
     // Get value from sub-expression
     val x = expr.yieldValue(m)
-    // Call EBV calls in preference
-    handlers.get(classOf[EffectiveBooleanValue]) match {
-      case Some(h) =>
-        h.apply(EffectiveBooleanValue(x))
-      case None =>
-        // Convert result if possible
-        val x2 = x match {
-          case n : Node => 
-            Expressions.anyFromNode(n)
-          case _ =>
-            x
+    // Call raw processors first
+    handlers.get(classOf[RawNode]) match {
+      case Some(h) if x.isInstanceOf[Node] =>
+        h(RawNode(x.asInstanceOf[Node]))
+      case _ =>
+        // Then Call EBV calls in preference
+        handlers.get(classOf[EffectiveBooleanValue]) match {
+          case Some(h) =>
+            h.apply(EffectiveBooleanValue(x))
+          case None =>
+            // Convert result if possible
+            val x2 = x match {
+              case n : Node => 
+                Expressions.anyFromNode(n)
+              case _ =>
+                x
+            }
+            handlers.get(sparqlClass(x2)).map(_.apply(x2)).getOrElse(Error)
         }
-        handlers.get(sparqlClass(x2)).map(_.apply(x2)).getOrElse(Error)
     }
   }
 }
@@ -296,29 +345,47 @@ trait Expression2 extends Expression {
     // Get value from sub-expression
     val x = expr1.yieldValue(m)
     val y = expr2.yieldValue(m)
-    // Call EBV calls in preference
+    // Look for a raw handler
     handlers.get(
-      (classOf[EffectiveBooleanValue], classOf[EffectiveBooleanValue])
+      (classOf[RawNode], classOf[RawNode])
     ) match {
       case Some(h) =>
-        h.apply(EffectiveBooleanValue(x), EffectiveBooleanValue(y))
+        x match {
+          case xn : Node => y match {
+            case yn : Node => h(RawNode(xn), RawNode(yn))
+            case _ => 
+              println("No conversion")
+              Error
+          }
+          case _ =>
+            println("No conversion")
+            Error
+        }
       case None =>
-        // Convert result if possible
-        val x2 = x match {
-          case n : Node => 
-            Expressions.anyFromNode(n)
-          case _ =>
-            x
-        }
-        val y2 = y match {
-          case n : Node => 
-            Expressions.anyFromNode(n)
-          case _ =>
-            y
-        }
+        // Call EBV calls in preference
         handlers.get(
-          (sparqlClass(x2), sparqlClass(y2))
-        ).map(_.apply(x2, y2)).getOrElse(Error)
+          (classOf[EffectiveBooleanValue], classOf[EffectiveBooleanValue])
+        ) match {
+          case Some(h) =>
+            h.apply(EffectiveBooleanValue(x), EffectiveBooleanValue(y))
+          case None =>
+            // Convert result if possible
+            val x2 = x match {
+              case n : Node => 
+                Expressions.anyFromNode(n)
+              case _ =>
+                x
+            }
+            val y2 = y match {
+              case n : Node => 
+                Expressions.anyFromNode(n)
+              case _ =>
+                y
+            }
+            handlers.get(
+              (sparqlClass(x2), sparqlClass(y2))
+            ).map(_.apply(x2, y2)).getOrElse(Error)
+        }
     }
   }
 }
@@ -353,11 +420,12 @@ case class UnaryNeg(expr : Expression) extends Expression1 {
 case class Bound(expr : Expression) extends Expression {
   def vars = Set()
   def yieldValue(m : Match) = {
-    expr.yieldValue(m) match {
-      case v : Var =>   
-        m.binding.get(v.getVarName()) match {
+    expr match {
+      case VariableExpression(name) =>   
+        m.binding.get(name) match {
           case Some(null) => False
-          case Some(_) => True
+          case Some(_) => 
+            True
           case None => False
         }
       case _ =>
@@ -373,10 +441,12 @@ case class IsURI(expr : Expression) extends Expression1 {
   handler { (x : Double) => False }
   handler { (x : BigDecimal) => False }
   handler { (x : Date) => False }
+  handler { (x : PlainDate) => False }
   handler { (x : Logic) => False }
   handler { (x : String) => False }
   handler { (x : LangString) => False }
   handler { (x : UnsupportedLiteral) => False }
+  handler { (x : ErrorLiteral) => False }
 }
 
 case class IsBLANK(expr : Expression) extends Expression1 {
@@ -386,10 +456,12 @@ case class IsBLANK(expr : Expression) extends Expression1 {
   handler { (x : Double) => False }
   handler { (x : BigDecimal) => False }
   handler { (x : Date) => False }
+  handler { (x : PlainDate) => False }
   handler { (x : Logic) => False }
   handler { (x : String) => False }
   handler { (x : LangString) => False }
   handler { (x : UnsupportedLiteral) => False }
+  handler { (x : ErrorLiteral) => False }
 }
 
 case class IsLiteral(expr : Expression) extends Expression1 {
@@ -399,23 +471,34 @@ case class IsLiteral(expr : Expression) extends Expression1 {
   handler { (x : Double) => True }
   handler { (x : BigDecimal) => True }
   handler { (x : Date) => True }
+  handler { (x : PlainDate) => True }
   handler { (x : Logic) => True }
   handler { (x : String) => True }
   handler { (x : LangString) => True }
   handler { (x : UnsupportedLiteral) => True }
+  handler { (x : ErrorLiteral) => True }
 }
 
 case class Str(expr : Expression) extends Expression1 {
+  handler { (x : RawNode) => 
+    if(x.node.isLiteral()) {
+      x.node.getLiteralLexicalForm()
+    } else {
+      x.node.toString
+    }
+  }
   handler { (x : Node) => x.toString }
   handler { (x : Int) => x.toString }
   handler { (x : Float) => x.toString }
   handler { (x : Double) => x.toString }
   handler { (x : BigDecimal) => x.toString }
-  handler { (x : Date) => Expressions.writeIso8601Date(x) }
+  handler { (x : Date) => Expressions.writeIso8601DateTime(x) }
+  handler { (x : PlainDate) => Expressions.writeIso8601Date(x) }
   handler { (x : Logic) => x.toString }
   handler { (x : String) => x.toString }
   handler { (x : LangString) => x.string }
   handler { (x : UnsupportedLiteral) => x.string }
+  handler { (x : ErrorLiteral) => x.string }
 }
 
 // Avoid name clash with Jena
@@ -423,12 +506,14 @@ case class LangExpression(expr : Expression) extends Expression1 {
   handler { (x : LangString) => x.lang.toLowerCase }
   handler { (x : String) => "" }
   handler { (x : UnsupportedLiteral) => "" }
+  handler { (x : ErrorLiteral) => "" }
   handler { (x : Int) => "" }
   handler { (x : Float) => "" }
   handler { (x : Double) => "" }
   handler { (x : BigDecimal) => "" }
   handler { (x : Logic) => "" }
   handler { (x : Date) => "" }
+  handler { (x : PlainDate) => "" }
 }
 
 case class Datatype(expr : Expression) extends Expression1 {
@@ -437,10 +522,15 @@ case class Datatype(expr : Expression) extends Expression1 {
   handler { (x : Double) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#double") }
   handler { (x : BigDecimal) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#decimal") }
   handler { (x : Date) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#dateTime") }
-  handler { (x : Logic) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#boolean") }
+  handler { (x : PlainDate) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#date") }
+  handler { (x : Logic) => {
+      if(x != Error) { NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#boolean") } else { Error } 
+    }
+  }
   handler { (x : String) => NodeFactory.createURI("http://www.w3.org/2001/XMLSchema#string") }
   //handler { (x : LangString) => NodeFactory.createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#langString") }
   handler { (x : UnsupportedLiteral) => x.datatype }
+  handler { (x : ErrorLiteral) => x.datatype }
 }
 
 case class LogicAnd(expr1 : Expression, expr2 : Expression) extends Expression2 {
@@ -453,41 +543,146 @@ case class LogicOr(expr1 : Expression, expr2 : Expression) extends Expression2 {
     x.value || y.value }
 }
 
-case class Equals(expr1 : Expression, expr2 : Expression, 
-    sameTerm : Boolean = false) extends Expression2 {
+case class SameTerm(expr1 : Expression, expr2 : Expression) extends Expression2 {
+  handler { (x : RawNode, y : RawNode) => Logic(x == y) }
+}
+
+case class Equals(expr1 : Expression, expr2 : Expression) extends Expression2 {
   handler { (x : Int, y : Int) => Logic(x == y) }
   handler { (x : Int, y : Float) => Logic(x == y) }
   handler { (x : Int, y : Double) => Logic(x == y) }
   handler { (x : Int, y : BigDecimal) => Logic(x == y) }
+  handler { (x : Int, y : String) => False }
+  handler { (x : Int, y : LangString) => False }
+  handler { (x : Int, y : Logic) => y >= False }
+  handler { (x : Int, y : Date) => False }
+  handler { (x : Int, y : PlainDate) => False }
+  handler { (x : Int, y : Node) => False }
+  handler { (x : Int, y : ErrorLiteral) => False }
   handler { (x : Float, y : Int) => Logic(x == y) }
   handler { (x : Float, y : Float) => Logic(x == y) }
   handler { (x : Float, y : Double) => Logic(x == y) }
   handler { (x : Float, y : BigDecimal) => Logic(x == y) }
+  handler { (x : Float, y : String) => False }
+  handler { (x : Float, y : LangString) => False }
+  handler { (x : Float, y : Logic) => y >= False }
+  handler { (x : Float, y : Date) => False }
+  handler { (x : Float, y : PlainDate) => False }
+  handler { (x : Float, y : Node) => False }
+  handler { (x : Float, y : ErrorLiteral) => False}
   handler { (x : Double, y : Int) => Logic(x == y) }
   handler { (x : Double, y : Float) => Logic(x == y) }
   handler { (x : Double, y : Double) => Logic(x == y) }
   handler { (x : Double, y : BigDecimal) => Logic(x == y) }
+  handler { (x : Double, y : String) => False }
+  handler { (x : Double, y : LangString) => False }
+  handler { (x : Double, y : Logic) => y >= False }
+  handler { (x : Double, y : PlainDate) => False }
+  handler { (x : Double, y : Node) => False }
+  handler { (x : Double, y : ErrorLiteral) => False}
   handler { (x : BigDecimal, y : Int) => Logic(x == y) }
   handler { (x : BigDecimal, y : Float) => Logic(x == y) }
   handler { (x : BigDecimal, y : Double) => Logic(x == y) }
   handler { (x : BigDecimal, y : BigDecimal) => Logic(x == y) }
+  handler { (x : BigDecimal, y : String) => False }
+  handler { (x : BigDecimal, y : LangString) => False }
+  handler { (x : BigDecimal, y : Logic) => y >= False }
+  handler { (x : BigDecimal, y : Date) => False }
+  handler { (x : BigDecimal, y : PlainDate) => False }
+  handler { (x : BigDecimal, y : Node) => False }
+  handler { (x : BigDecimal, y : ErrorLiteral) => False}
   handler { (x : LangString, y : LangString) => Logic(x == y) }
+  handler { (x : LangString, y : Int) => False }
+  handler { (x : LangString, y : Float) => False }
+  handler { (x : LangString, y : Double) => False }
+  handler { (x : LangString, y : BigDecimal) => False }
   handler { (x : LangString, y : String) => False }
+  handler { (x : LangString, y : Logic) => y >= False }
+  handler { (x : LangString, y : Date) => False }
+  handler { (x : LangString, y : PlainDate) => False }
+  handler { (x : LangString, y : Node) => False }
+  handler { (x : LangString, y : UnsupportedLiteral) => False}
+  handler { (x : LangString, y : ErrorLiteral) => False}
   handler { (x : String, y : LangString) => False }
   handler { (x : String, y : String) => Logic(x == y) }
-  handler { (x : Logic, y : Logic) => Logic(x == y && x != Error && y != Error) }
+  handler { (x : String, y : Int) => False }
+  handler { (x : String, y : Float) => False }
+  handler { (x : String, y : Double) => False }
+  handler { (x : String, y : BigDecimal) => False }
+  handler { (x : String, y : Logic) => y >= False }
+  handler { (x : String, y : Date) => False }
+  handler { (x : String, y : PlainDate) => False }
+  handler { (x : String, y : Node) => False }
+  handler { (x : Logic, y : Logic) => if(x == Error || y == Error) {
+      Error
+    } else {
+      Logic(x == y) 
+    }
+  }
+  handler { (x : Logic, y : Int) => x >= False }
+  handler { (x : Logic, y : Float) => x >= False }
+  handler { (x : Logic, y : Double) => x >= False }
+  handler { (x : Logic, y : BigDecimal) => x >= False }
+  handler { (x : Logic, y : String) => x >= False }
+  handler { (x : Logic, y : LangString) => x >= False }
+  handler { (x : Logic, y : Date) => x >= False }
+  handler { (x : Logic, y : PlainDate) => x >= False }
+  handler { (x : Logic, y : Node) => x >= False }
+  handler { (x : Logic, y : ErrorLiteral) => x >= False}
   handler { (x : UnsupportedLiteral, y : UnsupportedLiteral) => 
-    // SPARQL Query sec. 11.4.10-11
     if(x == y)  {
       True
-    } else if(sameTerm) {
-      False
     } else {
       Error
     }
   }
   handler { (x : Date, y : Date) => Logic(x == y) }
+  handler { (x : Date, y : PlainDate) => False }
+  handler { (x : Date, y : Int) => False }
+  handler { (x : Date, y : Float) => False }
+  handler { (x : Date, y : Double) => False }
+  handler { (x : Date, y : BigDecimal) => False }
+  handler { (x : Date, y : String) => False }
+  handler { (x : Date, y : LangString) => False }
+  handler { (x : Date, y : Logic) => y >= False }
+  handler { (x : Date, y : Node) => False }
+  handler { (x : Date, y : ErrorLiteral) => False}
+  handler { (x : PlainDate, y : PlainDate) => Logic(x == y) }
+  handler { (x : PlainDate, y : Date) => False }
+  handler { (x : PlainDate, y : Int) => False }
+  handler { (x : PlainDate, y : Float) => False }
+  handler { (x : PlainDate, y : Double) => False }
+  handler { (x : PlainDate, y : BigDecimal) => False }
+  handler { (x : PlainDate, y : String) => False }
+  handler { (x : PlainDate, y : LangString) => False }
+  handler { (x : PlainDate, y : Logic) => y >= False }
+  handler { (x : PlainDate, y : Node) => False }
+  handler { (x : PlainDate, y : ErrorLiteral) => False}
   handler { (x : Node, y : Node) => Logic(x == y) }
+  handler { (x : Node, y : Int) => False }
+  handler { (x : Node, y : Float) => False }
+  handler { (x : Node, y : Double) => False }
+  handler { (x : Node, y : BigDecimal) => False }
+  handler { (x : Node, y : String) => False }
+  handler { (x : Node, y : LangString) => False }
+  handler { (x : Node, y : Date) => False }
+  handler { (x : Node, y : PlainDate) => False }
+  handler { (x : Node, y : Logic) => y >= False }
+  handler { (x : Node, y : UnsupportedLiteral) => False }
+  handler { (x : Node, y : ErrorLiteral) => False }
+  handler { (x : ErrorLiteral, y : ErrorLiteral) => if(x == y) { True } else { Error } }
+  handler { (x : ErrorLiteral, y : Int) => False }
+  handler { (x : ErrorLiteral, y : Float) => False }
+  handler { (x : ErrorLiteral, y : Double) => False }
+  handler { (x : ErrorLiteral, y : BigDecimal) => False }
+  handler { (x : ErrorLiteral, y : LangString) => False }
+  handler { (x : ErrorLiteral, y : Date) => False }
+  handler { (x : ErrorLiteral, y : PlainDate) => False }
+  handler { (x : ErrorLiteral, y : Logic) => y >= False }
+  handler { (x : ErrorLiteral, y : Node) => False }
+  handler { (x : UnsupportedLiteral, y : LangString) => False }
+  handler { (x : UnsupportedLiteral, y : Logic) => y >= False }
+  handler { (x : UnsupportedLiteral, y : Node) => False }
 }
 
 case class LessThan(expr1 : Expression, expr2 : Expression) extends Expression2 {
@@ -517,6 +712,8 @@ case class LessThan(expr1 : Expression, expr2 : Expression) extends Expression2 
     }
   }
   handler { (x : Date, y : Date) => Logic(x.getTime() < y.getTime()) }
+  handler { (x : PlainDate, y : PlainDate) => Logic(x.d.getTime() < y.d.getTime()) }
+  handler { (x : String, y : String) => Logic(x < y) }
 }
 
 
@@ -547,6 +744,8 @@ case class GreaterThan(expr1 : Expression, expr2 : Expression) extends Expressio
     }
   }
   handler { (x : Date, y : Date) => Logic(x.getTime() > y.getTime()) }
+  handler { (x : PlainDate, y : PlainDate) => Logic(x.d.getTime() > y.d.getTime()) }
+  handler { (x : String, y : String) => Logic(x > y) }
 }
 
 
@@ -577,6 +776,8 @@ case class LessThanEq(expr1 : Expression, expr2 : Expression) extends Expression
     }
   }
   handler { (x : Date, y : Date) => Logic(x.getTime() <= y.getTime()) }
+  handler { (x : PlainDate, y : PlainDate) => Logic(x.d.getTime() <= y.d.getTime()) }
+  handler { (x : String, y : String) => Logic(x <= y) }
 }
 
 
@@ -607,6 +808,8 @@ case class GreaterThanEq(expr1 : Expression, expr2 : Expression) extends Express
     }
   }
   handler { (x : Date, y : Date) => Logic(x.getTime() >= y.getTime()) }
+  handler { (x : PlainDate, y : PlainDate) => Logic(x.d.getTime() >= y.d.getTime()) }
+  handler { (x : String, y : String) => Logic(x >= y) }
 }
 
 case class Multiply(expr1 : Expression, expr2 : Expression) extends Expression2 {
@@ -878,9 +1081,10 @@ case class CastDecimal(expr : Expression) extends Expression1 {
 }
 
 case class CastDateTime(expr : Expression) extends Expression1 {
-  handler { (s : String) => Option(Expressions.parseIso8601Date(s)).getOrElse(null) }
-  handler { (s : LangString) => Option(Expressions.parseIso8601Date(s.string)).getOrElse(null) }
+  handler { (s : String) => Option(Expressions.parseIso8601Date(s)).getOrElse(Error) }
+  handler { (s : LangString) => Option(Expressions.parseIso8601Date(s.string)).getOrElse(Error) }
   handler { (d : Date) => d }
+  handler { (d : PlainDate) => d.d }
 }
 
 case class VariableExpression(varName : String) extends Expression {

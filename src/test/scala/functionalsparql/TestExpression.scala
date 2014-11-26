@@ -92,10 +92,10 @@ class TestExpression extends WordSpec with Matchers {
 
   "Bound" should {
     "detect a unbound variable" in {
-      Bound(LiteralExpression(Var.alloc("s"))).yieldValue(Match(Set(),Map())) should be (False)
+      Bound(VariableExpression("s")).yieldValue(Match(Set(),Map())) should be (False)
     }
     "detect a bound variable" in {
-      Bound(LiteralExpression(Var.alloc("s"))).yieldValue(Match(Set(),
+      Bound(VariableExpression("s")).yieldValue(Match(Set(),
         Map("s" -> NodeFactory.createURI("file:test")))) should be (True)
     }
   }
@@ -175,6 +175,10 @@ class TestExpression extends WordSpec with Matchers {
         yieldValue(null) should be (NodeFactory.
           createURI("http://www.w3.org/2001/XMLSchema#string"))
     }
+    "give error for error" in {
+      Datatype(LiteralExpression(Error)).
+        yieldValue(null) should be (Error)
+    }
   }
 
   "And" should {
@@ -237,9 +241,9 @@ class TestExpression extends WordSpec with Matchers {
       test(2.0, 2f)
       test("foo", NodeFactory.createLiteral("foo"))
     }
-    "be error for incomparable types" in {
+    "be false for incomparable types" in {
       Equals(LiteralExpression("3"), LiteralExpression(3)).
-        yieldValue(null) should be (Error)
+        yieldValue(null) should be (False)
       Equals(LiteralExpression(UnsupportedLiteral("foo", NodeFactory.createURI("file:test"))),
         LiteralExpression(UnsupportedLiteral("foo", NodeFactory.createURI("file:test2")))).
         yieldValue(null) should be (Error)
@@ -353,5 +357,12 @@ class TestExpression extends WordSpec with Matchers {
     anyTest[java.lang.Integer]("1","unsignedShort")
     anyTest[java.lang.Integer]("1","unsignedByte")
     anyTest[java.lang.Integer]("1","positiveInteger")
+  }
+
+  "in other cases" should {
+    "not cast datetime to boolean" in {
+      Equals(Datatype(CastBoolean(LiteralExpression(new java.util.Date()))), LiteralExpression("http://www.w3.org/2001/XMLSchema#boolean")).
+        yieldValue(null) should be (Error)
+    }
   }
 }

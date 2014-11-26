@@ -68,16 +68,17 @@ case class SimpleFilter(triple : Quad) extends Filter {
   private def matchNode(t : Quad, n1 : Node, n2 : Node) : Option[Match] = {
     if(n1.isVariable()) {
       Some(Match(Set(t), Map(n1.asInstanceOf[Var].getVarName() -> n2)))
-    } else if(n1.isBlank() && !n2.isLiteral()) {
+    } else if(n1.isBlank() && !n2.isLiteral() && !n2.isBlank()) {
       Some(Match(Set(t), Map()))
     } else if(n1 == n2) {
       Some(Match(Set(t), Map()))
     } else if(n1.isLiteral() && n2.isLiteral() && 
-        n1.getLiteralValue() == n2.getLiteralValue() &&
-        n1.getLiteralLanguage() != null && 
-        n2.getLiteralLanguage() != null && 
+        n1.getLiteralLexicalForm() == n2.getLiteralLexicalForm() &&
+        n1.getLiteralDatatype() == n2.getLiteralDatatype() &&
+        (n1.getLiteralLanguage() == null ||  
+        n2.getLiteralLanguage() == null || 
         n1.getLiteralLanguage().toLowerCase == 
-          n2.getLiteralLanguage().toLowerCase) {
+          n2.getLiteralLanguage().toLowerCase)) {
       Some(Match(Set(t), Map()))
     } else if(n2.isVariable()) {
       throw new IllegalArgumentException("Variable in data")

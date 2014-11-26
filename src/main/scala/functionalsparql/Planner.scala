@@ -17,7 +17,6 @@ import scala.annotation.tailrec
 import scala.collection.JavaConversions._
 
 object functionalsparql {
-  import FunctionalSparqlUtils._
   implicit val nodeOrdering = new Ordering[Node] {
     override def compare(n1 : Node, n2 : Node) = {
       if(n1 == null) {
@@ -43,7 +42,7 @@ object functionalsparql {
         case None => +1
       }
       case None =>  n2.headOption match {
-        case Some(_) => -1
+        case Some(_) => -1  
         case None => 0
       }
     }
@@ -58,17 +57,28 @@ object functionalsparql {
     }
   }
   
-  def parseQuery(query : String) : Query = QueryFactory.create(query)
+  def parseQuery(query : String, baseURI : String) : Query = QueryFactory.create(query, baseURI)
 
-  def processQuery(query : String) : Plan[_] = processQuery(parseQuery(query))
+  def processQuery(query : String, baseURI : String) : Plan[_] = processQuery(parseQuery(query, baseURI))
 
   def processQuery(query : Query) : Plan [_]= {
+    val graphs = (Option(query.getDatasetDescription()).toSeq.flatMap { dd =>
+      dd.getDefaultGraphURIs()
+    } map { uri =>
+      NodeFactory.createURI(uri)
+    }).toSet
+    val namedGraphs = (Option(query.getDatasetDescription()).toSeq.flatMap { dd =>
+      dd.getNamedGraphURIs()
+    } map { uri =>
+      NodeFactory.createURI(uri)
+    }).toSet
     query.getQueryType() match {
-      case Query.QueryTypeAsk => AskPlan(processElement(query.getQueryPattern()))
-      case Query.QueryTypeConstruct => ConstructPlan(processTemplate(query.getConstructTemplate()), processElement(query.getQueryPattern()))
-      case Query.QueryTypeDescribe => DescribePlan(query.getResultURIs(),processElement(query.getQueryPattern()))
+      case Query.QueryTypeAsk => AskPlan(processElement(query.getQueryPattern()), graphs, namedGraphs)
+      case Query.QueryTypeConstruct => ConstructPlan(processTemplate(query.getConstructTemplate()), processElement(query.getQueryPattern()), graphs, namedGraphs)
+      case Query.QueryTypeDescribe => DescribePlan(query.getResultURIs(),processElement(query.getQueryPattern()), graphs, namedGraphs)
       case Query.QueryTypeSelect => SelectPlan(query.getResultVars().toList,
-        processElement(query.getQueryPattern()), query.isDistinct())
+        processElement(query.getQueryPattern()), query.isDistinct(), graphs,
+        namedGraphs, query.getOffset(), query.getLimit())
       case _ => throw new UnsupportedOperationException("Unknown SPARQL query type")
     }
   }
@@ -393,7 +403,7 @@ object functionalsparql {
   private [functionalsparql] def processE_Regex(e : E_Regex) = 
     Regex(processExpression(e.getArg(1)), processExpression(e.getArg(2)), Option(processExpression(e.getArg(3)))) 
   private [functionalsparql] def processE_SameTerm(e : E_SameTerm) = {
-    Equals(processExpression(e.getArg1()), processExpression(e.getArg2()), true)
+    SameTerm(processExpression(e.getArg1()), processExpression(e.getArg2()))
   }
   private [functionalsparql] def processE_SHA1(e : E_SHA1) = 
     throw new UnsupportedOperationException("TODO (Sparql 1.1 Feature)")
@@ -465,8 +475,11 @@ object functionalsparql {
     LiteralExpression(BigDecimal(e.getDecimal()))
   private [functionalsparql] def processNodeValueDouble(e : NodeValueDouble) = 
     LiteralExpression(e.getDouble())
-  private [functionalsparql] def processNodeValueDT(e : NodeValueDT) = 
-    LiteralExpression(e.getDateTime().toGregorianCalendar().getTime())
+  private [functionalsparql] def processNodeValueDT(e : NodeValueDT) = if(e.isDateTime()) {
+      LiteralExpression(e.getDateTime().toGregorianCalendar().getTime())
+    } else {
+      LiteralExpression(PlainDate(e.getDateTime().toGregorianCalendar().getTime()))
+    }
   private [functionalsparql] def processNodeValueDuration(e : NodeValueDuration) = 
     LiteralExpression(e.getDuration())
   private [functionalsparql] def processNodeValueFloat(e : NodeValueFloat) = 
@@ -479,7 +492,7 @@ object functionalsparql {
     LiteralExpression(e.getString())
 }
 
-object FunctionalSparqlUtils {
+/*object FunctionalSparqlUtils {
    def stringFromAny(a : Any) = a match {
     case s : String => s
     case n : Node => if(n.isLiteral()) {
@@ -553,32 +566,78 @@ object FunctionalSparqlUtils {
     }
     new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s2)
   }
-}
+}*/
 
 sealed trait Plan[A] {
   def execute(rdd : DistCollection[Quad]) : A
   def vars : Seq[String]
+  def graphs : Set[Node]
+  def namedGraphs : Set[Node]
+  protected def mapDefaultGraph(rdd : DistCollection[Quad]) = if(graphs.isEmpty) {
+    rdd
+  } else if(namedGraphs.isEmpty) {
+    rdd.map { q =>
+      if(graphs.contains(q.getGraph())) {
+        new Quad(Quad.defaultGraphIRI, q.getSubject(), q.getPredicate(), q.getObject())
+      } else {
+        q
+      }
+    }
+  } else {
+    rdd.flatMap { q =>
+      if(graphs.contains(q.getGraph()) && namedGraphs.contains(q.getGraph())) {
+        // A blank node in a named graph is also not the same as that blank node in 
+        // the default graph... I doubt a real user would ever understand this difference
+        val s = if(q.getSubject().isBlank()) {
+          NodeFactory.createAnon()
+        } else {
+          q.getSubject()
+        }
+        val o = if(q.getObject().isBlank()) {
+          NodeFactory.createAnon()
+        } else {
+          q.getObject()
+        }
+        List(q, new Quad(Quad.defaultGraphIRI, s, q.getPredicate(), o))
+      } else if(graphs.contains(q.getGraph())) {
+        List(new Quad(Quad.defaultGraphIRI, q.getSubject(), q.getPredicate(), q.getObject()))
+      } else {
+        List(q)
+      }
+    }
+  }
 }
 
-case class SelectPlan(_vars : Seq[String], body : Filter, distinct : Boolean) extends Plan[DistCollection[Match]] {
+case class SelectPlan(_vars : Seq[String], body : Filter, distinct : Boolean, graphs : Set[Node],
+  namedGraphs : Set[Node],  offset : Long = 0, limit : Long = -1) extends Plan[DistCollection[Match]] {
   def execute(rdd : DistCollection[Quad]) = {
-    val matches = body.applyTo(rdd).unique
+    val matches = body.applyTo(mapDefaultGraph(rdd)).unique
     val allMatches = matches.map {
       case Match(triples, binding) => 
         Match(Set(), binding.filterKeys(vars.contains(_)))
     }
-    if(distinct) {
+    val matches2 = if(distinct) {
       allMatches.unique
     } else {
       allMatches
+    }
+    if(offset > 0 && limit >= 0) {
+      matches2.drop(offset).take(limit)
+    } else if(offset > 0) {
+      matches2.drop(offset)
+    } else if(limit >= 0) {
+      matches2.take(limit)
+    } else {
+      matches2
     }
   }
   def vars = _vars
 }
 
-case class AskPlan(body : Filter) extends Plan[Boolean] {
+case class AskPlan(body : Filter, graphs : Set[Node],
+  namedGraphs : Set[Node]) extends Plan[Boolean] {
   def execute(rdd : DistCollection[Quad]) = {
-    val matches = body.applyTo(rdd)
+    val matches = body.applyTo(mapDefaultGraph(rdd))
     matches.exists {
       case Match(triples, binding) => true
     }
@@ -586,12 +645,14 @@ case class AskPlan(body : Filter) extends Plan[Boolean] {
   def vars = Nil
 }
 
-case class DescribePlan(_vars : Seq[Node], body : Filter) extends Plan[DistCollection[Quad]] {
+case class DescribePlan(_vars : Seq[Node], body : Filter, graphs : Set[Node],
+  namedGraphs : Set[Node]) extends Plan[DistCollection[Quad]] {
   def execute(rdd : DistCollection[Quad]) = throw new UnsupportedOperationException("TODO")
   def vars = throw new RuntimeException("TODO")
 }
 
-case class ConstructPlan(template : BasicPattern, body : Filter) extends Plan[DistCollection[Seq[Quad]]] {
+case class ConstructPlan(template : BasicPattern, body : Filter, graphs : Set[Node],
+  namedGraphs : Set[Node]) extends Plan[DistCollection[Seq[Quad]]] {
   private def ground(m : Match, r : Node, b : Map[String, Node]) = if(r.isVariable()) {
     b.get(r.asInstanceOf[Var].getVarName()) match {
       case Some(r2) => r2
@@ -600,7 +661,7 @@ case class ConstructPlan(template : BasicPattern, body : Filter) extends Plan[Di
   } else {
     r
   }
-  def execute(rdd : DistCollection[Quad]) = body.applyTo(rdd).flatMap { 
+  def execute(rdd : DistCollection[Quad]) = body.applyTo(mapDefaultGraph(rdd)).flatMap { 
     case m @ Match(t, b) =>
       Some((template.map { case t => 
         new Quad(
@@ -631,9 +692,7 @@ class StreamRDFCollector extends StreamRDF {
   }
 }
 
-case class BadCast(original : Any, cause : Throwable)
-
-
-object UnboundVariable
+//case class BadCast(original : Any, cause : Throwable)
+//object UnboundVariable
 
 case class SparqlEvaluationException(msg : String = "", cause : Throwable = null) extends RuntimeException(msg,cause)
