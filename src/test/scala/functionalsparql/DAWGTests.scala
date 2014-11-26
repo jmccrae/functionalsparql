@@ -17,6 +17,7 @@ class DAWGTests extends FlatSpec with Matchers {
     // TODO: File Bug Report @ DAWG
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/cast/manifest#cast-bool",
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/cast/manifest#cast-dec",
+    "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/optional-filter/manifest#dawg-optional-filter-005-not-simplified",
     // Unapproved
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/open-world/manifest#date-1")
 
@@ -28,7 +29,8 @@ class DAWGTests extends FlatSpec with Matchers {
           model.createResource("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#QueryEvaluationTest")
             )
       for(test <- testListTriples if !testsToSkip.exists(test.toString.contains(_))) {
-      //for(test <- testListTriples if test.toString == "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/open-world/manifest#date-2") {
+      //for(test <- testListTriples if test.toString == "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/solution-seq/manifest#offset-1") {
+      //for(test <- testListTriples if test.toString.contains("solution-seq")) {
         val expResult = test.getProperty(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#result")).getObject().asResource()
           val queries = test.getProperty(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#action")).getObject().asResource().
             listProperties(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-query#query")).map { st =>
@@ -42,7 +44,6 @@ class DAWGTests extends FlatSpec with Matchers {
               for(query <- queries) {
                 //println("Processing " + query.toString)
                 val plan = functionalsparql.processQuery(scala.io.Source.fromURL(query.toString)(scala.io.Codec.UTF8).getLines.mkString("\n"), query.toString)
-                //println(plan)
                 val data = dataset match {
                   case Some(ds) => RDFDataMgr.loadModel(
                     ds.getURI()).listStatements().toList.map(s => new Quad(Quad.defaultGraphIRI, s.asTriple))
@@ -93,11 +94,38 @@ class DAWGTests extends FlatSpec with Matchers {
         val statements = sparqlTTL.find(null, 
           NodeFactory.createURI("http://www.w3.org/2001/sw/DataAccess/tests/result-set#solution"),
             null)
-        var size = 0
+        val results = new scala.collection.mutable.ArrayBuffer[Match]() ++ resultDC.toIterable
+        
         for(result <- statements) {
-          size += 1
+          val bindingStats = sparqlTTL.find(result.getObject(),
+            NodeFactory.createURI("http://www.w3.org/2001/sw/DataAccess/tests/result-set#binding"),
+            null)
+          val r2 = Seq() ++ (for(binding <- bindingStats) yield {
+            val k = sparqlTTL.find(binding.getObject(),
+              NodeFactory.createURI("http://www.w3.org/2001/sw/DataAccess/tests/result-set#variable"),
+              null).next().getObject().getLiteralLexicalForm()
+            val v = sparqlTTL.find(binding.getObject(),
+              NodeFactory.createURI("http://www.w3.org/2001/sw/DataAccess/tests/result-set#value"),
+              null).next().getObject()
+            k -> v
+          })
+          val resultMatch = results.find { result =>
+            result.binding.size == r2.size &&
+            r2.forall { 
+              case (k, v) => 
+                result.binding.contains(k) && (result.binding(k) == v ||
+                  result.binding(k).isBlank() && v.isBlank())
+            }
+          }
+
+          resultMatch match {
+            case Some(s) => results.remove(results.indexOf(s))
+            case None => fail("not found:" + r2)
+          }
         }
-        resultDC.toIterable.size should be (size)
+        for(result <- results) {
+          fail("not a result:" + result.toString)
+        }
       }
     }
 

@@ -47,4 +47,5 @@ case class SparkKeyDistCollection[K, A](rdd : RDD[(K, A)])(implicit kt : ClassTa
   	case SparkKeyDistCollection(otherRDD) => SparkKeyDistCollection(rdd ++ otherRDD)
 	case _ => throw new IllegalArgumentException("Cartesian product of RDD with non-RDD is not allowed")
   }
+  def sorted = SparkDistCollection(rdd.map(_._2))
 }

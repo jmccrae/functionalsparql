@@ -76,9 +76,17 @@ object functionalsparql {
       case Query.QueryTypeAsk => AskPlan(processElement(query.getQueryPattern()), graphs, namedGraphs)
       case Query.QueryTypeConstruct => ConstructPlan(processTemplate(query.getConstructTemplate()), processElement(query.getQueryPattern()), graphs, namedGraphs)
       case Query.QueryTypeDescribe => DescribePlan(query.getResultURIs(),processElement(query.getQueryPattern()), graphs, namedGraphs)
-      case Query.QueryTypeSelect => SelectPlan(query.getResultVars().toList,
-        processElement(query.getQueryPattern()), query.isDistinct(), graphs,
-        namedGraphs, query.getOffset(), query.getLimit())
+      case Query.QueryTypeSelect => 
+        val orderBys = if(query.getOrderBy() != null) {
+          query.getOrderBy().map { sc =>
+            (processExpression(sc.getExpression()), sc.getDirection())
+          }
+        } else {
+          Nil
+        }
+        SelectPlan(query.getResultVars().toList,
+          processElement(query.getQueryPattern()), query.isDistinct(), graphs,
+          namedGraphs, orderBys, query.getOffset(), query.getLimit())
       case _ => throw new UnsupportedOperationException("Unknown SPARQL query type")
     }
   }
@@ -609,30 +617,45 @@ sealed trait Plan[A] {
 }
 
 case class SelectPlan(_vars : Seq[String], body : Filter, distinct : Boolean, graphs : Set[Node],
-  namedGraphs : Set[Node],  offset : Long = 0, limit : Long = -1) extends Plan[DistCollection[Match]] {
+  namedGraphs : Set[Node], orderBy : Seq[(Expression, Int)],
+  offset : Long = 0, limit : Long = -1) extends Plan[DistCollection[Match]] {
   def execute(rdd : DistCollection[Quad]) = {
     val matches = body.applyTo(mapDefaultGraph(rdd)).unique
     val allMatches = matches.map {
       case Match(triples, binding) => 
         Match(Set(), binding.filterKeys(vars.contains(_)))
     }
+    implicit val sparqlOrdering = new SparqlValueOrdering(orderBy.map(_._2 match {
+      case -2 => 1 // Not specified
+      case 1 => 1
+      case -1 => -1
+      case x => throw new UnsupportedOperationException("Unexpected ordering value for Jena " + x)
+    }))
     val matches2 = if(distinct) {
       allMatches.unique
     } else {
       allMatches
     }
-    if(offset > 0 && limit >= 0) {
-      matches2.drop(offset).take(limit)
-    } else if(offset > 0) {
-      matches2.drop(offset)
-    } else if(limit >= 0) {
-      matches2.take(limit)
-    } else {
+    val matches3 = if(orderBy.isEmpty) {
       matches2
+    } else {
+      matches2.key { m =>
+        orderBy.map(_._1.yieldValue(m))
+      } sorted
+    }
+    if(offset > 0 && limit >= 0) {
+      matches3.drop(offset).take(limit)
+    } else if(offset > 0) {
+      matches3.drop(offset)
+    } else if(limit >= 0) {
+      matches3.take(limit)
+    } else {
+      matches3
     }
   }
   def vars = _vars
 }
+
 
 case class AskPlan(body : Filter, graphs : Set[Node],
   namedGraphs : Set[Node]) extends Plan[Boolean] {

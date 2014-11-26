@@ -11,6 +11,7 @@ sealed trait Logic {
   def ||(l : Logic) : Logic
   // The 'monad' operator, x >= y = x if x = Error, x >= y = y otherwise
   def >=(l : Logic) : Logic
+  def compareTo(l : Logic) : Int
 }
 
 object Logic {
@@ -34,6 +35,11 @@ object True extends Logic {
     case Error => True
   }
   def >=(l : Logic) = l 
+  def compareTo(l  : Logic) = l match {
+    case True => 0
+    case False => +1
+    case Error => -1
+  }
   override def toString = "true"
 }
 
@@ -50,6 +56,11 @@ object False extends Logic {
     case Error => Error
   }
   def >=(l : Logic) = l
+  def compareTo(l  : Logic) = l match {
+    case True => -1
+    case False => 0
+    case Error => -1
+  }
   override def toString = "false"
 }
 
@@ -66,6 +77,11 @@ object Error extends Logic {
     case Error => Error
   }
   def >=(l : Logic) = Error
+  def compareTo(l  : Logic) = l match {
+    case True => +1
+    case False => +1
+    case Error => 0
+  }
   override def toString = "error"
 }
 
@@ -165,6 +181,40 @@ object Expressions {
     n
   } else {
     throw new SparqlEvaluationException("What is this: " + n)
+  }
+
+  def nodeFromAny(any : Any) : Node = any match {
+    case i : Int =>
+      NodeFactory.createLiteral(i.toString, 
+        NodeFactory.getType("http://www.w3.org/2001/XMLSchema#integer"))
+    case f : Float =>
+      NodeFactory.createLiteral(f.toString, 
+        NodeFactory.getType("http://www.w3.org/2001/XMLSchema#float"))
+    case d : Double =>
+      NodeFactory.createLiteral(d.toString, 
+        NodeFactory.getType("http://www.w3.org/2001/XMLSchema#double"))
+    case bd : BigDecimal =>
+      NodeFactory.createLiteral(bd.toString, 
+        NodeFactory.getType("http://www.w3.org/2001/XMLSchema#decimal"))
+    case s : String =>
+      NodeFactory.createLiteral(s,
+        NodeFactory.getType("http://www.w3.org/2001/XMLSchema#string"))
+    case l : LangString =>
+      NodeFactory.createLiteral(l.string, l.lang, false)
+    case ul : UnsupportedLiteral =>
+      NodeFactory.createLiteral(ul.string, NodeFactory.getType(ul.datatype.getURI()))
+    case el : ErrorLiteral =>
+      NodeFactory.createLiteral(el.string, NodeFactory.getType(el.datatype.getURI()))
+    case d : Date => 
+      NodeFactory.createLiteral(writeIso8601DateTime(d),
+        NodeFactory.getType("http://www.w3.org/2001/XMLSchema#dateTime"))
+    case pd : PlainDate =>
+      NodeFactory.createLiteral(writeIso8601Date(pd),
+        NodeFactory.getType("http://www.w3.org/2001/XMLSchema#data"))
+    case l : Logic =>
+      NodeFactory.createLiteral(l.toString,
+        NodeFactory.getType("http://www.w3.org/2001/XMLSchema#boolean"))
+    case n : Node => n
   }
 
   // returns null if error!
@@ -1097,4 +1147,94 @@ case class VariableExpression(varName : String) extends Expression {
 object TrueFilter extends Expression {
   def vars = Set()
   def yieldValue(m : Match) = True
+}
+
+class SparqlValueOrdering(dirs : Seq[Int]) extends Ordering[Seq[Any]] {
+  import Expressions._
+  def compare(x : Seq[Any], y : Seq[Any]) : Int = {
+    require(x.size == y.size)
+    require(x.size == dirs.size)
+    (x zip y zip dirs).find { case ((a, b), d) =>
+      d * doCompare(nodeFromAny(a), nodeFromAny(b)) != 0
+    } map { case ((a, b), d) =>
+      d * doCompare(nodeFromAny(a), nodeFromAny(b))
+    } getOrElse (0)
+  }
+  def rdfTypeOrdering(x : Node) : Int = if(x.isVariable()) {
+    0
+  } else if(x.isBlank()) {
+    1
+  } else if(x.isURI()) {
+    2
+  } else /*if(x.isLiteral()) */ {
+    3
+  }
+  def doCompare(x : Node, y : Node) : Int = {
+    def lexicalComparison = x.toString.compareTo(x.toString) match {
+      case 0 if !x.matches(y) => x.hashCode.compareTo(y.hashCode)
+      case code => code
+    }
+    (rdfTypeOrdering(x) - rdfTypeOrdering(y)) match {
+      case 0 =>
+        if(x.isLiteral() && (x.getLiteralDatatypeURI() != null || y.getLiteralDatatypeURI() != null)) {
+          anyFromNode(x) match {
+            case i : Int =>
+              anyFromNode(y) match {
+                case i2 : Int => i.compareTo(i2)
+                case f : Float => i.toFloat.compareTo(f)
+                case d : Double => i.toDouble.compareTo(d)
+                case bd : BigDecimal => BigDecimal(i).compare(bd)
+                case _ => lexicalComparison
+              }
+            case f : Float =>
+              anyFromNode(y) match {
+                case i : Int => f.compareTo(i.toFloat)
+                case f2 : Float => f.compareTo(f2)
+                case d : Double => f.compareTo(d.toFloat)
+                case bd : BigDecimal => f.compareTo(bd.toFloat)
+                case _ => lexicalComparison
+              }
+            case d : Double =>
+              anyFromNode(y) match {
+                case i : Int => d.compareTo(i.toDouble)
+                case f : Float => d.compareTo(f.toDouble)
+                case d2 : Double => d.compareTo(d2)
+                case bd : BigDecimal => d.compareTo(bd.toDouble)
+                case _ => lexicalComparison
+              }
+            case bd : BigDecimal =>
+              anyFromNode(y) match {
+                case i : Int => bd.compare(BigDecimal(i))
+                case f2 : Float => bd.compare(BigDecimal(f2))
+                case d : Double => bd.compare(BigDecimal(d))
+                case bd : BigDecimal => bd.compare(bd)
+                case _ => lexicalComparison
+              }
+            case s : String => lexicalComparison
+            case l : LangString => lexicalComparison
+            case ul : UnsupportedLiteral => lexicalComparison
+            case el : ErrorLiteral => lexicalComparison
+            case d : Date => 
+              anyFromNode(y) match {
+                case d2 : Date => d.getTime().compareTo(d2.getTime())
+                case _ => lexicalComparison
+              }
+            case pd : PlainDate =>
+              anyFromNode(y) match {
+                case d2 : PlainDate => pd.d.getTime().compareTo(d2.d.getTime())
+                case _ => lexicalComparison
+              }
+            case l : Logic =>
+              anyFromNode(y) match {
+                case l2 : Logic => l.compareTo(l2)
+                case _ => lexicalComparison
+              }
+          }
+        } else {
+          lexicalComparison
+        }
+      case other => 
+        other
+    }
+  }
 }

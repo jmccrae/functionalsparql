@@ -24,6 +24,7 @@ trait KeyDistCollection[K,A] {
   def cogroup[B](to : KeyDistCollection[K,B]) : DistCollection[(Iterable[A],Iterable[B])]
   def toIterable : Iterable[(K, A)]
   def ++(other : KeyDistCollection[K,A]) : KeyDistCollection[K, A]
+  def sorted : DistCollection[A]
 }
 
 case class SimpleDistCollection[A](seq : Seq[A]) extends DistCollection[A] {
@@ -137,6 +138,7 @@ case class SimpleKeyDistCollection[K, A](seq : Seq[(K, A)])(implicit ordering : 
   }
   override def toIterable = seq
   override def ++(other : KeyDistCollection[K, A]) = SimpleKeyDistCollection(seq ++ other.toIterable)
+  override def sorted = SimpleDistCollection(seq.sortBy(_._1)(ordering).map(_._2))
 }
 
 class PeekableIterator[A](base : Iterator[A]) extends Iterator[A] {
