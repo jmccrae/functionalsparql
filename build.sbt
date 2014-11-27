@@ -10,6 +10,9 @@ libraryDependencies ++= Seq(
   "org.apache.jena" % "jena-arq" % "2.12.1",
   "org.apache.spark" %% "spark-core" % "1.1.0",
   "org.scalatest" %% "scalatest" % "2.1.7" % "test",
-  "org.mockito" % "mockito-core" % "1.10.8" % "test"
+  "org.mockito" % "mockito-core" % "1.10.8" % "test",
+  "joda-time" % "joda-time" % "2.4",
+  "org.joda" % "joda-convert" % "1.7"
 )
 
+scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation", "-feature")

@@ -13,6 +13,7 @@ import org.apache.jena.riot.system.StreamRDF
 import org.apache.jena.riot.{Lang, RDFDataMgr}
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
+import org.joda.time.{DateTime, LocalDate}
 import scala.annotation.tailrec
 import scala.collection.JavaConversions._
 
@@ -484,9 +485,9 @@ object functionalsparql {
   private [functionalsparql] def processNodeValueDouble(e : NodeValueDouble) = 
     LiteralExpression(e.getDouble())
   private [functionalsparql] def processNodeValueDT(e : NodeValueDT) = if(e.isDateTime()) {
-      LiteralExpression(e.getDateTime().toGregorianCalendar().getTime())
+      LiteralExpression(DateTime.parse(e.getDateTime().toString()))//e.getDateTime().toGregorianCalendar().getTime())
     } else {
-      LiteralExpression(PlainDate(e.getDateTime().toGregorianCalendar().getTime()))
+      LiteralExpression(LocalDate.parse(e.getDateTime().toString()))//.toGregorianCalendar().getTime()))
     }
   private [functionalsparql] def processNodeValueDuration(e : NodeValueDuration) = 
     LiteralExpression(e.getDuration())
@@ -563,9 +564,9 @@ case class SelectPlan(_vars : Seq[String], body : Filter, distinct : Boolean, gr
     val matches3 = if(orderBy.isEmpty) {
       matches2
     } else {
-      matches2.key { m =>
+      (matches2.key { m =>
         orderBy.map(_._1.yieldValue(m))
-      } sorted
+      }).sorted
     }
     if(offset > 0 && limit >= 0) {
       matches3.drop(offset).take(limit)

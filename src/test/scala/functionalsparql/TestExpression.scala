@@ -3,7 +3,7 @@ package eu.liderproject.functionalsparql
 import com.hp.hpl.jena.graph.NodeFactory
 import com.hp.hpl.jena.sparql.core.Var
 import com.hp.hpl.jena.vocabulary.XSD
-import java.util.Date
+import org.joda.time.DateTime
 import org.scalatest._
 
 class TestExpression extends WordSpec with Matchers {
@@ -143,8 +143,8 @@ class TestExpression extends WordSpec with Matchers {
         yieldValue(null) should be ("foo")
     }
     "yield date in ISO 8601 date" in {
-      Str(LiteralExpression(new java.util.Date(0l))).
-        yieldValue(null) should be ("1970-01-01T00:00:00Z")
+      Str(LiteralExpression(new DateTime(0l, org.joda.time.DateTimeZone.UTC))).
+        yieldValue(null) should be ("1970-01-01T00:00:00.000Z")
     }
     "yield decimals as numbers" in {
       Str(LiteralExpression(BigDecimal(2))).
@@ -230,7 +230,7 @@ class TestExpression extends WordSpec with Matchers {
       test("foo","foo")
       test(LangString("foo","en"), LangString("foo", "en"))
       test(False, False)
-      val d = new Date()
+      val d = new DateTime()
       test(d, d)
       test(NodeFactory.createURI("foo:test"), NodeFactory.createURI("foo:test"))
       test(UnsupportedLiteral("foo", NodeFactory.createURI("file:test")),
@@ -260,8 +260,8 @@ class TestExpression extends WordSpec with Matchers {
         .yieldValue(null) should be (Error)
     }
     "work for dates" in {
-      val d = new Date()
-      val d2 = new Date(d.getTime() + 1)
+      val d = new DateTime()
+      val d2 = new DateTime(d.toInstant().getMillis() + 1)
       LessThan(LiteralExpression(d), LiteralExpression(d2))
         .yieldValue(null) should be (True)
     }
@@ -343,7 +343,7 @@ class TestExpression extends WordSpec with Matchers {
     anyTest[java.lang.Float]("1","float")
     anyTest[java.lang.Double]("1","double")
     anyTest[Logic]("true","boolean")
-    anyTest[java.util.Date]("2005-01-14T12:34:56","dateTime")
+    anyTest[DateTime]("2005-01-14T12:34:56","dateTime")
     anyTest[java.lang.Integer]("1","integer")
     anyTest[java.lang.Integer]("-1","nonPositiveInteger")
     anyTest[java.lang.Integer]("-1","negativeInteger")
@@ -361,7 +361,7 @@ class TestExpression extends WordSpec with Matchers {
 
   "in other cases" should {
     "not cast datetime to boolean" in {
-      Equals(Datatype(CastBoolean(LiteralExpression(new java.util.Date()))), LiteralExpression("http://www.w3.org/2001/XMLSchema#boolean")).
+      Equals(Datatype(CastBoolean(LiteralExpression(new DateTime()))), LiteralExpression("http://www.w3.org/2001/XMLSchema#boolean")).
         yieldValue(null) should be (Error)
     }
   }
