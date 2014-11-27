@@ -500,82 +500,6 @@ object functionalsparql {
     LiteralExpression(e.getString())
 }
 
-/*object FunctionalSparqlUtils {
-   def stringFromAny(a : Any) = a match {
-    case s : String => s
-    case n : Node => if(n.isLiteral()) {
-      n.getLiteralValue().toString
-      } else if(n.isURI()) {
-        n.getURI()
-      } else {
-        n.toString
-      }
-    case _ => a.toString
-  }
-  def booleanFromAny(x : Any) : Boolean= x match {
-    case i : Int => i != 0
-    case f : Float => f != 0.0
-    case d : Double => d != 0.0
-    case bd : BigDecimal => bd != BigDecimal(0)
-    case n : Node => booleanFromAny(anyFromNode(n))
-    case any => stringFromAny(any) match {
-      case "true" => true
-      case "false" => false
-      case "" => false
-      case _ => true
-    }
-  }
-  def anyFromNode(n : Node) : Any = if(n.isLiteral()) {
-      try {
-        n.getLiteralValue() match {
-          case i : java.lang.Integer => i.intValue()
-          case d : java.lang.Double => d.doubleValue()
-          case f : java.lang.Float => f.floatValue()
-          case b : java.lang.Boolean => b.booleanValue()
-          case s : String => 
-            if(n.getLiteralLanguage() != null) {
-              LangString(s, n.getLiteralLanguage().toLowerCase())
-            } else {
-              s
-            }
-          case dt : com.hp.hpl.jena.datatypes.xsd.XSDDateTime => 
-            dt.asCalendar().getTime()
-          case tv : com.hp.hpl.jena.datatypes.BaseDatatype.TypedValue => 
-            tv.datatypeURI match {
-              case "http://www.w3.org/2001/XMLSchema#string" => tv.lexicalValue
-              case "http://www.w3.org/2001/XMLSchema#float" => tv.lexicalValue.toFloat
-              case "http://www.w3.org/2001/XMLSchema#double" => tv.lexicalValue.toDouble
-              case "http://www.w3.org/2001/XMLSchema#decimal" => BigDecimal(tv.lexicalValue)
-              case "http://www.w3.org/2001/XMLSchema#integer" => tv.lexicalValue.toInt
-              case "http://www.w3.org/2001/XMLSchema#dateTime" => parseIso8601Date(tv.lexicalValue)
-              case "http://www.w3.org/2001/XMLSchema#boolean" => tv.lexicalValue == "true"
-              case _ => BadCast(tv, new SparqlEvaluationException("Unsupported datatype"))
-            }
-          case o => throw new SparqlEvaluationException(o.getClass().getName())
-        }
-      } catch {
-        case x : com.hp.hpl.jena.datatypes.DatatypeFormatException =>
-          BadCast(n, x)
-      }
-    } else if(n.isURI()) {
-      URI.create(n.getURI())
-    } else if(n.isVariable()) {
-      UnboundVariable
-    } else {
-      throw new SparqlEvaluationException("Cannot convert node to value " + n)
-    }
-  def parseIso8601Date(iso8601string : String) = {
-    val s = iso8601string.replace("Z", "+00:00")
-    val s2 = try {
-      s.substring(0, 22) + s.substring(23)
-    } catch {
-      case e : IndexOutOfBoundsException =>
-        throw new java.text.ParseException("Invalid length", 0)
-    }
-    new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s2)
-  }
-}*/
-
 sealed trait Plan[A] {
   def execute(rdd : DistCollection[Quad]) : A
   def vars : Seq[String]
@@ -714,8 +638,5 @@ class StreamRDFCollector extends StreamRDF {
     triples :+= new Quad(Quad.defaultGraphIRI, t)
   }
 }
-
-//case class BadCast(original : Any, cause : Throwable)
-//object UnboundVariable
 
 case class SparqlEvaluationException(msg : String = "", cause : Throwable = null) extends RuntimeException(msg,cause)
