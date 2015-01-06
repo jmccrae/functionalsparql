@@ -133,65 +133,53 @@ case class LeftJoinFilter(left : Filter, right : Filter, cond : Expression) exte
   def applyTo(rdd : DistCollection[Quad]) = {
     val rdd1 = left.applyTo(rdd)
     val rdd2 = right.applyTo(rdd)
-    val rdd3 = rdd1.keyFilter {
-      case Match(triples, binding) => 
-        Some(varNames.map { varName =>
-          binding.get(varName).getOrElse(throw new RuntimeException())
-        })
-    }
-    val rdd4 = rdd2.keyFilter {
-      case Match(triples, binding) => 
-        Some(varNames.map { varName =>
-          binding.get(varName).getOrElse(throw new RuntimeException())
-        })
-    }
-    val rdd5 = rdd3.cogroup(rdd4)
-    rdd5.flatMap { case (ls,rs) =>
-      if(rs.isEmpty) {
-        ls
-      } else {
-        ls.flatMap { l => 
-          // Below is the real SPARQL logic
-          //val join = rs.flatMap { r => 
-          //  if(l.compatible(r)) {
-          //    val lr = l & r
-          //    if(cond.applyOnce(lr)) {
-          //      Some(lr)
-          //    } else {
-          //      None
-          //    }
-          //  } else {
-          //    None
-          //  }
-          //}
-          //val diff = rs.forall { r =>
-          //  !l.compatible(r) || !cond.applyOnce(l & r)
-          //}
-          //if(diff) {
-          //  join ++ Set(l)
-          //} else {
-          //  join
-          //}
-          // This is slightly optimized
-          rs.foldLeft((true, Seq[Match](), Seq[Match]())) { (acc,r) =>
+    if(varNames.isEmpty) {
+      rdd1.flatMap { l =>
+        if(!cond.applyOnce(l) && cond.vars.forall(left.vars.contains(_))) {
+          Some(l)
+        } else {
+          (rdd2.flatMap { r =>
             if(l.compatible(r)) {
               val lr = l & r
               if(cond.applyOnce(lr)) {
-                (false, Nil, acc._3 :+ lr)
-              } else if(acc._1) {
-                (true, acc._2 :+ l, acc._3)
+                Some(lr)
               } else {
-                (false, Nil, acc._3)
+                Some(l)
               }
-            } else if(acc._1) {
-              (true, acc._2 :+ l, acc._3)
             } else {
-              (false, Nil, acc._3)
+              Some(l)
             }
-          } match {
-            case (_, x, y) => y ++ x
-          }
+          }).toIterable
         }
+      }
+    } else {
+      val rdd3 = rdd1.keyFilter {
+        case Match(triples, binding) => 
+          Some(varNames.map { varName =>
+            binding.get(varName).getOrElse(throw new RuntimeException())
+          })
+      }
+      val rdd4 = rdd2.keyFilter {
+        case Match(triples, binding) => 
+          Some(varNames.map { varName =>
+            binding.get(varName).getOrElse(throw new RuntimeException())
+          })
+      }
+      val rdd5 = rdd3.leftJoin(rdd4)
+      rdd5.flatMap {
+        case (l, Some(r)) =>
+          if(l.compatible(r)) {
+            val lr = l & r
+            if(cond.applyOnce(lr)) {
+              Some(lr)
+            } else {
+              Some(l)
+            }
+          } else {
+            Some(l)
+          }
+        case (l, None) =>
+          Some(l)
       }
     }
   }
@@ -213,77 +201,6 @@ case class UnionFilter(filters : Seq[Filter]) extends Filter {
   def withGraph(graph : Node) = UnionFilter(filters.map(_.withGraph(graph)))
 }
 
-/*case class GraphFilter(graphNode : Node, body : Filter) extends Filter {
-  def vars = Filter.extVar(graphNode) ++ body.vars
-  def applyTo(rdd : DistCollection[Quad]) = if(graphNode.isVariable()) {
-    // Perhaps enable groupBy to speed this up??
-    val x= body.applyTo(rdd).flatMap {
-      case Match(triples, binding) => 
-        val graphName = triples.headOption.map(_.getGraph()).getOrElse(null)
-        if(graphName != null && triples.forall { t => t.getGraph() == graphName }) {
-          val varName = graphNode.asInstanceOf[Var].getVarName()
-          if(!binding.contains(varName) || binding(varName) == graphName) {
-            Some(Match(triples, binding + (varName -> graphName)))
-          } else {
-            None
-          }
-        } else {
-          None
-        }
-    }
-    x
-  } else {
-    body.applyTo(rdd.filter { t => 
-      t.getGraph() == graphNode
-    })
-  }
-}*/
-
-
-/*case class NegativeFilter(filter : Filter) {
-  def applyTo(rdd : DistCollection[Quad]) = filter.applyTo(rdd)
-}
-
-case class NegativeJoinFilter(varNames : Set[String], posFilter : Filter, negFilter : NegativeFilter) extends Filter {
-  def vars = posFilter.vars ++ negFilter.vars
-  def applyTo(rdd : DistCollection[Quad]) = {
-    val rdd1 = posFilter.applyTo(rdd)
-    val rdd3 = rdd1.keyFilter {
-      case Match(triples, binding) => 
-        if(varNames.forall(varName => binding.contains(varName))) {
-          Some(varNames.toSeq.map(varName => binding(varName)))
-        } else {
-          None
-        }
-      case NoMatch => 
-        None
-    }
-    val rdd2 = negFilter.applyTo(rdd)
-    val rdd4 = rdd2.keyFilter {
-      case Match(triples, binding) => 
-        if(varNames.forall(varName => binding.contains(varName))) {
-          Some(varNames.toSeq.map(varName => binding(varName)))
-        } else {
-          None
-        }
-      case NoMatch => 
-        None
-    }
-    rdd3.cogroup(rdd4).flatMap {
-      case (i1,i2) => if(i1.iterator.hasNext && !i2.iterator.hasNext) {
-        i1
-      } else {
-        Nil
-      }
-    }
-  }
-}
-
-case class UnboundNegativeFilter(filter : NegativeFilter) extends Filter {
-  def vars = filter.vars
-  def applyTo(rdd : DistCollection[Quad]) = throw new RuntimeException("Evaluating an unbound not exists is a very bad idea (if legal in SPARQL) you should reconsider your query!")
-}*/
-
 case class FilterFilter(filter2 : Expression, filter1 : Filter) extends Filter {
   def vars = filter1.vars ++ filter2.vars
   def applyTo(rdd : DistCollection[Quad]) = {
@@ -299,96 +216,3 @@ object NullFilter extends Filter {
   }
   def withGraph(graph : Node) = NullFilter
 }
-
-//sealed trait ExpressionFilter {
-//  def vars : Set[String]
-//  def applyOnce(m : Match) : Boolean
-//  def applyTo(rdd : DistCollection[Match]) = rdd.filter(applyOnce)
-//  def yieldValue(m : Match) : Any
-//}
-//
-//case class ValueFilter(value : Any) extends ExpressionFilter {
-//  def vars = Set()
-//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(value)
-//  def yieldValue(m : Match) = value
-//}
-//
-//case class Expr0Filter(foo : Match => Any) extends ExpressionFilter {
-//  def vars = Set()
-//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(m))
-//  def yieldValue(m : Match) = foo(m)
-//}
-//
-//case class Expr0LogicalFilter(foo : Match => Boolean) extends ExpressionFilter {
-//  def vars = Set()
-//  def applyOnce(m : Match) = foo(m)
-//  def yieldValue(m : Match) = foo(m)
-//}
-//
-//case class Expr1Filter(expr1 : ExpressionFilter, foo : Any => Any) extends ExpressionFilter {
-//  def vars = expr1.vars
-//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(expr1.yieldValue(m))) 
-//  def yieldValue(m : Match) = foo(expr1.yieldValue(m))
-//}
-//
-//case class Expr1LogicalFilter(expr1 : ExpressionFilter, foo : Any => Boolean) extends ExpressionFilter {
-//  def vars = expr1.vars
-//  def applyOnce(m : Match) = foo(expr1.yieldValue(m))
-//  def yieldValue(m : Match) = foo(expr1.yieldValue(m))
-//}
-//
-//case class Expr2Filter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, foo : (Any, Any) => Any) extends ExpressionFilter {
-//  def vars = expr1.vars ++ expr2.vars
-//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(expr1.yieldValue(m), expr2.yieldValue(m))) 
-//  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m))
-//}
-//
-//case class Expr2LogicalFilter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, foo : (Any, Any) => Boolean) extends ExpressionFilter {
-//  def vars = expr1.vars ++ expr2.vars
-//  def applyOnce(m : Match) = {
-//    //val x1 = expr1.yieldValue(m)
-//    //val x2 = expr2.yieldValue(m)
-//    //println("%s op %s = %s" format (x1.toString, x2.toString, foo(x1,x2).toString))
-//    foo(expr1.yieldValue(m), expr2.yieldValue(m))
-//  }
-//  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m))
-//}
-//
-//case class Expr3Filter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, expr3 : ExpressionFilter, foo : (Any, Any, Any) => Any) extends ExpressionFilter {
-//  def vars = expr1.vars ++ expr2.vars ++ expr3.vars
-//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))) 
-//  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))
-//}
-//
-//class Expr3LogicalFilter(expr1 : ExpressionFilter, expr2 : ExpressionFilter, expr3 : ExpressionFilter, foo : (Any, Any, Any) => Boolean) extends ExpressionFilter {
-//  def vars = expr1.vars ++ expr2.vars ++ expr3.vars
-//  def applyOnce(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))
-//  def yieldValue(m : Match) = foo(expr1.yieldValue(m), expr2.yieldValue(m), expr3.yieldValue(m))
-//}
-//
-//case class VariableExpressionFilter(variable : Var) extends ExpressionFilter {
-//  def vars = Set(variable.getVarName())
-//  def applyOnce(m : Match) = FunctionalSparqlUtils.booleanFromAny(yieldValue(m)) 
-//  def yieldValue(m : Match) = m match {
-//    case Match(_, bindings) => if(bindings.contains(variable.getVarName())) {
-//      bindings(variable.getVarName())
-//    } else {
-//      println("Could not bind %s in %s" format (variable.getVarName(), bindings.toString))
-//      variable
-//    }
-//    case _ => throw new SparqlEvaluationException("Looking up variable against no match")
-//  }
-//}
-//
-//case class ConjFilter(expr1 : ExpressionFilter, expr2 : Expression) extends ExpressionFilter {
-//  def vars = expr1.vars ++ expr2.vars
-//  def applyOnce(m : Match) = expr1.applyOnce(m) && expr2.applyOnce(m)
-//  def yieldValue(m : Match) = (expr1.yieldValue(m), expr2.yieldValue(m))
-//}
-//
-//object TrueFilter extends ExpressionFilter {
-//  def vars = Set()
-//  def applyOnce(m : Match) = true
-//  override def applyTo(rdd : DistCollection[Match]) = rdd
-//  def yieldValue(m : Match) = true
-//}

@@ -8,20 +8,21 @@ trait DistCollection[A]  {
   def flatMap[B](foo : A => TraversableOnce[B])(implicit tag : ClassTag[B]) : DistCollection[B]
   def filter(foo : A => Boolean) : DistCollection[A]
   def count() : Long
-  def key[K](foo : A => K)(implicit ordering : math.Ordering[K], kt : ClassTag[K]) : KeyDistCollection[K,A]
-  def keyFilter[K](foo : A => Option[K])(implicit ordering : math.Ordering[K], kt : ClassTag[K]) : KeyDistCollection[K, A]
-  def cartesian[B](other : DistCollection[B])(implicit tag : ClassTag[B]) : DistCollection[(A,B)]
   def exists(foo : A => Boolean) : Boolean
-  def toIterable : Iterable[A]
   def ++(other  : DistCollection[A]) : DistCollection[A]
   def unique : DistCollection[A]
   def drop(n : Long) : DistCollection[A]
   def take(n : Long) : DistCollection[A]
+  def cartesian[B](other : DistCollection[B])(implicit tag : ClassTag[B]) : DistCollection[(A,B)]
+
+  def key[K](foo : A => K)(implicit ordering : math.Ordering[K], kt : ClassTag[K]) : KeyDistCollection[K,A]
+  def keyFilter[K](foo : A => Option[K])(implicit ordering : math.Ordering[K], kt : ClassTag[K]) : KeyDistCollection[K, A]
+  def toIterable : Iterable[A]
 }
 
 trait KeyDistCollection[K,A] {
   def join[B](to : KeyDistCollection[K,B]) : DistCollection[(A,B)]
-  def cogroup[B](to : KeyDistCollection[K,B]) : DistCollection[(Iterable[A],Iterable[B])]
+  def leftJoin[B](to : KeyDistCollection[K,B]) : DistCollection[(A, Option[B])]
   def toIterable : Iterable[(K, A)]
   def ++(other : KeyDistCollection[K,A]) : KeyDistCollection[K, A]
   def sorted : DistCollection[A]
@@ -43,28 +44,6 @@ case class SimpleDistCollection[A](seq : Seq[A]) extends DistCollection[A] {
   override def toIterable = seq
   override def ++(other : DistCollection[A]) = SimpleDistCollection(seq ++ other.toIterable)
   override def unique = SimpleDistCollection(seq.toSet.toSeq)
-  /*{
-    @tailrec def reduceByPrev(s : Seq[A], prev : A, targ : Seq[A]) : Seq[A] = {
-      s.headOption match {
-        case Some(h) =>
-          if(ordering.compare(prev, h) == 0) {
-            reduceByPrev(s.tail, h, targ)
-          } else {
-            reduceByPrev(s.tail, h, h +: targ)
-          }
-        case None =>
-          targ
-      }
-    }
-    val sorted = seq.sortBy(ordering)
-    sorted.headOption match {
-      case Some(h) =>
-        SimpleDistCollection(reduceByPrev(s.tail, h, Seq(h)))
-      case None =>
-        SimpleDistCollection(Seq())
-    }
-
-  }*/
     
   def drop(n : Long) = SimpleDistCollection(seq.drop(n.toInt))
   def take(n : Long) = SimpleDistCollection(seq.take(n.toInt))
@@ -75,6 +54,17 @@ case class SimpleKeyDistCollection[K, A](seq : Seq[(K, A)])(implicit ordering : 
     case (xs,ys) => xs.flatMap { x =>
       ys.map { y =>
         (x,y)
+      }
+    }
+  }
+  def leftJoin[B](to : KeyDistCollection[K, B]) = this.cogroup(to).flatMap {
+    case (xs, ys) => if(ys.isEmpty) {
+      xs.map((_, None))
+    } else {
+      xs.flatMap { x =>
+        ys.map { y =>
+          (x, Some(y))
+        }
       }
     }
   }

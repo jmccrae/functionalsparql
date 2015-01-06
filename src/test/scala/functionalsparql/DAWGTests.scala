@@ -18,6 +18,7 @@ class DAWGTests extends FlatSpec with Matchers {
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/cast/manifest#cast-bool",
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/cast/manifest#cast-dec",
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/optional-filter/manifest#dawg-optional-filter-005-not-simplified",
+    "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/algebra/manifest#opt-filter-2",
     // Unapproved
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/open-world/manifest#date-1")
 
@@ -30,7 +31,7 @@ class DAWGTests extends FlatSpec with Matchers {
             )
       for(test <- testListTriples if !testsToSkip.exists(test.toString.contains(_))) {
       //for(test <- testListTriples if test.toString == "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/solution-seq/manifest#offset-1") {
-      //for(test <- testListTriples if test.toString.contains("solution-seq")) {
+      //for(test <- testListTriples if test.toString.contains("opt-filter-2") || test.toString.contains("nested-opt-1") || test.toString.contains("filter-scope-1")) {
         val expResult = test.getProperty(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#result")).getObject().asResource()
           val queries = test.getProperty(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#action")).getObject().asResource().
             listProperties(model.createProperty("http://www.w3.org/2001/sw/DataAccess/tests/test-query#query")).map { st =>
