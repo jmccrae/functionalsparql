@@ -545,7 +545,7 @@ case class SelectPlan(_vars : Seq[String], body : Filter, distinct : Boolean, gr
   namedGraphs : Set[Node], orderBy : Seq[(Expression, Int)],
   offset : Long = 0, limit : Long = -1) extends Plan[DistCollection[Match]] {
   def execute(rdd : DistCollection[Quad]) = {
-    val matches = body.applyTo(mapDefaultGraph(rdd))//.unique
+    val matches = body.applyTo(mapDefaultGraph(rdd)).unique
     val allMatches = matches.map {
       case Match(triples, binding) => 
         Match(Set(), binding.filterKeys(vars.contains(_)))
