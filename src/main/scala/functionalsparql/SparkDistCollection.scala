@@ -36,9 +36,10 @@ case class SparkKeyDistCollection[K, A](rdd : RDD[(K, A)])(implicit kt : ClassTa
   	case SparkKeyDistCollection(otherRDD) => SparkDistCollection(new PairRDDFunctions(rdd).join(otherRDD).map(_._2))
   	case _ => throw new IllegalArgumentException("Join of RDD with non-RDD is not allowed")
   }
-  def cogroup[B](to : KeyDistCollection[K,B]) = to match {
-  	case SparkKeyDistCollection(otherRDD) => SparkDistCollection(new PairRDDFunctions(rdd).cogroup(otherRDD).map(_._2))
-  	case _ => throw new IllegalArgumentException("Cogroup of RDD with non-RDD is not allowed")
+  def leftJoin[B](to : KeyDistCollection[K, B]) = to match {
+    case SparkKeyDistCollection(otherRDD) => throw new IllegalArgumentException("TODO")
+     //SparkDistCollection(new PairRDDFunctions(rdd).leftJoin(otherRDD).map(_._2))
+    case _ => throw new IllegalArgumentException("Join of RDD with non-RDD is not allowed")
   }
   def toIterable = new Iterable[(K, A)] {
   	def iterator = rdd.toLocalIterator
