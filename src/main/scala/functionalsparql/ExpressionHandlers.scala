@@ -586,7 +586,28 @@ case class CastInt(expr : Expression) extends Expression1 {
 }
 
 case class CastBoolean(expr : Expression) extends Expression1 {
-  handler { (ebv : EffectiveBooleanValue) => ebv.value } // EBV does the hard work :)
+  handler { (s : String) => s match {
+      case "true" => True
+      case "false" => False
+      case "1" => True
+      case "0" => False
+      case _ => Error
+    }
+  }
+  handler { (ls : LangString) => ls.string match {
+      case "true" => True
+      case "false" => False
+      case "1" => True
+      case "0" => False
+      case _ => Error
+    }
+  }
+  handler { (i : Int) => Logic(i != 0) }
+  handler { (f : Float) => Logic(f != 0) }
+  handler { (d : Double) => Logic(d != 0) }
+  handler { (bd : BigDecimal) => Logic(bd != 0) }
+  handler { (l : Logic) => l }
+
 }
 
 case class CastFloat(expr : Expression) extends Expression1 {
@@ -670,7 +691,13 @@ case class CastDecimal(expr : Expression) extends Expression1 {
   }
   handler { (str : String) => 
     try { 
-      BigDecimal(str)
+      // Decimals do not permit scientific notation
+      if(str.matches("[+-]?[0-9]*(\\.[0-9]*)?")) {
+        BigDecimal(str)
+      } else {
+        println(str)
+        Error
+      }
     } catch {
       case x : NumberFormatException => 
         Error
@@ -678,7 +705,11 @@ case class CastDecimal(expr : Expression) extends Expression1 {
   }
   handler { (ls : LangString) => 
     try { 
-      BigDecimal(ls.string) 
+      if(ls.string.matches("[+-]?[0-9]*(\\.[0-9]*)?")) {
+        BigDecimal(ls.string)
+      } else {
+        Error
+      }
     } catch {
       case x : NumberFormatException => 
         Error

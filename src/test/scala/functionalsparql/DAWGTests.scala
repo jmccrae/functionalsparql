@@ -14,9 +14,7 @@ class DAWGTests extends FlatSpec with Matchers {
     // TODO: File Bug Report @ Jena
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/basic/manifest#term-6",
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/basic/manifest#term-7",
-    // TODO: File Bug Report @ DAWG
-    "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/cast/manifest#cast-bool",
-    "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/cast/manifest#cast-dec",
+    // Known issue
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/optional-filter/manifest#dawg-optional-filter-005-not-simplified",
     // Unapproved
     "http://www.w3.org/2001/sw/DataAccess/tests/data-r2/open-world/manifest#date-1")
